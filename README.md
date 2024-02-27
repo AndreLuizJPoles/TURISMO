@@ -13,8 +13,8 @@ Rarissa Silva Correa 0030482211029 - rarissa.correa@fatec.sp.gov.br
 
 # Resumo
 
-	O projeto consiste em uma aplicação web que tem como objetivo auxiliar os usuários na busca por estabelecimentos de seu interesse e ver as atividades dos mesmos.Os usuários poderam procurar por diferentes estabelecimentos e comentar e avaliar suas experiências no local.
-	Os estabelecimentos podem realizar postagens sobre eventos ou apenas para causar engajamento. Eles terem notas relativas a média de notas dos usuários.
+O projeto consiste em uma aplicação web que tem como objetivo auxiliar os usuários na busca por estabelecimentos de seu interesse e ver as atividades dos mesmos.Os usuários poderam procurar por diferentes estabelecimentos e comentar e avaliar suas experiências no local.
+Os estabelecimentos podem realizar postagens sobre eventos ou apenas para causar engajamento. Eles terem notas relativas a média de notas dos usuários.
 
 # Público Alvo
 
