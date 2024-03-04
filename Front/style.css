@@ -1,0 +1,161 @@
+@import url("/Front/styleguide.css");
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
+
+.box {
+    width: 40%;
+    height: 100%;
+}
+
+.box .fundo {
+    position: fixed;
+    width: 40%;
+    height: 100%;
+    top: 0;
+    background-color: var(--cor-fundo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#fundo-cadastro {
+    left: 0;
+}
+
+#fundo-login {
+    right: 0;
+}
+
+.box #email {
+    margin-top: 6rem;
+}
+
+.box .input {
+    width: 90%;
+    height: 3rem;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    border: 0;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    min-height: 50px;
+}
+
+.box .botao {
+    width: 90%;
+    height: 3rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    border: 0;
+    font-weight: 700;
+    background-color: #05679F;
+    color: white;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+}
+
+.box #login {
+    margin-top: 3rem;
+}
+
+.box .botao:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.box #google {
+    background-color: white;
+    text-align: justify;
+    color: black;
+    text-align: center;
+    font-weight: 900;
+}
+
+input:focus-visible{
+    outline: none;
+}
+
+.box .logo {
+    position: relative;
+    width: 1.5rem;
+    margin-right: 10px;
+}
+
+#facebook {
+    margin-bottom: 0;
+}
+
+body {
+    background-image: url(/Front/images/turismo_fundo.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    overflow: hidden;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+#link-cadastro {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+#link-cadastro a {
+    text-decoration: none;
+    color: var(--cor-principal);
+}
+
+#box-cadastro {
+    left: 0;
+}
+
+#box-cadastro #email {
+    margin-top: 0;
+}
+
+#titulo-cadastro {
+    font-weight: 900;
+    margin-top: 1rem;
+}
+
+#cadastrar {
+    margin-top: 0rem;
+    margin-bottom: 0;
+}
+
+#data-nasc::-webkit-calendar-picker-indicator {
+    background-image: url('/Front/Cadastro/images/calendar.png');
+    margin-right: 1rem;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+#link-login {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+#link-login a {
+    text-decoration: none;
+    color: var(--cor-principal);
+}
+
+@media screen and (max-width: 660px) {
+    .box {
+        width: 100%;
+    }
+
+    .box .fundo {
+        width: 100%;
+    }
+}

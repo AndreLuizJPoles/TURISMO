@@ -1,0 +1,74 @@
+@import url('/Turismo/styleguide.css');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
+
+body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+header {
+    background-color: rgba(5, 103, 159, 1);
+    width: 100%;
+    height: 5rem;
+    border: 0 none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+}
+
+#icone-menu {
+    height: 2rem;
+    margin: 1.5rem;
+}
+
+input:focus-visible {
+    outline: none;
+}
+
+#grupo-pesquisa {
+    display: flex;
+    background-color: white;
+    height: 2rem;
+    width: 25rem;
+    border-radius: 20px;
+    background-color: white;
+    border: 0 none;
+    margin: 1.5rem;
+    margin-left: 3rem;
+    padding-left: 1rem;
+}
+
+#barra-pesquisa {
+    width: 90%;
+    border: none;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+#lupa {
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    margin-top: 0.2rem;
+}
+
+#perfil-usuario{
+    clip-path: circle(50%);
+    height: 75%;
+    position: absolute;
+    margin: 0.5rem;
+    margin-right: 1rem;
+    right: 0;
+}
+
+button{
+    margin-top: 10rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+@media screen and (max-width: 660px){
+    #grupo-pesquisa {
+        width: 20rem;
+        margin-left: 0;
+    }
+}

@@ -1,0 +1,26 @@
+:root {
+    --cor-principal: rgba(5, 103, 159, 1);
+    --preto-bsico: rgba(0, 0, 0, 1);
+    --branco-bsico: rgba(255, 255, 255, 1);
+    --fonte-secundria: rgba(169, 177, 180, 1);
+    --estrelas: rgba(246, 121, 12, 1);
+    --cor-fundo: rgba(244, 244, 244, 1);
+    --t-tulos-1-font-family: "RoundedMplus 1c Bold-Bold", Helvetica;
+    --t-tulos-1-font-weight: 700;
+    --t-tulos-1-font-size: 26px;
+    --t-tulos-1-letter-spacing: 0px;
+    --t-tulos-1-line-height: normal;
+    --t-tulos-1-font-style: normal;
+    --texto-1-font-family: "RoundedMplus 1c Bold-Bold", Helvetica;
+    --texto-1-font-weight: 700;
+    --texto-1-font-size: 26px;
+    --texto-1-letter-spacing: 0px;
+    --texto-1-line-height: normal;
+    --texto-1-font-style: normal;
+    --texto-2-font-family: "RoundedMplus 1c-Medium", Helvetica;
+    --texto-2-font-weight: 500;
+    --texto-2-font-size: 20px;
+    --texto-2-letter-spacing: 0px;
+    --texto-2-line-height: normal;
+    --texto-2-font-style: normal;
+}
