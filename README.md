@@ -28,6 +28,7 @@ As tecnologias que serão utilizadas para o desenvolvimento e linguagens de prog
 - GitHub e Git (Versionamento)
 - VSCode (Ambiente de programação)
 - HTML e CSS (Front-End)
+- Javascript (Front-End)
 - Node.js (Back-End)
 - Google Maps API (Geolocalização) 
 
