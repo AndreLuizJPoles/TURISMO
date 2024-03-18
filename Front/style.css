@@ -39,6 +39,7 @@
     border: 0;
     font-family: 'M PLUS Rounded 1c', sans-serif;
     min-height: 50px;
+    padding-left: 5px;
 }
 
 .box .botao {
@@ -56,6 +57,7 @@
     align-items: center;
     justify-content: center;
     min-height: 50px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
 .box #login {
