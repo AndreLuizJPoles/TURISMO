@@ -1,0 +1,125 @@
+@import url("/Front/styleguide.css");
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
+
+@import url("/Front/styleguide.css");
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
+
+body {
+    background-image: url(/Front/images/turismo_fundo.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+.box {
+    width: 80%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.box .fundo {
+    position: fixed;
+    width: 80%;
+    height: 100%;
+    top: 0;
+    background-color: var(--cor-fundo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+}
+
+#voltar{
+    width: 10%;
+    align-self: flex-start;
+    margin: 10px;
+    text-decoration: none;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+#titulo-cadastro {
+    font-weight: 900;
+    margin-top: 1rem;
+}
+
+#aviso{
+    font-weight: 100;
+}
+
+#aviso #texto{
+    text-align: center;
+}
+
+.box .input {
+    width: 45%;
+    height: 3rem;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    border: 0;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    min-height: 50px;
+    padding-left: 5px;
+}
+
+.inf{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 90%;
+    justify-content: space-around;
+}
+
+#inf-imagem{
+    flex-direction: column;
+}
+
+#hora-encerramento, #hora-abertura{
+    width: 100%;
+}
+
+label{
+    font-weight: 900;
+    vertical-align: text-top;
+}
+
+#semanario{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.box .botao {
+    width: 30%;
+    height: 3rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    border: 0;
+    font-weight: 700;
+    background-color: #05679F;
+    color: white;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+.box .botao:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.input-img{
+    margin-bottom: 10px;
+}
