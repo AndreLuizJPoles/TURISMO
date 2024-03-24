@@ -9,20 +9,21 @@ function validar() {
 
     if (verificaVazio()) {
         alert("Todos os campos devem ser preenchidos!");
-    }
-
-    if (nome.value.length > 50) {
+        return false;
+    }else if (nome.value.length > 50) {
         alert("O Nome ultrapassa o limite de caracteres!");
-    }
-
-    if (validaCpf()) {
+        return false;
+    }else if (validaCpf()) {
         alert("Insira um CPF válido!");
-    }
-
-    if(comparaSenha()){
+        return false;
+    }else if(comparaSenha()){
         alert("As senhas devem ser iguais!");
-    } else if(tamanhoSenha()){
+        return false;
+    }else if(tamanhoSenha()){
         alert("A senha deve ter entre 5 a 20 caracteres");
+        return false;
+    }else{
+        return true;
     }
 }
 
