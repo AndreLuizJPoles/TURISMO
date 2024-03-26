@@ -5,16 +5,18 @@ const dataNasc = document.getElementById("data-nasc");
 const senha = document.getElementById("senha");
 const confSenha = document.getElementById("confirmar-senha");
 
-function validar() {
+function enviar(){
+    if(validar()){
+        alert("FOI RAPAZ");
+    }
+}
 
+function validar() {
     if (verificaVazio()) {
         alert("Todos os campos devem ser preenchidos!");
         return false;
     }else if (nome.value.length > 50) {
         alert("O Nome ultrapassa o limite de caracteres!");
-        return false;
-    }else if (validaCpf()) {
-        alert("Insira um CPF válido!");
         return false;
     }else if(comparaSenha()){
         alert("As senhas devem ser iguais!");
@@ -22,9 +24,11 @@ function validar() {
     }else if(tamanhoSenha()){
         alert("A senha deve ter entre 5 a 20 caracteres");
         return false;
-    }else{
-        return true;
+    }else if (validaCpf()){
+        alert("Insira um CPF válido!");
+        return false;
     }
+    return true;
 }
 
 function verificaVazio() {
@@ -54,10 +58,11 @@ function validaCpf() {
 
     soma = 0;
     for (i = 1; i <= 10; i++) soma = soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
-    resto = (Soma * 10) % 11;
+    resto = (soma * 10) % 11;
 
     if ((resto == 10) || (resto == 11)) resto = 0;
-    if (resto != parseInt(strCPF.substring(10, 11))) return true;
+    if (resto != parseInt(strCPF.substring(10, 11)))return true;
+    
     return false && strCPF.value.length< 11;
 }
 
