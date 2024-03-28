@@ -7,13 +7,16 @@ const confSenha = document.getElementById("confirmar-senha");
 
 function enviar(){
     if(validar()){
-        alert("FOI RAPAZ");
+        envia();
     }
 }
 
 function validar() {
     if (verificaVazio()) {
         alert("Todos os campos devem ser preenchidos!");
+        return false;
+    }else if(validaEmail()){
+        alert("Insira um e-mail válido!");
         return false;
     }else if (nome.value.length > 50) {
         alert("O Nome ultrapassa o limite de caracteres!");
@@ -33,6 +36,13 @@ function validar() {
 
 function verificaVazio() {
     return email.value == '' || nome.value == '' || cpf.value == '' || dataNasc.value == '' || senha.value == '' || confSenha.value == ''
+}
+
+function validaEmail(){
+    if(email.value.includes('@') && email.value.includes('.')){
+        return false;
+    }
+    return true;
 }
 
 function validaCpf() {
