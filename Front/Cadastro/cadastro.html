@@ -15,14 +15,14 @@
         <div class="fundo" id="fundo-cadastro">
             <h1 id="titulo-cadastro">Cadastro</h1>
             
-            <input type="email" class="input" id="email" placeholder="E-mail">
-            <input type="text" class="input" id="nome" placeholder="Nome">
-            <input type="text" class="input" id="cpf" placeholder="CPF" maxlength="14">
-            <input type="date" class="input" id="data-nasc">
-            <input type="password" class="input" id="senha" placeholder="Senha">
-            <input type="password" class="input" id="confirmar-senha" placeholder="Confirmar Senha">
+            <input type="email" class="input" id="email" placeholder="E-mail" required>
+            <input type="text" class="input" id="nome" placeholder="Nome" required>
+            <input type="text" class="input" id="cpf" placeholder="CPF" maxlength="14" required>
+            <input type="date" class="input" id="data-nasc" required>
+            <input type="password" class="input" id="senha" placeholder="Senha" required>
+            <input type="password" class="input" id="confirmar-senha" placeholder="Confirmar Senha" required>
             
-            <button class="botao" id="cadastrar">Cadastrar</button>
+            <button class="botao" id="cadastrar" onclick="enviar()">Cadastrar</button>
             
             <p id="link-login">Já possui cadastro? <a href="../Login/index.html">Clique Aqui</a></p>
         </div>
@@ -36,6 +36,7 @@
     <script>$('#cpf').mask('000.000.000-00', {reverse: true});</script>
 
 </body>
-<script src="/cadastro.js"></script>
+<script src="../Cadastro/envio.js"></script>
+<script src="../Cadastro/validacao.js"></script>
 
 </html>
