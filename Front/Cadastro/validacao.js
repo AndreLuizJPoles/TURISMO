@@ -26,9 +26,6 @@ function validar() {
     }else if(tamanhoSenha()){
         alert("A senha deve ter entre 5 a 20 caracteres");
         return false;
-    }else if (validaCpf()){
-        alert("Insira um CPF válido!");
-        return false;
     }
     return true;
 }
