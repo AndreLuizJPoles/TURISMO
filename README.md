@@ -31,6 +31,7 @@ As tecnologias que serão utilizadas para o desenvolvimento e linguagens de prog
 - Javascript (Front-End)
 - Node.js (Back-End)
 - Google Maps API (Geolocalização) 
+- MySQL (Banco de Dados)
 
 # Links:
 ### <a href="https://lucid.app/lucidchart/7e5d4a5b-7d8f-460a-9f3d-a2c47970a416/edit">Diagrama de Casos de Uso</a>
