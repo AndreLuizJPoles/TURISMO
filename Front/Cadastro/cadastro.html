@@ -18,7 +18,6 @@
 
             <input type="email" class="input" id="email" placeholder="E-mail" required>
             <input type="text" class="input" id="nome" placeholder="Nome" required>
-            <input type="text" class="input" id="cpf" placeholder="CPF" maxlength="14" required>
             <input type="date" class="input" id="data-nasc" required>
             <input type="password" class="input" id="senha" placeholder="Senha" required>
             <input type="password" class="input" id="confirmar-senha" placeholder="Confirmar Senha" required>
@@ -41,7 +40,6 @@
     async function envia() {
         const email = document.getElementById("email").value;
         const name = document.getElementById("nome").value;
-        const cpf = document.getElementById("cpf").value;
         const birthdate = document.getElementById("data-nasc").value;
         const password = document.getElementById("senha").value;
 
