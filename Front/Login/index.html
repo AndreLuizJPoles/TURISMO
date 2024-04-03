@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style.css">
     <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body id="tela-login">
@@ -16,11 +17,33 @@
 
             <input type="password" id="senha" class="input" placeholder="Senha">
 
-            <button id="login" class="botao">Login</button>
+            <button id="login" class="botao" onclick="enviar()">Login</button>
             
             <p id="link-cadastro">Não tem conta ainda? <a href="../Cadastro/cadastro.html">Cadastre-se aqui</a>
             </p>
         </div>
     </div>
 </body>
+
+<script>
+    async function envia() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("senha").value;
+
+        const payload = {
+            email,
+            password
+        }
+
+        try {
+            const response = await axios.post('http://localhost:3000/api/users/login', payload);
+            window.location.replace('../Menu/menu.html');
+        } catch (error) {
+            const aux = error.response.data.message;
+            alert(aux);
+        }
+    }
+</script>
+<script src="../Login/validacao.js"></script>
+
 </html>
