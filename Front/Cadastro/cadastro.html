@@ -55,7 +55,8 @@
             const response = await axios.post('http://localhost:3000/api/users', payload);
             window.location.replace('../Login/index.html');
         } catch (error) {
-            console.error('Error:', error.response);
+            const aux = error.response.data.message;
+            alert(aux);
         }
     }
 </script>
