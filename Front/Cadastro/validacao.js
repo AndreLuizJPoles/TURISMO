@@ -24,7 +24,7 @@ function validar() {
         alert("As senhas devem ser iguais!");
         return false;
     }else if(tamanhoSenha()){
-        alert("A senha deve ter entre 5 a 20 caracteres");
+        alert("A senha deve ter entre 8 a 20 caracteres");
         return false;
     }
     return true;
@@ -46,5 +46,5 @@ function comparaSenha(){
 }
 
 function tamanhoSenha(){
-    return (senha.value.length < 5 || senha.value.length > 20);
+    return (senha.value.length < 8 || senha.value.length > 20);
 }
