@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Estabelecimento</title>
-    <link rel="stylesheet" href="editar_est.css">
+    <link rel="stylesheet" href="editar_user.css">
 </head>
 
 <body id="tela-cadastro-est">
@@ -15,66 +15,31 @@
             <a href="../Menu/menu.html" id="voltar" class="botao">Voltar</a>
 
             <label for="titulo-cadastro" id="aviso">
-                <h1 id="titulo-cadastro">Editar Estabelecimento</h1>
+                <h1 id="titulo-cadastro">Editar Usuário</h1>
                 <p id="texto">Todos os campos com * são obrigatórios</p>
             </label>
 
             <h2 id="titulo-geral">Informações Gerais</h2>
             <div id="inf-gerais" class="inf">
-                <input type="text" id="nome" class="input" placeholder="Nome do Estabelecimento *">
-                <input type="text" id="cnpj" class="input" placeholder="CNPJ *">
+                <input type="text" id="nome" class="input" placeholder="Nome do Usuário *" required>
+                <input type="email" id="email" class="input" placeholder="Email *" required>
+                <input type="text" id="cpf" class="input" placeholder="CPF">
+                <input type="text" id="telefone" class="input" placeholder="Telefone">
 
-                <input list="categorias" class="input" placeholder="Categoria *">
-                <datalist id="categorias">
-                    <option value="Loja">
-                    <option value="Restaurante">
-                    <option value="Cinema">
-                    <option value="Academia">
-                    <option value="Shopping">
-                </datalist>
-
-                <textarea id="descricao" cols="30" rows="10" style="resize: none;" placeholder="Descrição do Estabelecimento"></textarea>
-            </div>
-
-            <h2 id="titulo-funcionamento">Informações de Funcionamento</h2>
-            <div id="inf-funcionamento" class="inf">
-                <label for="hora-abertura">Horário de Abertura *:
-                    <input type="time" id="hora-abertura" class="input">
+                <label for="data-nasc">
+                    Data de Nascimento *:
+                    <input type="date" class="input" id="data-nasc" required>
                 </label>
-                <label for="hora-encerramento">Horário de Encerramento *:
-                    <input type="time" id="hora-encerramento" class="input">
+
+                <label for="grupo">Gênero:
+                    <div id="grupo">
+                        <label for="masc">Masculino</label>
+                        <input type="radio" class="radio" name="genero" id="masc" value="male">
+                        <label for="fem">Feminino</label>
+                        <input type="radio" class="radio" name="genero" id="fem" value="female">
+                    </div>
                 </label>
-                <div id="semanario">
-                    <h3 id="titulo-dias">Dias de Funcionamento: </h3>
-                    <label for="segunda">
-                        <input type="checkbox" id="segunda" value="segunda" class="check">
-                        Segunda-feira
-                    </label>
-                    <label for="terca">
-                        <input type="checkbox" id="terca" value="terca" class="check">
-                        Terça-feira
-                    </label>
-                    <label for="quarta">
-                        <input type="checkbox" id="quarta" value="quarta" class="check">
-                        Quarta-feira
-                    </label>
-                    <label for="quinta">
-                        <input type="checkbox" id="quinta" value="quinta" class="check">
-                        Quinta-feira
-                    </label>
-                    <label for="sexta">
-                        <input type="checkbox" id="sexta" value="sexta" class="check">
-                        Sexta-feira
-                    </label>
-                    <label for="sabado">
-                        <input type="checkbox" id="sabado" value="sabado" class="check">
-                        Sábado
-                    </label>
-                    <label for="domingo">
-                        <input type="checkbox" id="domingo" value="domingo" class="check">
-                        Domingo
-                    </label>
-                </div>
+
             </div>
 
             <h2 id="titulo-endereco">Informações de Endereço</h2>
@@ -88,14 +53,6 @@
             </div>
 
             <h2 id="titulo-contato">Informações de Contato</h2>
-            <div id="inf-contato" class="inf">
-                <input type="text" id="telefone1" class="input" placeholder="Telefone 1">
-                <input type="email" id="email1" class="input" placeholder="E-mail 1">
-                <input type="text" id="telefone2" class="input" placeholder="Telefone 2">
-                <input type="email" id="email2" class="input" placeholder="E-mail 2">
-                <input type="text" id="telefone3" class="input" placeholder="Telefone 3">
-                <input type="email" id="email3" class="input" placeholder="E-mail 3">
-            </div>
 
             <h2 id="titulo-imagem">Imagens do Perfil</h2>
             <div id="inf-imagem" class="inf">
@@ -104,14 +61,6 @@
                         Imagem de Perfil:
                         <form enctype="multipart/form-data">
                             <input type="file" id="imagem-perfil" class="input-img" accept="image/*">
-                        </form>
-                    </label>
-                </div>
-                <div class="caixa">
-                    <label for="imagem-plano">
-                        Imagem de Plano de Fundo:
-                        <form enctype="multipart/form-data">
-                            <input type="file" id="imagem-plano" class="input-img" accept="image/*">
                         </form>
                     </label>
                 </div>
@@ -126,11 +75,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 
     <!-- Máscaras -->
-    <script>$('#cnpj').mask('00.000.000/0000-00', { reverse: true });</script>
+    <script>$('#cpf').mask('000.000.000-00');</script>
     <script>$('#cep').mask('00000-000');</script>
-    <script>$('#telefone1').mask('(00) 00000-0000');</script>
-    <script>$('#telefone2').mask('(00) 00000-0000');</script>
-    <script>$('#telefone3').mask('(00) 00000-0000');</script>
+    <script>$('#telefone').mask('(00) 00000-0000');</script>
 
     <!-- Script Preview imagens-->
     <script>
