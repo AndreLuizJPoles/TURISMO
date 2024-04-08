@@ -155,7 +155,7 @@
 
         try {
             const response = await axios.post('http://localhost:3000/api/establishments', payload);
-            window.location.replace('../Menu/menu.html');
+            //window.location.replace('../Menu/menu.html');
         } catch (error) {
             const aux = error.response.data.message;
             alert(aux);

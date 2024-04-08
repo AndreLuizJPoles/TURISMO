@@ -26,6 +26,8 @@
 </body>
 
 <script>
+    const LOCAL_API_URL = 'http://localhost:3000/api/users/login';
+
     async function envia() {
         const email = document.getElementById("email").value;
         const password = document.getElementById("senha").value;
@@ -36,8 +38,14 @@
         }
 
         try {
-            const response = await axios.post('http://localhost:3000/api/users/login', payload);
-            window.location.replace('../Menu/menu.html');
+            const response = await axios.post(LOCAL_API_URL, payload);
+            console.log(response);
+            if(response.status === 200){
+                const data = response.data.data;
+                localStorage.setItem('token', data);
+                
+                window.location.replace('../Menu/menu.html');
+            }
         } catch (error) {
             const aux = error.response.data.message;
             alert(aux);
