@@ -17,7 +17,7 @@ function validar() {
     }else if(validaEmail()){
         alert("Insira um e-mail válido!");
         return false;
-    }else if (nome.value.length > 50) {
+    }else if (nome.value.length > 80) {
         alert("O Nome ultrapassa o limite de caracteres!");
         return false;
     }else if(comparaSenha()){

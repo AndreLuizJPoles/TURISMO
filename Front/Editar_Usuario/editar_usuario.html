@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Estabelecimento</title>
+    <title>Editar Usuário</title>
     <link rel="stylesheet" href="editar_user.css">
 </head>
 
@@ -44,11 +44,12 @@
 
             <h2 id="titulo-endereco">Informações de Endereço</h2>
             <div id="inf-endereco" class="inf">
-                <input type="text" id="cep" class="input" placeholder="CEP *">
-                <input type="text" id="cidade" class="input" placeholder="Cidade *">
-                <input type="text" id="rua" class="input" placeholder="Rua *">
-                <input type="text" id="bairro" class="input" placeholder="Bairro *">
-                <input type="text" id="cidade" class="input" placeholder="Cidade *">
+                <input type="text" id="cep" class="input" placeholder="CEP" onblur="consultaEndereco()">
+                <input type="text" id="uf" class="input" placeholder="UF">
+                <input type="text" id="cidade" class="input" placeholder="Cidade">
+                <input type="text" id="rua" class="input" placeholder="Rua">
+                <input type="text" id="bairro" class="input" placeholder="Bairro">
+                <input type="text" id="numero" class="input" placeholder="Número">
                 <input type="text" id="complemento" class="input" placeholder="Complemento">
             </div>
 
@@ -66,7 +67,7 @@
                 </div>
             </div>
 
-            <button id="confirmar" class="botao">Confirmar Edição</button>
+            <button id="confirmar" class="botao" onclick="salvar()">Confirmar Edição</button>
         </div>
     </div>
 
@@ -80,31 +81,6 @@
     <script>$('#telefone').mask('(00) 00000-0000');</script>
 
     <!-- Script Preview imagens-->
-    <script>
-        const imagemPlano = document.querySelector('#imagem-plano');
-
-        imagemPlano.addEventListener('change', event => {
-
-            const reader = new FileReader;
-            reader.onload = function (event) {
-                const previewPlano = document.querySelector('#preview-imagem-plano');
-
-                if (previewPlano) {
-                    previewPlano.remove();
-                }
-
-                const previewImagemPlano = document.createElement('img');
-                previewImagemPlano.width = 300;
-                previewImagemPlano.height = 100;
-                previewImagemPlano.id = 'preview-imagem-plano';
-                imagemPlano.insertAdjacentElement('afterend', previewImagemPlano);
-                previewImagemPlano.src = event.target.result;
-            }
-
-            reader.readAsDataURL(imagemPlano.files[0]);
-
-        })
-    </script>
     <script>
         const imagemPerfil = document.querySelector('#imagem-perfil');
 
@@ -130,6 +106,9 @@
 
         })
     </script>
+
+    <script src="../Editar_Usuario/cep.js"></script>
+    <script src="../Editar_Usuario/validacao.js"></script>
 
 </body>
 
