@@ -1,0 +1,123 @@
+@import url("/Front/styleguide.css");
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
+
+body {
+    background-image: url(/Front/images/turismo_fundo.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+.box {
+    width: 80%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.box .fundo {
+    position: fixed;
+    width: 80%;
+    height: 100%;
+    top: 0;
+    background-color: var(--cor-fundo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+}
+
+#voltar{
+    width: 10%;
+    align-self: flex-start;
+    margin: 10px;
+    text-decoration: none;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+.box .input {
+    width: 45%;
+    height: 3rem;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    border: 0;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    min-height: 50px;
+    padding-left: 5px;
+}
+
+.box #editar{
+    background-color: white;
+    color: black;
+    border: 1px black solid;
+}
+
+.box .botao {
+    width: 30%;
+    height: 3rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    border: 0;
+    font-weight: 700;
+    background-color: #05679F;
+    color: white;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    text-decoration: none;
+}
+
+.box .botao:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+#informacoes{
+    text-align: center;
+}
+
+#foto-perfil{
+    margin-top: 2rem;
+    border-radius: 100%;
+    width: 15rem;
+}
+
+#nome{
+    font-weight: 900;
+}
+
+#id{
+    color: #05679F;
+}
+
+#editar{
+    justify-content: safe;
+}
+
+a p{
+    padding: 1rem;
+    font-weight: bolder;
+}
+
+#end-texto{
+    padding: 0;
+}
+
+.icon{
+    height: 70%;
+}
+
+#endereco{
+    background-color: white;
+    color: black;
+    border: 1px black solid;
+    width: 50%;
+}
