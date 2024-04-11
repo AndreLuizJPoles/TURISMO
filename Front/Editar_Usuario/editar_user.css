@@ -136,3 +136,12 @@ label{
 .input-img{
     margin-bottom: 10px;
 }
+
+#data-nasc{
+    width: 100%;
+}
+
+.grupo{
+    align-items: center;
+    justify-content: space-between;
+}
