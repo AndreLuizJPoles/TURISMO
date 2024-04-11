@@ -21,7 +21,7 @@ const complemento = document.getElementById("complemento");
 
 function cadastrar() {
     if (validar()) {
-        envia();
+        //envia(); VER COM O ESDRAS
     }
 }
 
