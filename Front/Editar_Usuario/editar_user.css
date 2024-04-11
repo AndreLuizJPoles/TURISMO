@@ -145,3 +145,7 @@ label{
     align-items: center;
     justify-content: space-between;
 }
+
+#excluir{
+    background-color: rgb(194, 19, 19);
+}
