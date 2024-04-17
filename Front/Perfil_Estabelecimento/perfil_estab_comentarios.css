@@ -1,0 +1,228 @@
+@import url("/Front/styleguide.css");
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
+
+body {
+    background-image: url(/Front/images/turismo_fundo.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+.box {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.box .fundo {
+    position: relative;
+    width: 80%;
+    height: 100%;
+    background-color: var(--cor-fundo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    overflow: scroll;
+}
+
+header {
+    background-color: rgba(5, 103, 159, 1);
+    width: 100%;
+    height: 5rem;
+    border: 0 none;
+    position: relative;
+    left: 0;
+    top: 0;
+    display: flex;
+}
+
+#icone-menu {
+    height: 2rem;
+    margin: 1.5rem;
+}
+
+input:focus-visible {
+    outline: none;
+}
+
+#grupo-pesquisa {
+    display: flex;
+    background-color: white;
+    height: 2rem;
+    width: 25rem;
+    border-radius: 20px;
+    background-color: white;
+    border: 0 none;
+    margin: 1.5rem;
+    margin-left: 3rem;
+    padding-left: 1rem;
+}
+
+#barra-pesquisa {
+    width: 90%;
+    border: none;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+#lupa {
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    margin-top: 0.2rem;
+}
+
+#perfil-usuario{
+    clip-path: circle(50%);
+    height: 75%;
+    position: absolute;
+    margin: 0.5rem;
+    margin-right: 1rem;
+    right: 0;
+}
+
+#voltar{
+    width: 10%;
+    align-self: flex-start;
+    margin: 10px;
+    text-decoration: none;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    position: absolute;
+}
+
+.box .botao {
+    width: 30%;
+    height: 3rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    border: 0;
+    font-weight: 700;
+    background-color: #05679F;
+    color: white;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+.box .botao:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+#cab-perfil{
+    width: 100%;
+}
+
+#plano-fundo{
+    width: 100%;
+    height: 25rem;
+}
+
+#perfil-foto{
+    width: 15rem;
+    height: 15rem;
+    border-radius: 100%;
+    margin-left: 1rem;
+    margin-top: -7.5rem;
+    border: white 2px solid;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+}
+
+#box-informacoes h2{
+    font-weight: bolder;
+}
+
+#box-informacoes{
+    display: flex;
+    justify-content: space-between;
+    width: 99%;
+}
+
+#inf{
+    margin-left: 0.5rem;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-right: 2rem;
+    max-height: 10rem;
+}
+
+#nome{
+    width: 70%;
+}
+
+#box-nota{
+    width: 20%;
+    display: flex;
+    align-content: center;
+}
+
+#desc{
+    width: 40%;
+    text-align: justify;
+    height: 100%;
+}
+
+#onibus-icon{
+    height: 2rem;
+    margin-right: 0.5rem;
+    margin-top: 1.3rem;
+}
+
+#coracao{
+    height: 2.5rem;
+    margin-top: 1rem;
+}
+
+#status{
+    color: #05679F;
+    font-weight: bolder;
+    width: 20%;
+    margin-top: 0;
+}
+
+#horario{
+    font-weight: bolder;
+    margin-top: 0;
+}
+
+#endereco{
+    text-align: center;
+}
+
+#container{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    align-content: center;
+}
+
+.link{
+    text-decoration: none;
+    color: black;
+    font-weight: bolder;
+    padding-right: 20.2%;
+    padding-left: 20.2%;
+    font-size: 1.2rem;
+    border: black solid 2px;
+    border-radius: 5px;
+    padding-top: 0.5rem;
+}
+
+#comentarios{
+    background-color: #05679F;
+    color: white;
+}
