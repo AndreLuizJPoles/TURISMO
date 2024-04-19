@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Evento</title>
+    <link rel="stylesheet" href="cad_evento.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body id="tela-cadastro-est">
+    <div class="box" id="box-cadastro-est">
+        <div class="fundo" id="fundo-cad-est">
+
+            <a href="../Menu/menu.html" id="voltar" class="botao">Voltar</a>
+
+            <label for="titulo-cadastro" id="aviso">
+                <h1 id="titulo-cadastro">Cadastro de Evento</h1>
+                <p id="texto">Todos os campos com * são obrigatórios</p>
+            </label>
+
+            <h2 id="titulo-geral">Informações Gerais</h2>
+            <div id="inf-gerais" class="inf">
+                <input type="text" id="nome" class="input" placeholder="Nome do Evento *" required>
+
+                <input list="categorias" id="categoria" class="input" placeholder="Categoria *" required>
+                <datalist id="categorias">
+                    <option value="Show">
+                </datalist>
+
+            </div>
+
+            <h2 id="titulo-funcionamento">Informações de Funcionamento</h2>
+            <div id="inf-funcionamento" class="inf">
+                <div id="div-data">
+                    <label for="data-inicio">Data de Início *: </label>
+                        <input type="date" id="data-inicio" class="input" required>
+                    <label for="data-fim">Data de Encerramento *: </label>
+                        <input type="date" id="data-fim" class="input" required>
+                    
+                </div>
+
+                <div id="div-hora">
+                    <label for="hora-abertura">Horário de Abertura *: </label>
+                        <input type="time" id="hora-abertura" class="input" required>
+                    <label for="hora-encerramento">Horário de Encerramento *: </label>
+                        <input type="time" id="hora-encerramento" class="input" required>
+                    
+                </div>
+            </div>
+
+            <button id="cadastrar" class="botao" onclick="cadastrar()">Cadastrar</button>
+        </div>
+    </div>
+
+    <!-- Bibliotecas e códigos de terceiros -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+
+</body>
+
+</html>
