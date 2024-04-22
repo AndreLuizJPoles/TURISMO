@@ -24,10 +24,14 @@
             <div id="inf-gerais" class="inf">
                 <input type="text" id="nome" class="input" placeholder="Nome do Evento *" required>
 
-                <input list="categorias" id="categoria" class="input" placeholder="Categoria *" required>
-                <datalist id="categorias">
-                    <option value="Show">
+                <input list="estabelecimentos" id="estabelecimento" class="input" placeholder="Estabelecimento *"
+                    required>
+                <datalist id="estabelecimentos">
+                    <option value="Baffs">
                 </datalist>
+
+                <textarea id="descricao" cols="30" rows="10" style="resize: none;"
+                    placeholder="Descrição do Evento"></textarea>
 
             </div>
 
@@ -35,18 +39,38 @@
             <div id="inf-funcionamento" class="inf">
                 <div id="div-data">
                     <label for="data-inicio">Data de Início *: </label>
-                        <input type="date" id="data-inicio" class="input" required>
+                    <input type="date" id="data-inicio" class="input" required>
                     <label for="data-fim">Data de Encerramento *: </label>
-                        <input type="date" id="data-fim" class="input" required>
-                    
+                    <input type="date" id="data-fim" class="input" required>
+
                 </div>
 
                 <div id="div-hora">
                     <label for="hora-abertura">Horário de Abertura *: </label>
-                        <input type="time" id="hora-abertura" class="input" required>
+                    <input type="time" id="hora-abertura" class="input" required>
                     <label for="hora-encerramento">Horário de Encerramento *: </label>
-                        <input type="time" id="hora-encerramento" class="input" required>
-                    
+                    <input type="time" id="hora-encerramento" class="input" required>
+
+                </div>
+            </div>
+
+            <h2 id="titulo-imagem">Imagens do Perfil</h2>
+            <div id="inf-imagem" class="inf">
+                <div class="caixa">
+                    <label for="imagem-perfil">
+                        Imagem de Perfil:
+                        <form enctype="multipart/form-data">
+                            <input type="file" id="imagem-perfil" class="input-img" accept="image/*">
+                        </form>
+                    </label>
+                </div>
+                <div class="caixa">
+                    <label for="imagem-plano">
+                        Imagem de Plano de Fundo:
+                        <form enctype="multipart/form-data">
+                            <input type="file" id="imagem-plano" class="input-img" accept="image/*">
+                        </form>
+                    </label>
                 </div>
             </div>
 
@@ -57,6 +81,58 @@
     <!-- Bibliotecas e códigos de terceiros -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+
+    <!-- Script Preview imagens-->
+    <script>
+        const imagemPlano = document.querySelector('#imagem-plano');
+
+        imagemPlano.addEventListener('change', event => {
+
+            const reader = new FileReader;
+            reader.onload = function (event) {
+                const previewPlano = document.querySelector('#preview-imagem-plano');
+
+                if (previewPlano) {
+                    previewPlano.remove();
+                }
+
+                const previewImagemPlano = document.createElement('img');
+                previewImagemPlano.width = 300;
+                previewImagemPlano.height = 100;
+                previewImagemPlano.id = 'preview-imagem-plano';
+                imagemPlano.insertAdjacentElement('afterend', previewImagemPlano);
+                previewImagemPlano.src = event.target.result;
+            }
+
+            reader.readAsDataURL(imagemPlano.files[0]);
+
+        })
+    </script>
+    <script>
+        const imagemPerfil = document.querySelector('#imagem-perfil');
+
+        imagemPerfil.addEventListener('change', event => {
+
+            const reader = new FileReader;
+            reader.onload = function (event) {
+                const preview = document.querySelector('#preview-imagem');
+
+                if (preview) {
+                    preview.remove();
+                }
+
+                const previewImagem = document.createElement('img');
+                previewImagem.width = 100;
+                previewImagem.height = 100;
+                previewImagem.id = 'preview-imagem';
+                imagemPerfil.insertAdjacentElement('afterend', previewImagem);
+                previewImagem.src = event.target.result;
+            }
+
+            reader.readAsDataURL(imagemPerfil.files[0]);
+
+        })
+    </script>
 
 </body>
 
