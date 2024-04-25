@@ -158,6 +158,7 @@ button{
     left: 0;
     text-align: center;
     transition: transform 0.3s ease;
+    overflow-x: scroll;
 }
 
 .nav.active{
