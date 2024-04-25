@@ -46,6 +46,7 @@ header {
 #icone-menu {
     height: 2rem;
     margin: 1.5rem;
+    cursor: pointer;
 }
 
 input:focus-visible {
@@ -198,7 +199,7 @@ input:focus-visible {
     margin-top: 0;
 }
 
-#endereco{
+#enderecoText{
     text-align: center;
 }
 
@@ -220,9 +221,107 @@ input:focus-visible {
     border: black solid 2px;
     border-radius: 5px;
     padding-top: 0.5rem;
+    height: 3.5rem;
 }
 
 #postagens{
     background-color: #05679F;
     color: white;
+}
+
+.nav{
+    height: 90%;
+    width: 50%;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    position: absolute;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    transform: translateX(-101%);
+    top: 5rem;
+    left: 0;
+    text-align: center;
+    transition: transform 0.3s ease;
+    overflow-y: scroll;
+}
+
+.nav.active{
+    transform: translateX(0%);
+}
+
+#editar{
+    background-color: white;
+    color: black;
+    border: 1px black solid;
+}
+
+.botao {
+    width: 30%;
+    height: 3rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    border: 0;
+    font-weight: 700;
+    background-color: #05679F;
+    color: white;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    text-decoration: none;
+}
+
+.botao:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+#informacoes{
+    text-align: center;
+}
+
+#foto-perfil{
+    margin-top: 2rem;
+    border-radius: 100%;
+    width: 12rem;
+}
+
+#nome{
+    font-weight: 900;
+}
+
+#id{
+    color: #05679F;
+}
+
+#editar{
+    justify-content: safe;
+}
+
+a p{
+    padding: 1rem;
+    font-weight: bolder;
+}
+
+#end-texto{
+    padding: 0;
+}
+
+.icon{
+    height: 50%;
+}
+
+#icone-estab{
+    margin-left: 0.5rem;
+}
+
+#endereco{
+    background-color: white;
+    color: black;
+    border: 1px black solid;
 }
