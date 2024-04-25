@@ -65,6 +65,82 @@ button{
     margin-right: 1rem;
 }
 
+#grade{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-top: 8rem;
+    justify-content: center;
+}
+
+.link{
+    text-decoration: none;
+    color: black;
+}
+
+.bloco{
+    margin-right: 2rem;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+    height: 15rem;
+    width: 20rem;
+    border: 1px black solid;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    flex-wrap: wrap;
+}
+
+.imagem{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.inferior{
+    background-color: white;
+    width: 100%;
+    height: 45%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    margin-top: -7.125rem;
+}
+#nome{
+    font-weight: bolder;
+    margin-left: 1rem;
+    left: 0;
+    top: 0;
+    width: 74%;
+    margin-bottom: 0;
+}
+
+#status{
+    color: rgba(5, 103, 159, 1);
+    font-weight: bolder;
+    width: 40%;
+    margin-left: 1rem;
+    margin-top: 0rem;
+}
+
+#conjunto-nota{
+    width: 20%;
+    bottom: 2rem;
+    display: flex;
+    text-align: center;
+    right: 0;
+    margin-right: 0.1rem;
+}
+
+.icone{
+    width: 50%;
+    height: 45%;
+    margin-top: 1rem;
+}
+
+#nota{
+    font-weight: bolder;
+}
+
 @media screen and (max-width: 660px){
     #grupo-pesquisa {
         width: 20rem;
