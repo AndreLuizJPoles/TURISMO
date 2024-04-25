@@ -13,6 +13,7 @@ header {
     left: 0;
     top: 0;
     display: flex;
+    z-index: 10;
 }
 
 #icone-menu {
@@ -145,5 +146,9 @@ button{
     #grupo-pesquisa {
         width: 20rem;
         margin-left: 0;
+    }
+
+    #perfil-usuario{
+        display: none;
     }
 }
