@@ -244,6 +244,7 @@ input:focus-visible {
     text-align: center;
     transition: transform 0.3s ease;
     overflow-y: scroll;
+    height: 90%;
 }
 
 .nav.active{

@@ -145,6 +145,7 @@ button{
 }
 
 .nav{
+    height: 90%;
     width: 50%;
     z-index: 9;
     display: flex;
@@ -158,7 +159,7 @@ button{
     left: 0;
     text-align: center;
     transition: transform 0.3s ease;
-    overflow-x: scroll;
+    overflow-y: scroll;
 }
 
 .nav.active{
