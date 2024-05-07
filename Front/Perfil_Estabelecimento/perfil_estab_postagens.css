@@ -354,6 +354,12 @@ a p{
     margin: 1rem;
 }
 
+#nova-postagem{
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+    width: 50%;
+}
+
 @media screen and (max-width: 660px){
     #perfil-usuario{
         display: none;
