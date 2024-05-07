@@ -251,4 +251,12 @@ a p{
     #perfil-usuario{
         display: none;
     }
+
+    .nav{
+        width: 100%;
+    }
+
+    .botao{
+        width: 50%;
+    }
 }

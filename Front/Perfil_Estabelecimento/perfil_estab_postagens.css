@@ -325,3 +325,17 @@ a p{
     color: black;
     border: 1px black solid;
 }
+
+@media screen and (max-width: 660px){
+    #perfil-usuario{
+        display: none;
+    }
+
+    .nav{
+        width: 100%;
+    }
+
+    .botao{
+        width: 50%;
+    }
+}
