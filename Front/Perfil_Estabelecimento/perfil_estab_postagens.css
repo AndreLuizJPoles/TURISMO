@@ -358,6 +358,7 @@ a p{
     margin-top: 1rem;
     margin-bottom: 0rem;
     width: 50%;
+    display: none;
 }
 
 @media screen and (max-width: 660px){
