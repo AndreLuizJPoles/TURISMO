@@ -326,6 +326,50 @@ a p{
     border: 1px black solid;
 }
 
+.postagem{
+    margin-top: 1rem;
+    border: black solid 2px;
+    width: 90%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.postagem h2{
+    margin-left: 1.5rem;
+    width: 90%;
+}
+
+.postagem #texto-postagem{
+    text-align: justify;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 100%;
+}
+
+#box-img-postagem{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.img-postagem{
+    width: 15rem;
+    margin: 1rem;
+}
+
+#nova-postagem{
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+    width: 50%;
+}
+
+#icone-editar{
+    margin-top: 1rem;
+    height: 2.5rem;
+}
+
 @media screen and (max-width: 660px){
     #perfil-usuario{
         display: none;
