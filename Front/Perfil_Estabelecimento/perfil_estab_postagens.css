@@ -330,10 +330,28 @@ a p{
     margin-top: 1rem;
     border: black solid 2px;
     width: 90%;
+    border-radius: 10px;
 }
 
 .postagem h2{
     margin-left: 1.5rem;
+}
+
+.postagem #texto-postagem{
+    text-align: justify;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#box-img-postagem{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.img-postagem{
+    width: 15rem;
+    margin: 1rem;
 }
 
 @media screen and (max-width: 660px){
