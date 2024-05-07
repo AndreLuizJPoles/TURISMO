@@ -326,6 +326,16 @@ a p{
     border: 1px black solid;
 }
 
+.postagem{
+    margin-top: 1rem;
+    border: black solid 2px;
+    width: 90%;
+}
+
+.postagem h2{
+    margin-left: 1.5rem;
+}
+
 @media screen and (max-width: 660px){
     #perfil-usuario{
         display: none;
