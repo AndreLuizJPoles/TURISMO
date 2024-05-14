@@ -164,7 +164,7 @@ input:focus-visible {
     width: 70%;
 }
 
-#box-nota{
+.box-nota{
     width: 20%;
     display: flex;
     align-content: center;
@@ -325,6 +325,54 @@ a p{
     color: black;
     border: 1px black solid;
     width: 50%;
+}
+
+#novo-comentario{
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+    width: 50%;
+}
+
+.comentario{
+    margin-top: 1rem;
+    border: black solid 2px;
+    width: 90%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#foto-perfil{
+    margin-left: 1rem;
+    margin-top: 1rem;
+    height: 3rem;
+    width: 3rem;
+}
+
+#nome-usuario{
+    margin-left: 1.5rem;
+    width: 85%;
+}
+
+.comentario #texto-comentario{
+    text-align: justify;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 100%;
+}
+
+#icone-editar{
+    margin-top: 1rem;
+    height: 2.5rem;
+}
+
+#nota-comentario{
+    margin-left: 1rem;
+}
+
+#nota-comentario #onibus-icon{
+    height: 1.5rem;
 }
 
 @media screen and (max-width: 660px){

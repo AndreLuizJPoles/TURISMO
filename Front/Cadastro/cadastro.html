@@ -46,7 +46,6 @@
         const payload = {
             name,
             email,
-            picture_url: '',
             birthdate,
             password
         }
@@ -55,6 +54,7 @@
             const response = await axios.post('http://localhost:3000/api/users', payload);
             window.location.replace('../Login/index.html');
         } catch (error) {
+            console.log(error)
             const aux = error.response.data.message;
             alert(aux);
         }
