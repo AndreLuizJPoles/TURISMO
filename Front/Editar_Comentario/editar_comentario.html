@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Comentário</title>
+    <link rel="stylesheet" href="editar_comentario.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body id="tela-cadastro-est">
+    <div class="box" id="box-cadastro-est">
+        <div class="fundo" id="fundo-cad-est">
+
+            <a href="../Menu/menu.html" id="voltar" class="botao">Voltar</a>
+
+            <label for="titulo-cadastro" id="aviso">
+                <h1 id="titulo-cadastro">Editar Comentário</h1>
+                <p id="texto">Todos os campos com * são obrigatórios</p>
+            </label>
+
+            <input type="number" list="notas" id="nota" class="input" placeholder="Nota *" required>
+                <datalist id="notas">
+                    <option value=1>
+                    <option value=2>
+                    <option value=3>
+                    <option value=4>
+                    <option value=5>
+                </datalist>
+            <textarea id="descricao" class="input" placeholder="Descrição do Comentário" cols="30" rows="10" style="resize: none;"></textarea>
+
+            <button id="apagar" class="botao" onclick="apagar()">Apagar Comentário</button>
+            <button id="postar" class="botao" onclick="comentar()">Editar Comentário</button>
+        </div>
+    </div>
+
+</body>
+
+<script src="validacao.js"></script>
+
+</html>
