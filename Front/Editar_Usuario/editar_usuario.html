@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuário</title>
     <link rel="stylesheet" href="editar_user.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body id="tela-cadastro-est">
@@ -69,7 +70,7 @@
                 </div>
             </div>
 
-            <button id="confirmar" class="botao" onclick="salvar()">Confirmar Edição</button>
+            <button id="confirmar" class="botao">Confirmar Edição</button>
             <button id="excluir" class="botao" onclick="">Excluir Perfil</button>
         </div>
     </div>
@@ -85,9 +86,10 @@
 
     <!-- Script Preview imagens-->
     <script>
+        
         const imagemPerfil = document.querySelector('#imagem-perfil');
 
-        imagemPerfil.addEventListener('change', event => {
+        imagemPerfil.addEventListener('change', async event => {
 
             const reader = new FileReader;
             reader.onload = function (event) {
@@ -104,9 +106,9 @@
                 imagemPerfil.insertAdjacentElement('afterend', previewImagem);
                 previewImagem.src = event.target.result;
             }
-
+            
             reader.readAsDataURL(imagemPerfil.files[0]);
-
+            
         })
     </script>
 
