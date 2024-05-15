@@ -140,6 +140,7 @@ body {
     }
 
     .box .fundo {
+        overflow-y: scroll;
         width: 100%;
     }
 }
