@@ -30,7 +30,7 @@ body {
 }
 
 #voltar{
-    width: 10%;
+    width: 7rem;
     align-self: flex-start;
     margin: 10px;
     text-decoration: none;
@@ -74,11 +74,11 @@ body {
 }
 
 #hora-encerramento, #hora-abertura{
-    width: 25%;
+    width: 100%;
 }
 
 #data-fim, #data-inicio{
-    width: 30%;
+    width: 100%;
 }
 
 label{
@@ -134,4 +134,37 @@ label{
 
 #excluir{
     background-color: rgb(194, 19, 19);
+}
+
+.label{
+    width: 25rem;
+}
+
+@media screen and (max-width: 660px) {
+    .box .fundo {
+        width: 100%;
+        left: 0;
+    }
+
+    .box {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .box .input {
+        width: 75%;
+    }
+
+    .box .botao {
+        width: 60%;
+    }
+
+    .inf{
+        flex-direction: column;
+    }
+
+    .label{
+        width: 20rem;
+    }
 }
