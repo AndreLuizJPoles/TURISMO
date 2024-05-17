@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
 }
 
 #fundo-cadastro {
@@ -140,6 +141,7 @@ body {
     }
 
     .box .fundo {
+        overflow-y: scroll;
         width: 100%;
     }
 }

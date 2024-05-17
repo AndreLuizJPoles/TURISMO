@@ -72,7 +72,7 @@ button{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    margin-top: 8rem;
+    margin-top: 2rem;
     justify-content: center;
 }
 
@@ -240,6 +240,14 @@ a p{
     color: black;
     border: 1px black solid;
     width: 50%;
+}
+
+#novo-estab{
+    margin-top: 7rem;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25rem;
 }
 
 @media screen and (max-width: 660px){
