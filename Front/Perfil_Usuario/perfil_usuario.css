@@ -30,7 +30,7 @@ body {
 }
 
 #voltar{
-    width: 10%;
+    width: 7rem;
     align-self: flex-start;
     margin: 10px;
     text-decoration: none;
@@ -120,4 +120,37 @@ a p{
     color: black;
     border: 1px black solid;
     width: 50%;
+}
+
+@media screen and (max-width: 660px) {
+    .box .fundo {
+        width: 100%;
+        left: 0;
+    }
+
+    .box {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .box .input {
+        width: 75%;
+    }
+
+    .box .botao {
+        width: 60%;
+    }
+
+    .inf{
+        flex-direction: column;
+    }
+
+    .label{
+        width: 20rem;
+    }
+
+    #endereco{
+        width: 25rem;
+    }
 }
