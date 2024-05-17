@@ -89,7 +89,7 @@ input:focus-visible {
 }
 
 #voltar{
-    width: 10%;
+    width: 7rem;
     align-self: flex-start;
     margin: 10px;
     text-decoration: none;
@@ -156,7 +156,6 @@ input:focus-visible {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    padding-right: 2rem;
     max-height: 10rem;
 }
 
@@ -174,6 +173,7 @@ input:focus-visible {
     width: 40%;
     text-align: justify;
     height: 100%;
+    margin-left: 1rem;
 }
 
 #onibus-icon{
@@ -195,6 +195,7 @@ input:focus-visible {
 }
 
 #horario{
+    margin-left: 1rem;
     font-weight: bolder;
     margin-top: 0;
 }
@@ -204,11 +205,11 @@ input:focus-visible {
 }
 
 #container{
-    margin-top: 1rem;
     display: flex;
-    justify-content: space-evenly;
-    width: 100%;
+    justify-content: center;
+    width: 80%;
     align-content: center;
+    height: 3.5rem;
 }
 
 .link{
@@ -221,7 +222,6 @@ input:focus-visible {
     border: black solid 2px;
     border-radius: 5px;
     padding-top: 0.5rem;
-    height: 3.5rem;
 }
 
 #postagens{
@@ -245,6 +245,7 @@ input:focus-visible {
     text-align: center;
     transition: transform 0.3s ease;
     overflow-y: scroll;
+    height: 90%;
 }
 
 .nav.active{
@@ -324,6 +325,7 @@ a p{
     background-color: white;
     color: black;
     border: 1px black solid;
+    width: 50%;
 }
 
 .postagem{
@@ -370,7 +372,7 @@ a p{
     height: 2.5rem;
 }
 
-@media screen and (max-width: 660px){
+@media screen and (max-width: 990px){
     #perfil-usuario{
         display: none;
     }
@@ -381,5 +383,82 @@ a p{
 
     .botao{
         width: 50%;
+    }
+    #perfil-usuario {
+        display: none;
+    }
+
+    .nav {
+        width: 100%;
+    }
+
+    .botao {
+        width: 50%;
+    }
+
+    .box .fundo {
+        width: 100%;
+        left: 0;
+    }
+
+    .box {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .box .input {
+        width: 75%;
+    }
+
+    .box .botao {
+        width: 60%;
+    }
+
+    .inf {
+        flex-direction: column;
+        width: 100%;
+        margin-left: 0;
+        flex-direction: column;
+        padding-right: 0;
+        max-height: 100%;
+    }
+
+    #desc {
+        margin-top: 2rem;
+        width: 90%;
+    }
+
+    .label {
+        width: 20rem;
+    }
+
+    .postagem{
+        width: 99%;
+    }
+
+    #box-informacoes {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: 0;
+    }
+
+    #cab-perfil {
+        width: 100%;
+    }
+
+    #nome-usuario{
+        width: 70%;
+    }
+
+    .postagem h2{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 550px){
+    #container{
+        width: 65%;
     }
 }
