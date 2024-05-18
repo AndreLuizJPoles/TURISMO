@@ -84,34 +84,6 @@
     <script>$('#cep').mask('00000-000');</script>
     <script>$('#telefone').mask('(00) 00000-0000');</script>
 
-    <!-- Script Preview imagens-->
-    <script>
-        
-        const imagemPerfil = document.querySelector('#imagem-perfil');
-
-        imagemPerfil.addEventListener('change', async event => {
-
-            const reader = new FileReader;
-            reader.onload = function (event) {
-                const preview = document.querySelector('#preview-imagem');
-
-                if (preview) {
-                    preview.remove();
-                }
-
-                const previewImagem = document.createElement('img');
-                previewImagem.width = 100;
-                previewImagem.height = 100;
-                previewImagem.id = 'preview-imagem';
-                imagemPerfil.insertAdjacentElement('afterend', previewImagem);
-                previewImagem.src = event.target.result;
-            }
-            
-            reader.readAsDataURL(imagemPerfil.files[0]);
-            
-        })
-    </script>
-
     <script src="../Editar_Usuario/cep.js"></script>
     <script src="../Editar_Usuario/validacao.js"></script>
 
