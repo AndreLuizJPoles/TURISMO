@@ -101,68 +101,6 @@
     <script>$('#cnpj').mask('00.000.000/0000-00', { reverse: true });</script>
     <script>$('#cep').mask('00000-000');</script>
 </body>
-<script>
-    async function envia() {
-        const name = document.getElementById("nome").value;
-        const cnpj = document.getElementById("cnpj").value;
-        const categoria = document.getElementById("categoria").value;
-        const opening_time = document.getElementById("hora-abertura").value;
-        const closing_time = document.getElementById("hora-encerramento").value;
-        const open_on_monday = document.getElementById("segunda").value;
-        const open_on_tuesday = document.getElementById("terca").value;
-        const open_on_wednesday = document.getElementById("quarta").value;
-        const open_on_thursday = document.getElementById("quinta").value;
-        const open_on_friday = document.getElementById("sexta").value;
-        const open_on_saturday = document.getElementById("sabado").value;
-        const open_on_sunday = document.getElementById("domingo").value;
-        const zip_code = document.getElementById("cep").value;
-        const state = document.getElementById("uf").value;
-        const city = document.getElementById("cidade").value;
-        const neighborhood = document.getElementById("bairro").value;
-        const street = document.getElementById("rua").value;
-        const number = document.getElementById("numero").value;
-        const complement = document.getElementById("complemento").value;
-
-        const payload = {
-            name,
-            cnpj,
-            description: "",
-            picture_url: "",
-            background_picture_url: "",
-            category_id: "",
-            address: {
-                city,
-                street,
-                number,
-                neighborhood,
-                complement,
-                zip_code,
-                state,
-                country: "Brasil"
-            },
-            workingTime: {
-                open_on_sunday,
-                open_on_monday,
-                open_on_tuesday,
-                open_on_wednesday,
-                open_on_thursday,
-                open_on_friday,
-                open_on_saturday,
-                opening_time,
-                closing_time
-            }
-        }
-
-        try {
-            const response = await axios.post('http://localhost:3000/api/establishments', payload);
-            //window.location.replace('../Menu/menu.html');
-        } catch (error) {
-            const aux = error.response.data.message;
-            alert(aux);
-        }
-    }
-</script>
-
 <script src="../Cadastro_Estabelecimento/validacao.js"></script>
 <script src="../Cadastro_Estabelecimento/cep.js"></script>
 

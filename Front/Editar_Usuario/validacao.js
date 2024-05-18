@@ -124,8 +124,6 @@ async function salvar() {
           },
         }
       );
-
-      console.log("here2");
     } catch (error) {
       console.log(error);
     }
