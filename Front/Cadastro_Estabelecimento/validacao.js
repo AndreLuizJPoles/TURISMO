@@ -20,14 +20,7 @@ const complemento = document.getElementById("complemento");
 
 async function cadastrar() {
   if (validar()) {
-    const name = document.getElementById("nome").value;
-    const cnpj = document.getElementById("cnpj").value;
     const categoria = document.getElementById("categoria").value; //TODO: puxar da base todas categorias, renderizar numa tag select e pegar o id da categoria
-    const opening_time = document.getElementById("hora-abertura").value;
-    const closing_time = document.getElementById("hora-encerramento").value;
-    const zip_code = document.getElementById("cep").value;
-    const state = document.getElementById("uf").value;
-    const city = document.getElementById("cidade").value;
     const neighborhood = document.getElementById("bairro").value;
     const street = document.getElementById("rua").value;
     const number = document.getElementById("numero").value;
@@ -36,20 +29,25 @@ async function cadastrar() {
       {
         day_of_week_id:
           "5bd361e1-a5ec-4d26-8cba-0dc434a71fdc" /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
-        opening_time,
-        closing_time,
+        opening_time: horaAberto.value,
+        closing_time: horaFecha.value,
       },
     ]; //TODO: modelo de array pra armazenar os dias de funcionamento e seus horários
 
+    const contacts = {
+      emails: ["", "", ""], //TODO: pegar 3 emails do formulário
+      phone_numbers: ["", "", ""], //TODO: pegar 3 telefones do formulário
+    };
+
     const payload = {
-      name,
-      cnpj,
+      name: nomeEstab.value,
+      cnpj: cnpj.value,
       description: "aaas", //TODO: add campo descrição no formulário
       category_id: "050403a3-d1a8-4224-bec7-47da58b5f4b7", //TODO: informar o id da categoria escolhida pelo usuário
       address: "aa", //TODO: add campo address no formulário
-      city,
-      zip_code,
-      state,
+      city: cidade.value,
+      zip_code: cep.value,
+      state: uf.value,
       workingTime,
     };
 
@@ -61,6 +59,7 @@ async function cadastrar() {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }); //TODO: a criação já está funcionando da forma que eu deixei com alguns dados mockados, falta fazer as adaptações que mencionei
+
       //window.location.replace('../Menu/menu.html');
     } catch (error) {
       console.log(error);
