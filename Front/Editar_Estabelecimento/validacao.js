@@ -109,13 +109,13 @@ function validaHora() {
 
 async function salvar() { //TODO: já está funcionando
   if (validar()) {
-    const workingTime = [
+    const workingTime = [//TODO: modelo de array que vamos enviar, aqui vamos ter TODOS os dias da semana e seus horários
       {
-        day_of_week_id: "5bd361e1-a5ec-4d26-8cba-0dc434a71fdc",
+        day_of_week_id: "5bd361e1-a5ec-4d26-8cba-0dc434a71fdc", //TODO: pegar id que foi retornado da base na listagem
         opening_time: horaAberto.value,
         closing_time: horaFecha.value,
       },
-    ];
+    ]; 
 
     const contacts = {
       emails: [email1.value, email2.value, email3.value],
@@ -123,11 +123,11 @@ async function salvar() { //TODO: já está funcionando
     };
 
     const payload = {
-      id: "f02a4e34-a1eb-4fb2-99bc-e641ce671ba9",
+      id: "f02a4e34-a1eb-4fb2-99bc-e641ce671ba9", //TODO: pegar id que foi retornado da base na listagem
       name: nomeEstab.value,
       cnpj: cnpj.value,
       description: descricao.value,
-      category_id: "050403a3-d1a8-4224-bec7-47da58b5f4b7",
+      category_id: "050403a3-d1a8-4224-bec7-47da58b5f4b7", //TODO: pegar id que foi retornado da base na listagem
       city: cidade.value,
       address: "bbbbb",
       zip_code: cep.value,
@@ -143,8 +143,6 @@ async function salvar() { //TODO: já está funcionando
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-
-      console.log("aqui");
     } catch (error) {
       console.log(error);
     }

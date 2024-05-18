@@ -18,7 +18,7 @@
             <input type="password" id="senha" class="input" placeholder="Senha">
 
             <button id="login" class="botao" onclick="enviar()">Login</button>
-            
+
             <p id="link-cadastro">Não tem conta ainda? <a href="../Cadastro/cadastro.html">Cadastre-se aqui</a>
             </p>
         </div>
@@ -40,14 +40,19 @@
         try {
             const response = await axios.post(LOCAL_API_URL, payload);
             console.log(response);
-            if(response.status === 200){
+            if (response.status === 200) {
                 const data = response.data.data;
                 localStorage.setItem('token', data);
-                
+
                 window.location.replace('../Menu/menu.html');
             }
         } catch (error) {
-            const aux = error.response.data.message;
+            const errorMessage = error.response.data.message;
+
+            if (errorMessage === 'Ops! Ação não autorizada.') {
+                alert('Credenciais Inválidas.')
+            }
+
             alert(aux);
         }
     }

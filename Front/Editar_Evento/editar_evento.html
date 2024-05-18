@@ -83,60 +83,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 
-    <!-- Script Preview imagens-->
-    <script>
-        const imagemPlano = document.querySelector('#imagem-plano');
-
-        imagemPlano.addEventListener('change', event => {
-
-            const reader = new FileReader;
-            reader.onload = function (event) {
-                const previewPlano = document.querySelector('#preview-imagem-plano');
-
-                if (previewPlano) {
-                    previewPlano.remove();
-                }
-
-                const previewImagemPlano = document.createElement('img');
-                previewImagemPlano.width = 300;
-                previewImagemPlano.height = 100;
-                previewImagemPlano.id = 'preview-imagem-plano';
-                imagemPlano.insertAdjacentElement('afterend', previewImagemPlano);
-                previewImagemPlano.src = event.target.result;
-            }
-
-            reader.readAsDataURL(imagemPlano.files[0]);
-
-        })
-    </script>
-    <script>
-        const imagemPerfil = document.querySelector('#imagem-perfil');
-
-        imagemPerfil.addEventListener('change', event => {
-
-            const reader = new FileReader;
-            reader.onload = function (event) {
-                const preview = document.querySelector('#preview-imagem');
-
-                if (preview) {
-                    preview.remove();
-                }
-
-                const previewImagem = document.createElement('img');
-                previewImagem.width = 100;
-                previewImagem.height = 100;
-                previewImagem.id = 'preview-imagem';
-                imagemPerfil.insertAdjacentElement('afterend', previewImagem);
-                previewImagem.src = event.target.result;
-            }
-
-            reader.readAsDataURL(imagemPerfil.files[0]);
-
-        })
-    </script>
-
-
-<script src="../Editar_Evento/validacao.js"></script>
+    <script src="../Editar_Evento/validacao.js"></script>
 </body>
 
 </html>
