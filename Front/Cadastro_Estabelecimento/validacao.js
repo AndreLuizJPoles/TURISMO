@@ -17,6 +17,13 @@ const bairro = document.getElementById("bairro");
 const rua = document.getElementById("rua");
 const numero = document.getElementById("numero");
 const complemento = document.getElementById("complemento");
+const email1 = document.getElementById("email1");
+const email2 = document.getElementById("email2");
+const email3 = document.getElementById("email3");
+const telefone1 = document.getElementById("telefone1");
+const telefone2 = document.getElementById("telefone2");
+const telefone3 = document.getElementById("telefone3");
+const descricao = document.getElementById("descricao");
 
 async function cadastrar() {
   if (validar()) {
@@ -24,7 +31,7 @@ async function cadastrar() {
     const neighborhood = document.getElementById("bairro").value;
     const street = document.getElementById("rua").value;
     const number = document.getElementById("numero").value;
-    const complement = document.getElementById("complemento").value; //TODO: nao temos complemento na base
+    const adress = neighborhood + ', ' + street + ', ' + number;
     const workingTime = [
       {
         day_of_week_id:
@@ -35,16 +42,16 @@ async function cadastrar() {
     ]; //TODO: modelo de array pra armazenar os dias de funcionamento e seus horários
 
     const contacts = {
-      emails: ["", "", ""], //TODO: pegar 3 emails do formulário
-      phone_numbers: ["", "", ""], //TODO: pegar 3 telefones do formulário
+      emails: [email1.value, email2.value, email3.value],
+      phone_numbers: [telefone1.value, telefone2.value, telefone3.value],
     };
 
     const payload = {
       name: nomeEstab.value,
       cnpj: cnpj.value,
-      description: "aaas", //TODO: add campo descrição no formulário
+      description: descricao.value,
       category_id: "050403a3-d1a8-4224-bec7-47da58b5f4b7", //TODO: informar o id da categoria escolhida pelo usuário
-      address: "aa", //TODO: add campo address no formulário
+      address: adress,
       city: cidade.value,
       zip_code: cep.value,
       state: uf.value,

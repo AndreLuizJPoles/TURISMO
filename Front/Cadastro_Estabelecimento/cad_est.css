@@ -117,6 +117,18 @@ label{
     width: 20rem;
 }
 
+#descricao{
+    width: 80%;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    border: 0;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    min-height: 50px;
+    padding-left: 5px;
+}
+
 @media screen and (max-width: 660px) {
     .box .fundo {
         width: 100%;

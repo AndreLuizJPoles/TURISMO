@@ -10,8 +10,6 @@ const cidade = document.getElementById("cidade");
 const bairro = document.getElementById("bairro");
 const rua = document.getElementById("rua");
 const numero = document.getElementById("numero");
-const complemento = document.getElementById("complemento"); //TODO: nao temos complemento na base
-//TODO: na base temos apenas os campos address, zip_code, city e state
 
 function verificaVazio() {
   return nome.value == "" || email.value == "" || datNasc.value == "";
@@ -85,6 +83,7 @@ async function validar() {
 /*TODO: está dando erro na hora de enviar os dados pois ainda nao temos a funcionalidade de preencher os campos
 com os dados da base, mas se preenchermos tudo na mao ele funciona */
 async function salvar() {
+  console.log(localStorage.token);
   if (validar()) {
     const LOCAL_API_URL = "http://localhost:3000/api/users";
 
@@ -100,8 +99,8 @@ async function salvar() {
       const bairroValue = bairro.value;
       const ruaValue = rua.value;
       const numeroValue = numero.value;
-      const complementoValue = complemento.value;
       const generoValue = genero.value;
+      const adress = bairroValue+ ', ' + ruaValue + ', ' + numeroValue;
 
       const response = await axios.put(
         LOCAL_API_URL,
@@ -112,7 +111,7 @@ async function salvar() {
           cpf: cpfValue,
           phone_number: telefoneValue,
           birthdate: datNascValue,
-          address: "", // TODO: add campo address no form
+          address: adress,
           zip_code: cepValue,
           city: cidadeValue,
           state: ufValue,

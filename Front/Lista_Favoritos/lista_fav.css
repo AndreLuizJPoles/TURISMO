@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
+
+body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: rgba(5, 103, 159, 1);
+    width: 100%;
+    height: 5rem;
+    border: 0 none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    z-index: 10;
+}
+
+#icone-menu {
+    height: 2rem;
+    margin: 1.5rem;
+    cursor: pointer;
+}
+
+input:focus-visible {
+    outline: none;
+}
+
+#grupo-pesquisa {
+    display: flex;
+    background-color: white;
+    height: 2rem;
+    width: 25rem;
+    border-radius: 20px;
+    background-color: white;
+    border: 0 none;
+    margin: 1.5rem;
+    margin-left: 3rem;
+    padding-left: 1rem;
+}
+
+#barra-pesquisa {
+    width: 90%;
+    border: none;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+#lupa {
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    margin-top: 0.2rem;
+}
+
+#perfil-usuario{
+    clip-path: circle(50%);
+    height: 75%;
+    position: absolute;
+    margin: 0.5rem;
+    margin-right: 1rem;
+    right: 0;
+}
+
+button{
+    margin-top: 10rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#grade{
+    margin-top: 8rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.link{
+    text-decoration: none;
+    color: black;
+}
+
+.bloco{
+    margin-right: 2rem;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+    height: 15rem;
+    width: 20rem;
+    border: 1px black solid;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    flex-wrap: wrap;
+}
+
+.imagem{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.inferior{
+    background-color: white;
+    width: 100%;
+    height: 45%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    margin-top: -7.125rem;
+}
+#nome{
+    font-weight: bolder;
+    margin-left: 1rem;
+    left: 0;
+    top: 0;
+    width: 74%;
+    margin-bottom: 0;
+}
+
+#status{
+    color: rgba(5, 103, 159, 1);
+    font-weight: bolder;
+    width: 40%;
+    margin-left: 1rem;
+    margin-top: 0rem;
+}
+
+#conjunto-nota{
+    width: 20%;
+    bottom: 2rem;
+    display: flex;
+    text-align: center;
+    right: 0;
+    margin-right: 0.1rem;
+}
+
+.icone{
+    width: 50%;
+    height: 45%;
+    margin-top: 1rem;
+}
+
+#nota{
+    font-weight: bolder;
+}
+
+.nav{
+    height: 90%;
+    width: 50%;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    position: absolute;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    transform: translateX(-101%);
+    top: 5rem;
+    left: 0;
+    text-align: center;
+    transition: transform 0.3s ease;
+    overflow-y: scroll;
+}
+
+.nav.active{
+    transform: translateX(0%);
+}
+
+#editar{
+    background-color: white;
+    color: black;
+    border: 1px black solid;
+}
+
+.botao {
+    width: 30%;
+    height: 3rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: 5px 5px 5px rgb(149, 149, 149);
+    border: 0;
+    font-weight: 700;
+    background-color: #05679F;
+    color: white;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    text-decoration: none;
+}
+
+.botao:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+#informacoes{
+    text-align: center;
+}
+
+#foto-perfil{
+    margin-top: 2rem;
+    border-radius: 100%;
+    width: 12rem;
+}
+
+#nome, #nome-usuario{
+    font-weight: 900;
+}
+
+#id{
+    color: #05679F;
+}
+
+#editar{
+    justify-content: safe;
+}
+
+a p{
+    padding: 1rem;
+    font-weight: bolder;
+}
+
+#end-texto{
+    padding: 0;
+}
+
+.icon{
+    height: 50%;
+}
+
+#icone-estab{
+    margin-left: 0.5rem;
+}
+
+#endereco{
+    background-color: white;
+    color: black;
+    border: 1px black solid;
+    width: 50%;
+}
+
+#novo-evento{
+    margin-top: 7rem;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25rem;
+}
+
+@media screen and (max-width: 660px){
+    #grupo-pesquisa {
+        width: 20rem;
+        margin-left: 0;
+    }
+
+    #perfil-usuario{
+        display: none;
+    }
+
+    .nav{
+        width: 100%;
+    }
+
+    .botao{
+        width: 50%;
+    }
+}

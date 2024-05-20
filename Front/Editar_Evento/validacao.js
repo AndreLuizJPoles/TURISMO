@@ -1,6 +1,6 @@
 const nome = document.getElementById("nome");
 const estabelecimento = document.getElementById("estabelecimento");
-// const pontoTuristico = document.getElementById("pontoTuristico");
+const pontoTuristico = document.getElementById("pontoTuristico");
 const descricao = document.getElementById("descricao");
 const dataInicio = document.getElementById("data-inicio");
 const dataFim = document.getElementById("data-fim");

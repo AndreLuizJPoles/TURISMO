@@ -17,7 +17,6 @@ const cidade = document.getElementById("cidade");
 const bairro = document.getElementById("bairro");
 const rua = document.getElementById("rua");
 const numero = document.getElementById("numero");
-const complemento = document.getElementById("complemento");
 const telefone1 = document.getElementById("telefone1");
 const telefone2 = document.getElementById("telefone2");
 const telefone3 = document.getElementById("telefone3");
