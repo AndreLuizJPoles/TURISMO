@@ -158,7 +158,7 @@ async function salvar() {
         }
       );
 
-      const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${ID}/upload/profile_picture`;
+      /* const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${ID}/upload/profile_picture`;
 
       const imagemRequest = await axios.put(
         LOCAL_API_URL_IMAGE,
@@ -170,7 +170,7 @@ async function salvar() {
             authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
-      );
+      ); */
 
       alert('Edição concluída!');
       window.location.replace('../Menu/menu.html');
