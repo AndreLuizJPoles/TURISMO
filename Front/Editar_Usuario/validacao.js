@@ -3,13 +3,38 @@ const email = document.getElementById("email");
 const cpf = document.getElementById("cpf");
 const telefone = document.getElementById("telefone");
 const datNasc = document.getElementById("data-nasc");
-const genero = document.getElementsByName("genero");
 const cep = document.getElementById("cep");
 const uf = document.getElementById("uf");
 const cidade = document.getElementById("cidade");
 const bairro = document.getElementById("bairro");
 const rua = document.getElementById("rua");
 const numero = document.getElementById("numero");
+const masc = document.getElementById('masc');
+const fem = document.getElementById('fem');
+const other = document.getElementById('outro');
+let genero = 'other';
+
+const imagemPerfil = document.querySelector("#imagem-perfil");
+
+imagemPerfil.addEventListener("change", async (event) => {
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    const preview = document.querySelector("#preview-imagem");
+
+    if (preview) {
+      preview.remove();
+    }
+
+    const previewImagem = document.createElement("img");
+    previewImagem.width = 100;
+    previewImagem.height = 100;
+    previewImagem.id = "preview-imagem";
+    imagemPerfil.insertAdjacentElement("afterend", previewImagem);
+    previewImagem.src = event.target.result;
+  };
+
+  reader.readAsDataURL(imagemPerfil.files[0]);
+});
 
 function verificaVazio() {
   return nome.value == "" || email.value == "" || datNasc.value == "";
@@ -80,14 +105,18 @@ async function validar() {
   }
 }
 
-/*TODO: está dando erro na hora de enviar os dados pois ainda nao temos a funcionalidade de preencher os campos
-com os dados da base, mas se preenchermos tudo na mao ele funciona */
 async function salvar() {
-  console.log(localStorage.token);
+
   if (validar()) {
     const LOCAL_API_URL = "http://localhost:3000/api/users";
 
     try {
+      if (masc.checked) {
+        genero = 'male';
+      } else if (fem.checked) {
+        genero = 'female';
+      } 
+
       const nomeValue = nome.value;
       const emailValue = email.value;
       const cpfValue = cpf.value;
@@ -99,13 +128,18 @@ async function salvar() {
       const bairroValue = bairro.value;
       const ruaValue = rua.value;
       const numeroValue = numero.value;
-      const generoValue = genero.value;
-      const adress = bairroValue+ ', ' + ruaValue + ', ' + numeroValue;
+      const generoValue = genero;
+      const adress = bairroValue + ', ' + ruaValue + ', ' + numeroValue;
+      const ID = await pegaID();
+      const imagemPerfilValue = document.getElementById("imagem-perfil");
+      const file = imagemPerfilValue.files[0];
+
+      console.log(file);
 
       const response = await axios.put(
         LOCAL_API_URL,
         {
-          id: "2009e6e6-17c1-4002-97ea-ac4c028debfe", //TODO: trocar para pegar o id do cara logado
+          id: ID,
           name: nomeValue,
           gender: generoValue,
           cpf: cpfValue,
@@ -123,30 +157,99 @@ async function salvar() {
           },
         }
       );
+
+      const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${ID}/upload/profile_picture`;
+
+      const imagemRequest = await axios.put(
+        LOCAL_API_URL_IMAGE,
+        {
+          picture_url: file,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      alert('Edição concluída!');
+      window.location.replace('../Menu/menu.html');
+
     } catch (error) {
       console.log(error);
     }
   }
 }
 
-const imagemPerfil = document.querySelector("#imagem-perfil");
+window.onload = async function () {
+  const ID = await pegaID();
+  const LOCAL_API_URL = `http://localhost:3000/api/users/${ID}`;
 
-imagemPerfil.addEventListener("change", async (event) => {
-  const reader = new FileReader();
-  reader.onload = function (event) {
-    const preview = document.querySelector("#preview-imagem");
+  try {
 
-    if (preview) {
-      preview.remove();
+    console.log(LOCAL_API_URL);
+
+    const response = await axios.get(
+      LOCAL_API_URL,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    console.log(response);
+
+    nome.value = response.data.data.name;
+    email.value = response.data.data.email;
+    cpf.value = response.data.data.cpf;
+    telefone.value = response.data.data.phone_number;
+    cep.value = response.data.data.zip_code;
+    uf.value = response.data.data.state;
+    cidade.value = response.data.data.city;
+
+    const dataAux = new Date(response.data.data.birthdate);
+    const dia = dataAux.getUTCDate();
+    const mes = "" + dataAux.getUTCMonth() + 1;
+    const ano = dataAux.getFullYear();
+
+    datNasc.value = `${ano}-${mes}-${dia}`;
+
+    if (response.data.data.gender === 'male') {
+      masc.checked = true;
+    } else if (response.data.data.gender === 'female') {
+      fem.checked = true;
+    } else {
+      other.checked = true;
     }
 
-    const previewImagem = document.createElement("img");
-    previewImagem.width = 100;
-    previewImagem.height = 100;
-    previewImagem.id = "preview-imagem";
-    imagemPerfil.insertAdjacentElement("afterend", previewImagem);
-    previewImagem.src = event.target.result;
-  };
+    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(', ');
 
-  reader.readAsDataURL(imagemPerfil.files[0]);
-});
+    bairro.value = bairroAux;
+    rua.value = ruaAux;
+    numero.value = numAux;
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function pegaID() {
+  const LOCAL_API_URL = 'http://localhost:3000/api/users/loggedUser';
+  try {
+
+    const response = await axios.get(
+      LOCAL_API_URL,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    return response.data.data;
+
+  } catch (error) {
+    console.log(error);
+  }
+}
