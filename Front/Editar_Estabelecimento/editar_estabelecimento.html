@@ -25,14 +25,9 @@
                 <input type="text" id="nome" class="input" placeholder="Nome do Estabelecimento *" required>
                 <input type="text" id="cnpj" class="input" placeholder="CNPJ *" required>
 
-                <input list="categorias" id="categoria" class="input" placeholder="Categoria *">
-                <datalist id="categorias">
-                    <option value="Loja">
-                    <option value="Restaurante">
-                    <option value="Cinema">
-                    <option value="Academia">
-                    <option value="Shopping">
-                </datalist>
+                <select id="categorias" class="input" required>
+                    <option value="">Selecione uma categoria</option>
+                </select>
 
                 <textarea id="descricao" cols="30" rows="10" style="resize: none;"
                     placeholder="Descrição do Estabelecimento"></textarea>

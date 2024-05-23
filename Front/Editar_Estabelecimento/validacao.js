@@ -1,6 +1,6 @@
 const nomeEstab = document.getElementById("nome");
 const cnpj = document.getElementById("cnpj");
-const categoria = document.getElementById("categoria");
+const categoria = document.getElementById("categorias");
 const descricao = document.getElementById("descricao");
 const horaAberto = document.getElementById("hora-abertura");
 const horaFecha = document.getElementById("hora-encerramento");
@@ -141,12 +141,11 @@ async function salvar() {
     };
 
     const payload = {
-      id: "f02a4e34-a1eb-4fb2-99bc-e641ce671ba9", //TODO: pegar id que foi retornado da base na listagem
+      id: localStorage.getItem("idEstab"), 
       name: nomeEstab.value,
       cnpj: cnpj.value,
       description: descricao.value,
-      category_id: "050403a3-d1a8-4224-bec7-47da58b5f4b7", //TODO: pegar id que foi retornado da base na listagem
-      city: cidade.value,
+      category_id: categoria.value,
       address: bairro.value + ', ' + rua.value + ', ' + numero.value,
       zip_code: cep.value,
       state: uf.value,
@@ -211,3 +210,70 @@ imagemPerfil.addEventListener("change", (event) => {
   reader.readAsDataURL(imagemPerfil.files[0]);
 });
 
+window.onload = async function () {
+  const LOCAL_API_URL_CAT = `http://localhost:3000/api/establishmentCategories`;
+
+  try {
+
+    console.log(LOCAL_API_URL_CAT);
+
+    const response = await axios.get(
+      LOCAL_API_URL_CAT,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const dataList = document.getElementById("categorias");
+
+    response.data.data.forEach(option => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option.id;
+      optionElement.textContent = option.name;
+      dataList.appendChild(optionElement);
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+
+  const idEstab = localStorage.getItem("idEstab");
+  const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
+
+  try {
+
+    console.log(LOCAL_API_URL);
+
+    const response = await axios.get(
+      LOCAL_API_URL,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    console.log(response);
+
+    nome.value = response.data.data.name;
+    cnpj.value = response.data.data.cnpj;
+    categorias.value = response.data.data.category_id;
+    descricao.value = response.data.data.description;
+
+
+    cep.value = response.data.data.zip_code;
+    uf.value = response.data.data.state;
+    cidade.value = response.data.data.city;
+
+    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(', ');
+
+    bairro.value = bairroAux;
+    rua.value = ruaAux;
+    numero.value = numAux;
+
+  } catch (error) {
+    console.log(error);
+  }
+}
