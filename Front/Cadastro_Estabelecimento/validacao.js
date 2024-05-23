@@ -1,6 +1,6 @@
 const nomeEstab = document.getElementById("nome");
 const cnpj = document.getElementById("cnpj");
-const categoria = document.getElementById("categoria");
+const categoria = document.getElementById("categorias");
 const horaAberto = document.getElementById("hora-abertura");
 const horaFecha = document.getElementById("hora-encerramento");
 const segunda = document.getElementById("segunda");
@@ -27,7 +27,7 @@ const descricao = document.getElementById("descricao");
 
 async function cadastrar() {
   if (validar()) {
-    const categoria = document.getElementById("categoria").value; //TODO: puxar da base todas categorias, renderizar numa tag select e pegar o id da categoria
+    const category = document.getElementById("categorias"); 
     const neighborhood = document.getElementById("bairro").value;
     const street = document.getElementById("rua").value;
     const number = document.getElementById("numero").value;
@@ -41,6 +41,25 @@ async function cadastrar() {
       },
     ]; //TODO: modelo de array pra armazenar os dias de funcionamento e seus horários
 
+    if(email1.value == ''){
+      email1.value = 'sememail@email.com';
+    }
+    if(email2.value == ''){
+      email2.value = 'sememail@email.com';
+    }
+    if(email3.value == ''){
+      email3.value = 'sememail@email.com';
+    }
+    if(telefone1.value == ''){
+      telefone1.value = '0';
+    }
+    if(telefone2.value == ''){
+      telefone2.value = '0';
+    }
+    if(telefone3.value == ''){
+      telefone3.value = '0';
+    }
+
     const contacts = {
       emails: [email1.value, email2.value, email3.value],
       phone_numbers: [telefone1.value, telefone2.value, telefone3.value],
@@ -50,13 +69,15 @@ async function cadastrar() {
       name: nomeEstab.value,
       cnpj: cnpj.value,
       description: descricao.value,
-      category_id: "050403a3-d1a8-4224-bec7-47da58b5f4b7", //TODO: informar o id da categoria escolhida pelo usuário
+      category_id: category.value, 
       address: adress,
       city: cidade.value,
       zip_code: cep.value,
       state: uf.value,
       workingTime,
+      contacts
     };
+
 
     try {
       const LOCAL_API_URL = "http://localhost:3000/api/establishments";
@@ -67,6 +88,7 @@ async function cadastrar() {
         },
       }); //TODO: a criação já está funcionando da forma que eu deixei com alguns dados mockados, falta fazer as adaptações que mencionei
 
+      alert('Estabelecimento Cadastrado!');
       //window.location.replace('../Menu/menu.html');
     } catch (error) {
       console.log(error);
@@ -156,4 +178,34 @@ function validaCNPJ() {
 
 function validaHora() {
   return horaFecha.value <= horaAberto.value;
+}
+
+window.onload = async function () {
+  const LOCAL_API_URL = `http://localhost:3000/api/establishmentCategories`;
+
+  try {
+
+    console.log(LOCAL_API_URL);
+
+    const response = await axios.get(
+      LOCAL_API_URL,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const dataList = document.getElementById("categorias");
+
+    response.data.data.forEach(option => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option.id;
+      optionElement.textContent = option.name;
+      dataList.appendChild(optionElement);
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
 }
