@@ -106,7 +106,7 @@ function validaHora() {
   return horaFecha.value <= horaAberto.value;
 }
 
-async function salvar() { //TODO: já está funcionando
+async function salvar() { 
   if (validar()) {
     const workingTime = [//TODO: modelo de array que vamos enviar, aqui vamos ter TODOS os dias da semana e seus horários
       {
@@ -115,6 +115,25 @@ async function salvar() { //TODO: já está funcionando
         closing_time: horaFecha.value,
       },
     ]; 
+
+    if(email1.value == ''){
+      email1.value = 'sememail@email.com';
+    }
+    if(email2.value == ''){
+      email2.value = 'sememail@email.com';
+    }
+    if(email3.value == ''){
+      email3.value = 'sememail@email.com';
+    }
+    if(telefone1.value == ''){
+      telefone1.value = '0';
+    }
+    if(telefone2.value == ''){
+      telefone2.value = '0';
+    }
+    if(telefone3.value == ''){
+      telefone3.value = '0';
+    }
 
     const contacts = {
       emails: [email1.value, email2.value, email3.value],
@@ -128,7 +147,7 @@ async function salvar() { //TODO: já está funcionando
       description: descricao.value,
       category_id: "050403a3-d1a8-4224-bec7-47da58b5f4b7", //TODO: pegar id que foi retornado da base na listagem
       city: cidade.value,
-      address: "bbbbb",
+      address: bairro.value + ', ' + rua.value + ', ' + numero.value,
       zip_code: cep.value,
       state: uf.value,
       workingTime,
@@ -191,3 +210,4 @@ imagemPerfil.addEventListener("change", (event) => {
 
   reader.readAsDataURL(imagemPerfil.files[0]);
 });
+

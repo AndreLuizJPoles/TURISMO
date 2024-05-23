@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meus Estabelecimentos</title>
     <link rel="stylesheet" href="lista_estab.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -32,23 +33,10 @@
 
     <a href="../Cadastro_Estabelecimento/cadastro_estabelecimento.html" class="botao" id="novo-estab">Novo Estabelecimento</a>
 
-    <div id="grade">
-        <a href="../Editar_Estabelecimento/editar_estabelecimento.html" class="link">
-            <div class="bloco">
-                <img src="../images/baffs.png" id="foto" class="imagem">
-                <div class="inferior">
-                    <h2 id="nome">Baffs</h2>
-                    <div id="conjunto-nota">
-                        <img src="../images/onibus.png" class="icone">
-                        <h3 id="nota">5.0</h3>
-                    </div>
-                    <h3 id="status">Aberto</h3>
-                </div>
-            </div>
-        </a>
-    </div>
+    <div id="grade"></div>
 
     <script src="../navbar.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
