@@ -20,7 +20,7 @@
                 <p id="texto">Todos os campos com * são obrigatórios</p>
             </label>
 
-            <input type="text" class="input" placeholder="Título da Postagem *" required>
+            <input type="text" id="titulo" class="input" placeholder="Título da Postagem *" required>
             <textarea id="descricao" class="input" placeholder="Descrição da Postagem *" cols="30" rows="10" style="resize: none;" required></textarea>
 
             <div class="caixa">
@@ -38,36 +38,8 @@
         </div>
     </div>
 
-    <!-- Script Preview imagens-->
-    <script>
-        const imagem1 = document.querySelector('#imagem1');
-
-        imagem1.addEventListener('change', event => {
-
-            const reader = new FileReader;
-            reader.onload = function (event) {
-                const preview1 = document.querySelector('#preview-imagem1');
-
-                if (preview1) {
-                    preview1.remove();
-                }
-
-                const previewImagem1 = document.createElement('img');
-                previewImagem1.width = 200;
-                previewImagem1.height = 200;
-                previewImagem1.id = 'preview-imagem1';
-                imagem1.insertAdjacentElement('afterend', previewImagem1);
-                previewImagem1.src = event.target.result;
-            }
-
-            reader.readAsDataURL(imagem1.files[0]);
-
-        })
-    </script>
+    <script src="script.js"></script>
 
 </body>
-
-<script src="../Cadastro_Ponto_Turistico/validacao.js"></script>
-<script src="../Cadastro_Ponto_Turistico/cep.js"></script>
 
 </html>

@@ -276,7 +276,7 @@ async function excluir() { //TODO: deleção não funciona
 
     console.log(response);
 
-    //window.location.replace('../Login/login.html');
+    window.location.replace('../Login/login.html');
 
   } catch (error) {
     console.log(error);
