@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="titulo-pagina">NOME DO ESTABELECIMENTO </title>
+    <link rel="stylesheet" href="perfil_evento_postagens.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body id="tela-pefil-estab">
+    <div class="box" id="box-perfil-est">
+        <header>
+            <img src="../Menu/imgs/menu.png" id="icone-menu" onclick="nav()">
+            <a href="../Perfil_Usuario/perfil_usuario.html"><img src="../images/foto_padrao.png"
+                    id="perfil-usuario"></a>
+        </header>
+
+        <div id="nav" class="nav">
+            <div id="informacoes">
+                <img src="../images/foto_padrao.png" id="foto-perfil">
+                <h2 id="nome-usuario">Nome Usuário</h2>
+            </div>
+
+            <a href="../Editar_Usuario/editar_usuario.html" id="editar" class="botao"> <img
+                    src="../Perfil_Usuario/imgs/editar.png" id="icone-edita" class="icon">
+                <p id="texto-editar">Editar Usuário</p>
+            </a>
+            <a href="../Editar_Usuario/editar_usuario.html" id="endereco" class="botao"> <img
+                    src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon">
+                <p id="end-texto">Al. Francisco Alves, 162. Nova Tatuí.</p>
+            </a>
+
+            <a href="" class="botao" id="favoritos"><img src="../Perfil_Usuario/imgs/coracao.png" id="icone-favoritos"
+                    class="icon">
+                <p id="texto-favoritos">Favoritos</p>
+            </a>
+            <a href="../Lista_Estabelecimentos/lista_estab.html" class="botao" id="meus-estab"><img
+                    src="../Perfil_Usuario/imgs/estabelecimento.png" id="icone-estab" class="icon">
+                <p id="texto-estab">Meus Estabelecimentos</p>
+            </a>
+            <a href="../Lista_Eventos/lista_evento.html" class="botao" id="meus-eventos"><img
+                    src="../Perfil_Usuario/imgs/evento.png" id="icone-evento" class="icon">
+                <p id="texto-evento">Meus Eventos</p>
+            </a>
+            <a href="" class="botao" id="config"><img src="../Perfil_Usuario/imgs/config.png" id="icone-config"
+                    class="icon">
+                <p id="texto-config">Configurações</p>
+            </a>
+        </div>
+
+        <div class="fundo" id="fundo-perfil-est">
+            <div id="cab-perfil">
+                <a href="../Menu/menu.html" id="voltar" class="botao">Voltar</a>
+                <img src="../images/baffs.png" id="plano-fundo">
+                <div id="box-informacoes">
+                    <img src="../images/baffs_foto.png" id="perfil-foto">
+                    <div id="inf">
+                        <h2 id="nome">Nome do Estabelecimento</h2>
+                        <div id="box-nota">
+                            <img id="onibus-icon" src="../images/onibus.png">
+                            <h2>5.0</h2>
+                        </div>
+                        <img src="../images/coracao.png" id="coracao">
+                        <h2 id="status">Aberto</h2>
+                        <h2 id="horario">Das 7:00 às 18:00</h2>
+                        <h2 id="data"> De 15/01/2024 a 20/01/2024</h2>
+                    </div>
+                    <div id="desc">
+                        <p> O Palácio do Sorvete é uma sorveteria típica que encanta os moradores e visitantes com suas
+                            delícias geladas. Localizada em uma charmosa esquina da cidade, esta sorveteria é conhecida
+                            por sua atmosfera acolhedora e pela variedade de sabores artesanais que oferece. Desde os
+                            clássicos como baunilha e chocolate até os mais exóticos como maracujá com gengibre, há
+                            opções para todos os gostos.</p>
+                    </div>
+                </div>
+                <h3 id="enderecoText">Endereço: Alameda Francisco Alves, 162, Nova Tatuí. 18278-370.</h3>
+            </div>
+
+            <a href="../Editar_Estabelecimento/editar_estabelecimento.html" class="botao" id="editar-est">Editar Estabelecimento</a>
+
+            <div id="container">
+                <a href="" class="link" id="postagens">Postagens</p>
+                    <a href="./perfil_evento_comentarios.html" class="link" id="comentarios">Comentários</a>
+            </div>
+
+            <a href="../Cadastro_Postagem/cad_postagem.html" class="botao" id="nova-postagem">Nova Postagem</a>
+
+            <div class="postagem">
+                <h2 id="titulo-postagem">Aniversário de 50 Anos</h2>
+                <a href="../Editar_Postagem/editar_postagem.html"><img src="../images/editar.png" class="icone-editar"></a>
+                <p id="texto-postagem">
+                    O aniversário de 50 anos da Lanchonete Baffs marca meio século de deliciosas refeições e momentos
+                    compartilhados. Desde sua inauguração, a Baffs tem sido um ponto de encontro querido pela
+                    comunidade, onde amigos se reúnem para desfrutar de hambúrgueres suculentos, batatas fritas
+                    crocantes e milkshakes cremosos. Ao longo dos anos, tornou-se um símbolo de conforto e
+                    familiaridade, onde clientes regulares são tratados como parte da família Baffs.
+                    
+                </p>
+                <div id="box-img-post">
+                    <img src="../images/baffs_foto.png" class="img-postagem">
+                </div>
+            </div>
+
+            <div class="postagem">
+                <h2 id="titulo-postagem">Aniversário de 50 Anos</h2>
+                <a href="../Editar_Postagem/editar_postagem.html"><img src="../images/editar.png" class="icone-editar"></a>
+                <p id="texto-postagem">
+                    O aniversário de 50 anos da Lanchonete Baffs marca meio século de deliciosas refeições e momentos
+                    compartilhados. Desde sua inauguração, a Baffs tem sido um ponto de encontro querido pela
+                    comunidade, onde amigos se reúnem para desfrutar de hambúrgueres suculentos, batatas fritas
+                    crocantes e milkshakes cremosos. Ao longo dos anos, tornou-se um símbolo de conforto e
+                    familiaridade, onde clientes regulares são tratados como parte da família Baffs.
+                    
+                </p>
+                <div id="box-img-post">
+                    <img src="../images/baffs_foto.png" class="img-postagem">
+                </div>
+            </div>
+
+            <p>Não há mais postagens!</p>
+            <br><br><br>
+        </div>
+    </div>
+
+    <script src="../navbar.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
