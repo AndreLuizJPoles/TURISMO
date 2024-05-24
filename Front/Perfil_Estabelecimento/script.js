@@ -83,12 +83,31 @@ window.onload = async function () {
             if (post.establishment_id == localStorage.getItem('idAtracao')) {
                 const postagem = document.createElement('div');
                 postagem.classList.add('postagem');
-                postagem.innerHTML = `<h2 id="titulo-postagem">${post.name}</h2>
-            <a href="../Editar_Postagem/editar_postagem.html"><img src="../images/editar.png" class="icone-editar"></a>
-            <p id="texto-postagem">${post.description}</p>
-            <div id="box-img-post">
-                <img src="../images/baffs.png" class="img-postagem">
-            </div>`;
+                const titulo = document.createElement('h2');
+                titulo.id = 'titulo-postagem'
+                titulo.innerHTML = post.name;
+                postagem.appendChild(titulo);
+                const a = document.createElement('a');
+                const img = document.createElement('img');
+                img.src = "../images/editar.png";
+                img.classList.add("icone-editar");
+                a.appendChild(img);
+                a.onclick = function () {
+                    localStorage.setItem('idPost', post.id);
+                    window.location.replace('../Editar_Postagem/editar_postagem.html');
+                }
+                postagem.appendChild(a);
+                const texto = document.createElement('p');
+                texto.id = 'texto-postagem';
+                texto.innerHTML = post.description;
+                postagem.appendChild(texto);
+                const divImg = document.createElement('div');
+                divImg.id = "box-img-post";
+                const imgPost = document.createElement('img');
+                imgPost.src = "../images/baffs.png"; //TODO: Mockado
+                imgPost.classList.add("img-postagem");
+                divImg.appendChild(imgPost);
+                postagem.appendChild(divImg);
                 fundo.appendChild(postagem);
             }
         });
