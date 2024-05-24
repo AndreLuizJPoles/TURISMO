@@ -372,7 +372,7 @@ a p{
     height: 2.5rem;
 }
 
-@media screen and (max-width: 990px){
+@media screen and (max-width: 1100px){
     #perfil-usuario{
         display: none;
     }

@@ -3,7 +3,7 @@ const endereco = document.getElementById('endereco');
 
 window.onload = async function () {
   const ID = await pegaID();
-  const LOCAL_API_URL = `http://localhost:3000/api/events`;
+  const LOCAL_API_URL = `http://localhost:3000/api/attractions`;
 
   const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
 
@@ -45,7 +45,6 @@ window.onload = async function () {
     console.log(response);
 
     response.data.data.forEach(evento => {
-      //if (evento.user_id === ID) {
         let imagem;
         if (evento.picture_url === null) {
           imagem = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHyPvzYv6YnUrZvvGrZMpXdYANau0x7c4nNtSOmQpniA&s';
@@ -86,12 +85,11 @@ window.onload = async function () {
         const grade = document.getElementById('grade');
 
         bloco.onclick = function () {
-          localStorage.setItem('idEvento', evento.id);
-          window.location.replace('../Perfil_Evento/perfil_evento_postagens.html');
+          localStorage.setItem('idPonto', evento.id);
+          window.location.replace('../Perfil_Ponto/perfil_ponto.html');
         }
 
         grade.appendChild(bloco);
-      //}
     });
 
   } catch (error) {
