@@ -1,5 +1,6 @@
 const nome = document.getElementById("nome");
 const estabelecimento = document.getElementById("estabelecimento");
+const ponto = document.getElementById("ponto");
 const pontoTuristico = document.getElementById("ponto");
 const descricao = document.getElementById("descricao");
 const dataInicio = document.getElementById("data-inicio");
@@ -200,4 +201,12 @@ async function pegaID() {
   } catch (error) {
       console.log(error);
   }
+}
+
+function tiraPonto(){
+  ponto.value = '';
+}
+
+function tiraEst(){
+  estabelecimento.value = '';
 }

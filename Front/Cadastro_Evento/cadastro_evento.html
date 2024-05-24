@@ -25,10 +25,10 @@
             <div id="inf-gerais" class="inf">
                 <input type="text" id="nome" class="input" placeholder="Nome do Evento *" required>
 
-                    <select id="estabelecimento" class="input" required>
+                    <select id="estabelecimento" class="input" onchange="tiraPonto()" required>
                         <option value="">Selecione um estabelecimento</option>
                     </select>
-                    <select id="ponto" class="input" required>
+                    <select id="ponto" class="input" onchange="tiraEst()" required>
                         <option value="">Selecione um ponto turístico</option>
                     </select>
 
