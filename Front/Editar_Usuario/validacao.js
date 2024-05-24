@@ -9,10 +9,10 @@ const cidade = document.getElementById("cidade");
 const bairro = document.getElementById("bairro");
 const rua = document.getElementById("rua");
 const numero = document.getElementById("numero");
-const masc = document.getElementById('masc');
-const fem = document.getElementById('fem');
-const other = document.getElementById('outro');
-let genero = 'other';
+const masc = document.getElementById("masc");
+const fem = document.getElementById("fem");
+const other = document.getElementById("outro");
+let genero = "other";
 
 const imagemPerfil = document.querySelector("#imagem-perfil");
 
@@ -106,15 +106,14 @@ async function validar() {
 }
 
 async function salvar() {
-
   if (validar()) {
     const LOCAL_API_URL = "http://localhost:3000/api/users";
 
     try {
       if (masc.checked) {
-        genero = 'male';
+        genero = "male";
       } else if (fem.checked) {
-        genero = 'female';
+        genero = "female";
       }
 
       const nomeValue = nome.value;
@@ -129,7 +128,7 @@ async function salvar() {
       const ruaValue = rua.value;
       const numeroValue = numero.value;
       const generoValue = genero;
-      const adress = bairroValue + ', ' + ruaValue + ', ' + numeroValue;
+      const adress = bairroValue + ", " + ruaValue + ", " + numeroValue;
       const ID = await pegaID();
       const imagemPerfilValue = document.getElementById("imagem-perfil");
       const file = imagemPerfilValue.files[0];
@@ -172,9 +171,8 @@ async function salvar() {
         }
       ); */
 
-      alert('Edição concluída!');
-      window.location.replace('../Menu/menu.html');
-
+      alert("Edição concluída!");
+      window.location.replace("../Menu/menu.html");
     } catch (error) {
       console.log(error);
     }
@@ -186,19 +184,13 @@ window.onload = async function () {
   const LOCAL_API_URL = `http://localhost:3000/api/users/${ID}`;
 
   try {
-
     console.log(LOCAL_API_URL);
 
-    const response = await axios.get(
-      LOCAL_API_URL,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    console.log(response);
+    const response = await axios.get(LOCAL_API_URL, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
     nome.value = response.data.data.name;
     email.value = response.data.data.email;
@@ -213,72 +205,65 @@ window.onload = async function () {
     let mes = dataAux.getUTCMonth() + 1;
     const ano = dataAux.getFullYear();
 
-    if(mes < 10){
+    if (mes < 10) {
       mes = "0" + mes;
     }
 
     datNasc.value = `${ano}-${mes}-${dia}`;
 
-    if (response.data.data.gender === 'male') {
+    if (response.data.data.gender === "male") {
       masc.checked = true;
-    } else if (response.data.data.gender === 'female') {
+    } else if (response.data.data.gender === "female") {
       fem.checked = true;
     } else {
       other.checked = true;
     }
 
-    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(', ');
+    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(", ");
 
     bairro.value = bairroAux;
     rua.value = ruaAux;
     numero.value = numAux;
-
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 async function pegaID() {
-  const LOCAL_API_URL = 'http://localhost:3000/api/users/loggedUser';
+  const LOCAL_API_URL = "http://localhost:3000/api/users/loggedUser";
   try {
-
-    const response = await axios.get(
-      LOCAL_API_URL,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const response = await axios.get(LOCAL_API_URL, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
     return response.data.data;
-
   } catch (error) {
     console.log(error);
   }
 }
 
-async function excluir() { //TODO: deleção não funciona
-  const LOCAL_API_URL_DELETE = 'http://localhost:3000/api/users';
+async function excluir() {
+  //TODO: deleção não funciona
   const ID = await pegaID();
+  const LOCAL_API_URL_DELETE = `http://localhost:3000/api/users/${ID}`;
   try {
-    const response = await axios.delete(
-      LOCAL_API_URL_DELETE,
-      {
-        id:ID,
+    const response = await axios.delete(LOCAL_API_URL_DELETE, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    });
 
     console.log(response);
 
-    window.location.replace('../Login/login.html');
-
+    window.location.replace("../Login/login.html");
   } catch (error) {
+    console.log({
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     console.log(error);
   }
 }
