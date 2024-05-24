@@ -80,7 +80,7 @@ window.onload = async function () {
             const grade = document.getElementById('grade');
 
             bloco.onclick = function () {
-                localStorage.setItem('idEstab', estab.id);
+                localStorage.setItem('idAtracao', estab.id);
                 window.location.replace('../Perfil_Estabelecimento/perfil_estab_postagens.html');
             }
 
@@ -169,7 +169,7 @@ async function mudou(){
                 const grade = document.getElementById('grade');
 
                 bloco.onclick = function () {
-                    localStorage.setItem('idEstab', estab.id);
+                    localStorage.setItem('idAtracao', estab.id);
                     window.location.replace('../Perfil_Estabelecimento/perfil_estab_postagens.html');
                 }
 

@@ -55,7 +55,7 @@ async function salvar() {
     }
 
     const payload = {
-      id: localStorage.getItem("idEvento"),
+      id: localStorage.getItem("idAtracao"),
       name: nome.value,
       description: descricao.value,
       establishment_id: estAux, 
@@ -125,7 +125,7 @@ imagemPerfil.addEventListener("change", (event) => {
 });
 
 window.onload = async function () {
-  const idEvento = localStorage.getItem("idEvento");
+  const idEvento = localStorage.getItem("idAtracao");
   const LOCAL_API_URL = `http://localhost:3000/api/events/${idEvento}`;
 
   try {

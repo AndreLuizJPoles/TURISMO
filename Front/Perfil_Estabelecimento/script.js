@@ -35,7 +35,7 @@ window.onload = async function () {
         console.log(error);
     }
 
-    const idEstab = localStorage.getItem("idEstab");
+    const idEstab = localStorage.getItem("idAtracao");
     const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
 
     try {

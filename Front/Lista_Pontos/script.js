@@ -85,7 +85,7 @@ window.onload = async function () {
         const grade = document.getElementById('grade');
 
         bloco.onclick = function () {
-          localStorage.setItem('idPonto', evento.id);
+          localStorage.setItem('idAtracao', evento.id);
           window.location.replace('../Perfil_Ponto/perfil_ponto.html');
         }
 

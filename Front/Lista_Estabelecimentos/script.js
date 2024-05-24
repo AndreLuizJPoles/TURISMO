@@ -86,7 +86,7 @@ window.onload = async function () {
         const grade = document.getElementById('grade');
 
         bloco.onclick = function () {
-          localStorage.setItem('idEstab', estab.id);
+          localStorage.setItem('idAtracao', estab.id);
           window.location.replace('../Editar_Estabelecimento/editar_estabelecimento.html');
         }
 

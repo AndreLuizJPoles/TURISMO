@@ -141,7 +141,7 @@ async function salvar() {
     };
 
     const payload = {
-      id: localStorage.getItem("idEstab"), 
+      id: localStorage.getItem("idAtracao"), 
       name: nomeEstab.value,
       cnpj: cnpj.value,
       description: descricao.value,
@@ -239,7 +239,7 @@ window.onload = async function () {
     console.log(error);
   }
 
-  const idEstab = localStorage.getItem("idEstab");
+  const idEstab = localStorage.getItem("iidAtracao");
   const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
 
   try {

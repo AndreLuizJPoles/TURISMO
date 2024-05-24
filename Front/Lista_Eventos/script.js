@@ -86,7 +86,7 @@ window.onload = async function () {
         const grade = document.getElementById('grade');
 
         bloco.onclick = function () {
-          localStorage.setItem('idEvento', evento.id);
+          localStorage.setItem('idAtracao', evento.id);
           window.location.replace('../Perfil_Evento/perfil_evento_postagens.html');
         }
 
