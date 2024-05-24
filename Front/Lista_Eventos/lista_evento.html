@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meus Eventos</title>
     <link rel="stylesheet" href="lista_evento.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -18,7 +19,6 @@
         <div id="informacoes">
             <img src="../images/foto_padrao.png" id="foto-perfil">
             <h2 id="nome-usuario">Nome Usuário</h2>
-            <h3 id="id">ID 12345678</h3>
         </div>
 
         <a href="../Editar_Usuario/editar_usuario.html" id="editar" class="botao"> <img src="../Perfil_Usuario/imgs/editar.png" id="icone-editar" class="icon"><p id="texto-editar">Editar Usuário</p></a>
@@ -32,23 +32,10 @@
 
     <a href="../Cadastro_Evento/cadastro_evento.html" class="botao" id="novo-evento">Novo Evento</a>
 
-    <div id="grade">
-        <a href="../Editar_Evento/editar_evento.html" class="link">
-            <div class="bloco">
-                <img src="../images/baffs.png" id="foto" class="imagem">
-                <div class="inferior">
-                    <h2 id="nome">Baffs</h2>
-                    <div id="conjunto-nota">
-                        <img src="../images/onibus.png" class="icone">
-                        <h3 id="nota">5.0</h3>
-                    </div>
-                    <h3 id="status">Aberto</h3>
-                </div>
-            </div>
-        </a>
-    </div>
+    <div id="grade"></div>
 
     <script src="../navbar.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
