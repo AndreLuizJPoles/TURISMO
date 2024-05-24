@@ -257,7 +257,7 @@ async function excluir() {
 
     console.log(response);
 
-    window.location.replace("../Login/login.html");
+    window.location.replace("../Login/index.html");
   } catch (error) {
     console.log({
       headers: {
