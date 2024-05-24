@@ -245,8 +245,16 @@ a p{
     width: 50%;
 }
 
+#voltar{
+    width: 7rem;
+    align-self: flex-start;
+    margin: 10px;
+    text-decoration: none;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
 #novo-estab{
-    margin-top: 7rem;
+    margin-top: 1rem;
     align-self: center;
     margin-left: auto;
     margin-right: auto;
