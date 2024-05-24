@@ -1,7 +1,34 @@
+const nome_user = document.getElementById('nome-usuario');
+const endereco = document.getElementById('endereco');
+
 window.onload = async function () {
   const ID = await pegaID();
   const LOCAL_API_URL = `http://localhost:3000/api/establishments`;
 
+  const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
+
+  try {
+
+    console.log(LOCAL_API_URL_USER);
+
+    const response = await axios.get(
+      LOCAL_API_URL_USER,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    console.log(response);
+
+    nome_user.innerHTML = response.data.data.name;
+    endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}`;
+
+  } catch (error) {
+    console.log(error);
+  }
+  
   try {
 
     console.log(LOCAL_API_URL);
@@ -27,7 +54,7 @@ window.onload = async function () {
         }
 
         const bloco = document.createElement('div');
-        bloco.onclick 
+        bloco.onclick
         bloco.classList.add('bloco');
         const img = document.createElement('img');
         bloco.appendChild(img);
@@ -58,7 +85,7 @@ window.onload = async function () {
         status.id = 'status';
         const grade = document.getElementById('grade');
 
-        bloco.onclick = function(){
+        bloco.onclick = function () {
           localStorage.setItem('idEstab', estab.id);
           window.location.replace('../Editar_Estabelecimento/editar_estabelecimento.html');
         }

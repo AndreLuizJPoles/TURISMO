@@ -1,6 +1,8 @@
 const nome_user = document.getElementById('nome-usuario');
 const endereco = document.getElementById('endereco');
 
+//TODO: Colocar o filtro
+
 window.onload = async function () {
 
     const ID = await pegaID();

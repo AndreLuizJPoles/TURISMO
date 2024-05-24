@@ -115,7 +115,7 @@ async function salvar() {
         genero = 'male';
       } else if (fem.checked) {
         genero = 'female';
-      } 
+      }
 
       const nomeValue = nome.value;
       const emailValue = email.value;
@@ -248,6 +248,31 @@ async function pegaID() {
     );
 
     return response.data.data;
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function excluir() { //TODO: deleção não funciona
+  const LOCAL_API_URL_DELETE = 'http://localhost:3000/api/users';
+  const ID = await pegaID();
+  try {
+    const response = await axios.delete(
+      LOCAL_API_URL_DELETE,
+      {
+        id:ID,
+      },
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    console.log(response);
+
+    //window.location.replace('../Login/login.html');
 
   } catch (error) {
     console.log(error);
