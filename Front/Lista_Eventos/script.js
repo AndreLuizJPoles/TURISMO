@@ -44,13 +44,13 @@ window.onload = async function () {
 
     console.log(response);
 
-    response.data.data.forEach(estab => {
-      if (estab.user_id === ID) {
+    response.data.data.forEach(evento => {
+      //if (evento.user_id === ID) {
         let imagem;
-        if (estab.picture_url === null) {
+        if (evento.picture_url === null) {
           imagem = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHyPvzYv6YnUrZvvGrZMpXdYANau0x7c4nNtSOmQpniA&s';
         } else {
-          imagem = estab.picture_url;
+          imagem = evento.picture_url;
         }
 
         const bloco = document.createElement('div');
@@ -67,7 +67,7 @@ window.onload = async function () {
         const h2 = document.createElement('h2');
         inferior.appendChild(h2);
         h2.id = 'nome';
-        h2.innerHTML = estab.name;
+        h2.innerHTML = evento.name;
         const conjNota = document.createElement('div');
         inferior.appendChild(conjNota);
         conjNota.id = 'conjunto-nota';
@@ -86,12 +86,12 @@ window.onload = async function () {
         const grade = document.getElementById('grade');
 
         bloco.onclick = function () {
-          localStorage.setItem('idEstab', estab.id);
-          window.location.replace('../Editar_Estabelecimento/editar_estabelecimento.html');
+          localStorage.setItem('idEvento', evento.id);
+          window.location.replace('../Editar_Evento/editar_evento.html');
         }
 
         grade.appendChild(bloco);
-      }
+      //}
     });
 
   } catch (error) {

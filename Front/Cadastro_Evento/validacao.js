@@ -47,14 +47,20 @@ function validaData() {
 
 async function cadastrar() {
   if (validar()) {
-    const establishment_id = estabelecimento.value || null;
-    const attraction_id = null;
+    let pontoAux, estAux;
+    if(ponto.value === ''){
+      pontoAux = null;
+      estAux = estabelecimento.value;
+    }else{
+      pontoAux = ponto.value;
+      estAux = null;
+    }
 
     const payload = {
       name: nome.value,
       description: descricao.value,
-      establishment_id: "32870deb-7419-418b-b4a2-d15a1957148c", //TODO: pegar o id do estabelecimento de acordo com a seleção do usuário e com o nome dele, isso vem na listagem
-      attraction_id, //TODO: pegar o id do ponto turístico de acordo com a seleção do usuário e com o nome dele, isso vem na listagem
+      establishment_id: estAux, 
+      attraction_id: pontoAux,
       start_date: dataInicio.value,
       end_date: dataFim.value,
       start_time: horaAberta.value,
@@ -69,6 +75,9 @@ async function cadastrar() {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+
+      alert('Evento criado!');
+      window.location.replace('../Menu/menu.html');
     } catch (error) {
       console.log(error);
     }

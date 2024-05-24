@@ -1,6 +1,6 @@
 const nome = document.getElementById("nome");
 const estabelecimento = document.getElementById("estabelecimento");
-const pontoTuristico = document.getElementById("pontoTuristico");
+const ponto = document.getElementById("ponto");
 const descricao = document.getElementById("descricao");
 const dataInicio = document.getElementById("data-inicio");
 const dataFim = document.getElementById("data-fim");
@@ -31,8 +31,7 @@ function verificaVazio() {
     horaAberta.value == "" ||
     horaEncer.value == "" ||
     dataInicio.value == "" ||
-    dataFim.value == "" ||
-    estabelecimento.value == ""
+    dataFim.value == ""
   );
 }
 
@@ -46,15 +45,21 @@ function validaData() {
 
 async function salvar() {
   if (validar()) {
-    const establishment_id = estabelecimento.value || null;
-    const attraction_id = null;
+    let pontoAux, estAux;
+    if(ponto.value === ''){
+      pontoAux = null;
+      estAux = estabelecimento.value;
+    }else{
+      pontoAux = ponto.value;
+      estAux = null;
+    }
 
     const payload = {
-      id: "6b6198b9-9be2-49bf-b1ce-40880994db17",
+      id: localStorage.getItem("idEvento"),
       name: nome.value,
       description: descricao.value,
-      establishment_id: "f02a4e34-a1eb-4fb2-99bc-e641ce671ba9", //TODO: pegar o id do estabelecimento de acordo com a seleção do usuário e com o nome dele, isso vem na listagem
-      attraction_id, //TODO: pegar o id do ponto turístico de acordo com a seleção do usuário e com o nome dele, isso vem na listagem
+      establishment_id: estAux, 
+      attraction_id: pontoAux,
       start_date: dataInicio.value,
       end_date: dataFim.value,
       start_time: horaAberta.value,
@@ -118,3 +123,139 @@ imagemPerfil.addEventListener("change", (event) => {
 
   reader.readAsDataURL(imagemPerfil.files[0]);
 });
+
+window.onload = async function () {
+  const idEvento = localStorage.getItem("idEvento");
+  const LOCAL_API_URL = `http://localhost:3000/api/events/${idEvento}`;
+
+  try {
+    const response = await axios.get(
+      LOCAL_API_URL,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    console.log(response);
+
+    nome.value = response.data.data.name;
+    descricao.value = response.data.data.description; 
+    if(response.data.data.attraction_id == null){
+      ponto.value = '';
+      estabelecimento.value = response.data.data.establishment_id; //TODO: Não está trazendo na tela
+    }else{
+      ponto.value = response.data.data.attraction_id;
+      estabelecimento.value = ' '
+    }
+    horaAberta.value = response.data.data.start_time;
+    horaEncer.value = response.data.data.end_time;
+
+    let dataAux = new Date(response.data.data.start_date);
+    let dia = dataAux.getUTCDate();
+    let mes = dataAux.getUTCMonth() + 1;
+    let ano = dataAux.getFullYear();
+
+    if(mes < 10){
+      mes = "0" + mes;
+    }
+
+    dataInicio.value = `${ano}-${mes}-${dia}`;
+
+    dataAux = new Date(response.data.data.end_date);
+    dia = dataAux.getUTCDate();
+    mes = dataAux.getUTCMonth() + 1;
+    ano = dataAux.getFullYear();
+
+    if(mes < 10){
+      mes = "0" + mes;
+    }
+
+    dataFim.value = `${ano}-${mes}-${dia}`;
+
+  } catch (error) {
+    console.log(error);
+  }
+
+  const LOCAL_API_URL_P = `http://localhost:3000/api/attractions`;
+
+  try {
+    const response = await axios.get(
+      LOCAL_API_URL_P,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const dataList = document.getElementById("ponto");
+
+    response.data.data.forEach(option => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option.id;
+      optionElement.textContent = option.name;
+      dataList.appendChild(optionElement);
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+
+  const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments`;
+  const ID = await pegaID();
+
+  try {
+    const response = await axios.get(
+      LOCAL_API_URL_EST,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const dataList = document.getElementById("estabelecimento");
+
+    response.data.data.forEach(option => {
+      if (option.user_id === ID) {
+        const optionElement = document.createElement('option');
+        optionElement.value = option.id;
+        optionElement.textContent = option.name;
+        dataList.appendChild(optionElement);
+      }
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function pegaID() {
+  const LOCAL_API_URL_ID = 'http://localhost:3000/api/users/loggedUser';
+  try {
+
+      const response = await axios.get(
+          LOCAL_API_URL_ID,
+          {
+              headers: {
+                  authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+          }
+      );
+
+      return response.data.data;
+
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+function tiraPonto(){
+  ponto.value = '';
+}
+
+function tiraEst(){
+  estabelecimento.value = '';
+}

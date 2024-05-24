@@ -210,8 +210,12 @@ window.onload = async function () {
 
     const dataAux = new Date(response.data.data.birthdate);
     const dia = dataAux.getUTCDate();
-    const mes = "" + dataAux.getUTCMonth() + 1;
+    let mes = dataAux.getUTCMonth() + 1;
     const ano = dataAux.getFullYear();
+
+    if(mes < 10){
+      mes = "0" + mes;
+    }
 
     datNasc.value = `${ano}-${mes}-${dia}`;
 
