@@ -117,3 +117,87 @@ imagemPerfil.addEventListener("change", (event) => {
 
   reader.readAsDataURL(imagemPerfil.files[0]);
 });
+
+window.onload = async function () {
+  const LOCAL_API_URL = `http://localhost:3000/api/attractions`;
+
+  try {
+
+    console.log(LOCAL_API_URL);
+
+    const response = await axios.get(
+      LOCAL_API_URL,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const dataList = document.getElementById("ponto");
+
+    response.data.data.forEach(option => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option.id;
+      optionElement.textContent = option.name;
+      dataList.appendChild(optionElement);
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+
+  const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments`;
+  const ID = await pegaID();
+
+  try {
+
+    console.log(LOCAL_API_URL_EST);
+
+    const response = await axios.get(
+      LOCAL_API_URL_EST,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const dataList = document.getElementById("estabelecimento");
+
+    console.log(ID);
+
+    response.data.data.forEach(option => {
+      console.log(option);
+      if (option.user_id === ID) {
+        const optionElement = document.createElement('option');
+        optionElement.value = option.id;
+        optionElement.textContent = option.name;
+        dataList.appendChild(optionElement);
+      }
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function pegaID() {
+  const LOCAL_API_URL_ID = 'http://localhost:3000/api/users/loggedUser';
+  try {
+
+      const response = await axios.get(
+          LOCAL_API_URL_ID,
+          {
+              headers: {
+                  authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+          }
+      );
+
+      return response.data.data;
+
+  } catch (error) {
+      console.log(error);
+  }
+}

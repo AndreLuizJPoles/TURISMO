@@ -18,20 +18,19 @@
             <label for="titulo-cadastro" id="aviso">
                 <h1 id="titulo-cadastro">Cadastro de Evento</h1>
                 <p id="texto">Todos os campos com * são obrigatórios</p>
-                <p id="texto">Selecione um Estabelecimento ou um Ponto Turístico para seu evento</p>
+                <h4 id="texto-aviso">Selecione um Estabelecimento ou um Ponto Turístico para seu evento</h4>
             </label>
 
             <h2 id="titulo-geral">Informações Gerais</h2>
             <div id="inf-gerais" class="inf">
                 <input type="text" id="nome" class="input" placeholder="Nome do Evento *" required>
 
-                <input list="estabelecimentos" id="estabelecimento" class="input" placeholder="Estabelecimento *"
-                    required>
-                <input list="estabelecimentos" id="ponto" class="input" placeholder="Ponto Turístico *"
-                    required>
-                <datalist id="estabelecimentos">
-                    <option value="Baffs">
-                </datalist>
+                    <select id="estabelecimento" class="input" required>
+                        <option value="">Selecione um estabelecimento</option>
+                    </select>
+                    <select id="ponto" class="input" required>
+                        <option value="">Selecione um ponto turístico</option>
+                    </select>
 
                 <textarea id="descricao" cols="30" rows="10" style="resize: none;"
                     placeholder="Descrição do Evento"></textarea>

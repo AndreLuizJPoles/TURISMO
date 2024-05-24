@@ -47,6 +47,10 @@ body {
     font-weight: 100;
 }
 
+#texto-aviso{
+    font-weight: 100%;
+}
+
 #aviso #texto{
     text-align: center;
 }
