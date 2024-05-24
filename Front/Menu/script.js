@@ -81,6 +81,7 @@ window.onload = async function () {
 
             bloco.onclick = function () {
                 localStorage.setItem('idAtracao', estab.id);
+                localStorage.setItem('tipoAtracao', 'estabelecimento');
                 window.location.replace('../Perfil_Estabelecimento/perfil_estab_postagens.html');
             }
 
@@ -170,6 +171,7 @@ async function mudou(){
 
                 bloco.onclick = function () {
                     localStorage.setItem('idAtracao', estab.id);
+                    localStorage.setItem('tipoAtracao', 'estabelecimento');
                     window.location.replace('../Perfil_Estabelecimento/perfil_estab_postagens.html');
                 }
 
@@ -227,6 +229,7 @@ async function mudou(){
 
                 bloco.onclick = function () {
                     localStorage.setItem('idEstab', estab.id);
+                    localStorage.setItem('tipoAtracao', 'evento');
                     window.location.replace('../Perfil_Evento/perfil_evento_postagens.html');
                 }
 
@@ -284,6 +287,7 @@ async function mudou(){
 
                 bloco.onclick = function () {
                     localStorage.setItem('idEstab', estab.id);
+                    localStorage.setItem('tipoAtracao', 'ponto');
                     window.location.replace('../Perfil_Ponto/perfil_ponto.html');
                 }
 
