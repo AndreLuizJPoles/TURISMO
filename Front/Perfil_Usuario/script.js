@@ -47,3 +47,8 @@ async function pegaID() {
         console.log(error);
     }
 }
+
+function sair(){
+    localStorage.setItem('token', null);
+    window.location.replace('../Login/login.html');
+}

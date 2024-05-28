@@ -1,7 +1,7 @@
 const nome_user = document.getElementById('nome-usuario');
 const endereco = document.getElementById('endereco');
 
-window.onload = async function () {
+/*window.onload = async function () {
   const ID = await pegaID();
   const LOCAL_API_URL = `http://localhost:3000/api/events`;
 
@@ -29,7 +29,7 @@ window.onload = async function () {
     console.log(error);
   }
 }
-
+*/
 async function pegaID() {
   const LOCAL_API_URL = 'http://localhost:3000/api/users/loggedUser';
   try {
@@ -48,4 +48,9 @@ async function pegaID() {
   } catch (error) {
     console.log(error);
   }
+}
+
+function sair(){
+  localStorage.setItem('token', null);
+  window.location.replace('../Login/login.html');
 }
