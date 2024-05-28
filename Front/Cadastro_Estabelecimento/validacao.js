@@ -89,7 +89,7 @@ async function cadastrar() {
       }); //TODO: a criação já está funcionando da forma que eu deixei com alguns dados mockados, falta fazer as adaptações que mencionei
 
       alert('Estabelecimento Cadastrado!');
-      //window.location.replace('../Menu/menu.html');
+      window.location.replace('../Menu/index.html');
     } catch (error) {
       console.log(error);
       const aux = error.response.data.message;

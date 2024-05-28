@@ -34,7 +34,7 @@ async function cadastrar() {
             });
 
             alert('Ponto Turístico Cadastrado!');
-            window.location.replace('../Menu/menu.html');
+            window.location.replace('../Menu/index.html');
         } catch (error) {
             console.log(error);
             const aux = error.response.data.message;

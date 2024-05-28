@@ -77,7 +77,7 @@ async function cadastrar() {
       });
 
       alert('Evento criado!');
-      window.location.replace('../Menu/menu.html');
+      window.location.replace('../Menu/index.html');
     } catch (error) {
       console.log(error);
     }

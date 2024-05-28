@@ -172,7 +172,7 @@ async function salvar() {
       ); */
 
       alert("Edição concluída!");
-      window.location.replace("../Menu/menu.html");
+      window.location.replace("../Menu/index.html");
     } catch (error) {
       console.log(error);
     }
