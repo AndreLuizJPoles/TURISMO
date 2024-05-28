@@ -35,42 +35,98 @@
 
             <h2 id="titulo-funcionamento">Informações de Funcionamento</h2>
             <div id="inf-funcionamento" class="inf">
-                <label class="label-hora" for="hora-abertura">Horário de Abertura *:
-                    <input type="time" id="hora-abertura" class="input" required>
-                </label>
-                <label class="label-hora" for="hora-encerramento">Horário de Encerramento *:
-                    <input type="time" id="hora-encerramento" class="input" required>
-                </label>
                 <div id="semanario">
                     <h3 id="titulo-dias">Dias de Funcionamento: </h3>
-                    <label for="segunda">
-                        <input type="checkbox" id="segunda" value="segunda" class="check">
-                        Segunda-feira
-                    </label>
-                    <label for="terca">
-                        <input type="checkbox" id="terca" value="terca" class="check">
-                        Terça-feira
-                    </label>
-                    <label for="quarta">
-                        <input type="checkbox" id="quarta" value="quarta" class="check">
-                        Quarta-feira
-                    </label>
-                    <label for="quinta">
-                        <input type="checkbox" id="quinta" value="quinta" class="check">
-                        Quinta-feira
-                    </label>
-                    <label for="sexta">
-                        <input type="checkbox" id="sexta" value="sexta" class="check">
-                        Sexta-feira
-                    </label>
-                    <label for="sabado">
-                        <input type="checkbox" id="sabado" value="sabado" class="check">
-                        Sábado
-                    </label>
-                    <label for="domingo">
-                        <input type="checkbox" id="domingo" value="domingo" class="check">
-                        Domingo
-                    </label>
+                    <div id="div-segunda" class="div-dia">
+                        <label for="segunda" class="label-dia">
+                            <input type="checkbox" id="segunda" value="segunda" class="check">
+                            Segunda-feira
+                        </label>
+                        <label for="hora-abertura-segunda" class="label-hora">Horário de Abertura:
+                            <input type="time" id="hora-abertura-segunda" class="input" required>
+                        </label>
+                        <label for="hora-encerramento-segunda" class="label-hora">Horário de Encerramento:
+                            <input type="time" id="hora-encerramento-segunda" class="input" required>
+                        </label>
+                    </div>
+
+                    <div id="div-terca" class="div-dia">
+                        <label for="terca" class="label-dia">
+                            <input type="checkbox" id="terca" value="terca" class="check">
+                            Terça-feira
+                        </label>
+                        <label for="hora-abertura-segunda" class="label-hora">Horário de Abertura:
+                            <input type="time" id="hora-abertura-terca" class="input" required>
+                        </label>
+                        <label for="hora-encerramento-segunda" class="label-hora">Horário de Encerramento:
+                            <input type="time" id="hora-encerramento-terca" class="input" required>
+                        </label>
+                    </div>
+
+                    <div id="div-quarta" class="div-dia">
+                        <label for="quarta" class="label-dia">
+                            <input type="checkbox" id="quarta" value="quarta" class="check">
+                            Quarta-feira
+                        </label>
+                        <label for="hora-abertura-segunda" class="label-hora">Horário de Abertura:
+                            <input type="time" id="hora-abertura-quarta" class="input" required>
+                        </label>
+                        <label for="hora-encerramento-segunda" class="label-hora">Horário de Encerramento:
+                            <input type="time" id="hora-encerramento-quarta" class="input" required>
+                        </label>
+                    </div>
+
+                    <div id="div-quinta" class="div-dia">
+                        <label for="quinta" class="label-dia">
+                            <input type="checkbox" id="quinta" value="quinta" class="check">
+                            Quinta-feira
+                        </label>
+                        <label for="hora-abertura-segunda" class="label-hora">Horário de Abertura:
+                            <input type="time" id="hora-abertura-quinta" class="input" required>
+                        </label>
+                        <label for="hora-encerramento-segunda" class="label-hora">Horário de Encerramento:
+                            <input type="time" id="hora-encerramento-quinta" class="input" required>
+                        </label>
+                    </div>
+
+                    <div id="div-sexta" class="div-dia">
+                        <label for="sexta" class="label-dia">
+                            <input type="checkbox" id="sexta" value="sexta" class="check">
+                            Sexta-feira
+                        </label>
+                        <label for="hora-abertura-segunda" class="label-hora">Horário de Abertura:
+                            <input type="time" id="hora-abertura-sexta" class="input" required>
+                        </label>
+                        <label for="hora-encerramento-segunda" class="label-hora">Horário de Encerramento:
+                            <input type="time" id="hora-encerramento-sexta" class="input" required>
+                        </label>
+                    </div>
+
+                    <div id="div-sabado" class="div-dia">
+                        <label for="sabado" class="label-dia">
+                            <input type="checkbox" id="sabado" value="sabado" class="check">
+                            Sábado
+                        </label>
+                        <label for="hora-abertura-segunda" class="label-hora">Horário de Abertura:
+                            <input type="time" id="hora-abertura-sabado" class="input" required>
+                        </label>
+                        <label for="hora-encerramento-segunda" class="label-hora">Horário de Encerramento:
+                            <input type="time" id="hora-encerramento-sabado" class="input" required>
+                        </label>
+                    </div>
+
+                    <div id="div-domingo" class="div-dia">
+                        <label for="domingo" class="label-dia">
+                            <input type="checkbox" id="domingo" value="domingo" class="check">
+                            Domingo
+                        </label>
+                        <label for="hora-abertura-segunda" class="label-hora">Horário de Abertura:
+                            <input type="time" id="hora-abertura-domingo" class="input" required>
+                        </label>
+                        <label for="hora-encerramento-segunda" class="label-hora">Horário de Encerramento:
+                            <input type="time" id="hora-encerramento-domingo" class="input" required>
+                        </label>
+                    </div>
                 </div>
             </div>
 

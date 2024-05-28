@@ -29,7 +29,7 @@ body {
     overflow: scroll;
 }
 
-#voltar{
+#voltar {
     width: 7rem;
     align-self: flex-start;
     margin: 10px;
@@ -42,11 +42,11 @@ body {
     margin-top: 1rem;
 }
 
-#aviso{
+#aviso {
     font-weight: 100;
 }
 
-#aviso #texto{
+#aviso #texto {
     text-align: center;
 }
 
@@ -63,7 +63,7 @@ body {
     padding-left: 5px;
 }
 
-.inf{
+.inf {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -72,16 +72,37 @@ body {
     justify-content: space-around;
 }
 
-#hora-encerramento, #hora-abertura{
+.div-dia {
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
 }
 
-label{
+#hora-abertura-segunda,
+#hora-encerramento-segunda,
+#hora-abertura-terca,
+#hora-encerramento-terca,
+#hora-abertura-quarta,
+#hora-encerramento-quarta,
+#hora-abertura-quinta,
+#hora-encerramento-quinta,
+#hora-abertura-sexta,
+#hora-encerramento-sexta,
+#hora-abertura-sabado,
+#hora-encerramento-sabado,
+#hora-abertura-domingo,
+#hora-encerramento-domingo {
+    width: 25%;
+}
+
+label {
     font-weight: 900;
     vertical-align: text-top;
 }
 
-#semanario{
+#semanario {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -113,11 +134,15 @@ label{
     cursor: pointer;
 }
 
-.label-hora{
+.label-hora {
     width: 20rem;
 }
 
-#descricao{
+.label-dia{
+    width: 10rem;
+}
+
+#descricao {
     width: 80%;
     font-size: 1rem;
     margin-bottom: 2rem;
@@ -149,7 +174,7 @@ label{
         width: 60%;
     }
 
-    .inf{
+    .inf {
         flex-direction: column;
     }
 }

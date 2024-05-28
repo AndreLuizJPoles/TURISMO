@@ -80,13 +80,39 @@ body {
     flex-direction: column;
 }
 
-#hora-encerramento, #hora-abertura{
+.div-dia {
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
 }
 
-label{
+#hora-abertura-segunda,
+#hora-encerramento-segunda,
+#hora-abertura-terca,
+#hora-encerramento-terca,
+#hora-abertura-quarta,
+#hora-encerramento-quarta,
+#hora-abertura-quinta,
+#hora-encerramento-quinta,
+#hora-abertura-sexta,
+#hora-encerramento-sexta,
+#hora-abertura-sabado,
+#hora-encerramento-sabado,
+#hora-abertura-domingo,
+#hora-encerramento-domingo {
+    width: 25%;
+}
+
+.label-dia{
+    width: 10rem;
+}
+
+label {
     font-weight: 900;
     vertical-align: text-top;
+    width: 10rem;
 }
 
 #descricao{
