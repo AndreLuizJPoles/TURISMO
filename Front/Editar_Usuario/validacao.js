@@ -134,7 +134,10 @@ async function salvar() {
       const imagemPerfilValue = document.getElementById("imagem-perfil");
       const file = imagemPerfilValue.files[0];
 
-      console.log(file);
+      const formData = new FormData()
+      formData.append('profile_picture', file);
+
+      console.log(formData);
 
       const response = await axios.put(
         LOCAL_API_URL,
@@ -158,19 +161,20 @@ async function salvar() {
         }
       );
 
-      /* const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${ID}/upload/profile_picture`;
+      const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${ID}/upload/profile_picture`;
 
-      const imagemRequest = await axios.put(
+      const imagemRequest = await axios.post(
         LOCAL_API_URL_IMAGE,
-        {
-          picture_url: file,
-        },
+        formData,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
+            'Content-Type': 'multipart/form-data'
           },
         }
-      ); */
+      );
+
+      console.log(imagemRequest);
 
       alert("Edição concluída!");
       window.location.replace("../Menu/index.html");
