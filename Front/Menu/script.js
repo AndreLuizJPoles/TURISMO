@@ -3,30 +3,31 @@ const endereco = document.getElementById('endereco');
 const filtro = document.getElementById('filtro');
 
 window.onload = async function () {
+    if (localStorage.getItem("token") != null) {
+        const ID = await pegaID();
+        const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
 
-    const ID = await pegaID();
-    const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
+        try {
 
-    try {
+            console.log(LOCAL_API_URL_USER);
 
-        console.log(LOCAL_API_URL_USER);
+            const response = await axios.get(
+                LOCAL_API_URL_USER,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            );
 
-        const response = await axios.get(
-            LOCAL_API_URL_USER,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+            console.log(response);
 
-        console.log(response);
+            nome_user.innerHTML = response.data.data.name;
+            endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}`;
 
-        nome_user.innerHTML = response.data.data.name;
-        endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}`;
-
-    } catch (error) {
-        console.log(error);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const LOCAL_API_URL = `http://localhost:3000/api/establishments`;
@@ -113,10 +114,10 @@ async function pegaID() {
     }
 }
 
-async function mudou(){
+async function mudou() {
     const grade = document.getElementById('grade');
 
-    while(grade.firstChild){
+    while (grade.firstChild) {
         grade.removeChild(grade.firstChild);
     }
 
@@ -181,7 +182,7 @@ async function mudou(){
         } catch (error) {
             console.log(error);
         }
-    }else if(filtro.value == 'evento'){
+    } else if (filtro.value == 'evento') {
         const LOCAL_API_URL = `http://localhost:3000/api/events`;
 
         try {
@@ -239,7 +240,7 @@ async function mudou(){
         } catch (error) {
             console.log(error);
         }
-    }else{
+    } else {
         const LOCAL_API_URL = `http://localhost:3000/api/attractions`;
 
         try {
@@ -300,7 +301,7 @@ async function mudou(){
     }
 }
 
-function sair(){
+function sair() {
     localStorage.setItem('token', null);
     window.location.replace('../Login/login.html');
 }
