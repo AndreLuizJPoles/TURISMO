@@ -245,7 +245,6 @@ async function pegaID() {
 }
 
 async function excluir() {
-  //TODO: deleção não funciona
   const ID = await pegaID();
   const LOCAL_API_URL_DELETE = `http://localhost:3000/api/users/${ID}`;
   try {
