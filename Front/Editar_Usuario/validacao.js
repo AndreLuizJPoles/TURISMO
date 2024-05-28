@@ -12,6 +12,7 @@ const numero = document.getElementById("numero");
 const masc = document.getElementById("masc");
 const fem = document.getElementById("fem");
 const other = document.getElementById("outro");
+const senha = document.getElementById("senha");
 let genero = "other";
 
 const imagemPerfil = document.querySelector("#imagem-perfil");
@@ -184,13 +185,14 @@ window.onload = async function () {
   const LOCAL_API_URL = `http://localhost:3000/api/users/${ID}`;
 
   try {
-    console.log(LOCAL_API_URL);
 
     const response = await axios.get(LOCAL_API_URL, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
+
+    console.log(response);
 
     nome.value = response.data.data.name;
     email.value = response.data.data.email;
@@ -199,6 +201,7 @@ window.onload = async function () {
     cep.value = response.data.data.zip_code;
     uf.value = response.data.data.state;
     cidade.value = response.data.data.city;
+    senha.value = response.data.data.password;
 
     const dataAux = new Date(response.data.data.birthdate);
     const dia = dataAux.getUTCDate();
