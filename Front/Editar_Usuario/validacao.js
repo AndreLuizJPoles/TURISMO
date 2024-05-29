@@ -134,8 +134,8 @@ async function salvar() {
       const imagemPerfilValue = document.getElementById("imagem-perfil");
       const file = imagemPerfilValue.files[0];
 
-      const formData = new FormData()
-      formData.append('profile_picture', file);
+      const formData = new FormData();
+      formData.append("picture", file);
 
       console.log(formData);
 
@@ -163,16 +163,12 @@ async function salvar() {
 
       const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${ID}/upload/profile_picture`;
 
-      const imagemRequest = await axios.post(
-        LOCAL_API_URL_IMAGE,
-        formData,
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("token")}`,
-            'Content-Type': 'multipart/form-data'
-          },
-        }
-      );
+      const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       console.log(imagemRequest);
 
@@ -189,7 +185,6 @@ window.onload = async function () {
   const LOCAL_API_URL = `http://localhost:3000/api/users/${ID}`;
 
   try {
-
     const response = await axios.get(LOCAL_API_URL, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -274,31 +269,31 @@ async function excluir() {
   }
 }
 
-function avisoExcluir(){
-    const confirmationPopup = document.getElementById('confirmationPopup');
-    const closeBtn = document.querySelector('.close-btn');
-    const confirmDelete = document.getElementById('confirmDelete');
-    const cancelDelete = document.getElementById('cancelDelete');
+function avisoExcluir() {
+  const confirmationPopup = document.getElementById("confirmationPopup");
+  const closeBtn = document.querySelector(".close-btn");
+  const confirmDelete = document.getElementById("confirmDelete");
+  const cancelDelete = document.getElementById("cancelDelete");
 
-    confirmationPopup.style.display = 'block';
+  confirmationPopup.style.display = "block";
 
-    closeBtn.addEventListener('click', function () {
-        confirmationPopup.style.display = 'none';
-    });
+  closeBtn.addEventListener("click", function () {
+    confirmationPopup.style.display = "none";
+  });
 
-    cancelDelete.addEventListener('click', function () {
-        confirmationPopup.style.display = 'none';
-    });
+  cancelDelete.addEventListener("click", function () {
+    confirmationPopup.style.display = "none";
+  });
 
-    confirmDelete.addEventListener('click', function () {
-        excluir();
-        alert('Conta deletada com sucesso!');
-        confirmationPopup.style.display = 'none';
-    });
+  confirmDelete.addEventListener("click", function () {
+    excluir();
+    alert("Conta deletada com sucesso!");
+    confirmationPopup.style.display = "none";
+  });
 
-    window.addEventListener('click', function (event) {
-        if (event.target == confirmationPopup) {
-            confirmationPopup.style.display = 'none';
-        }
-    });
-};
+  window.addEventListener("click", function (event) {
+    if (event.target == confirmationPopup) {
+      confirmationPopup.style.display = "none";
+    }
+  });
+}
