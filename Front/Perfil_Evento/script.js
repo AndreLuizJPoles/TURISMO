@@ -42,9 +42,20 @@ window.onload = async function () {
             console.log(response);
 
             nome_user.innerHTML = response.data.data.name;
-            endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}`;
-            foto.src = response.data.data.picture_url;
-            fotoUsuario.src = response.data.data.picture_url;
+            if (response.data.data.address === null || response.data.data.address === ', , ') {
+                endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon">`;
+            } else {
+                endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}<p/>`;
+            }
+            if (!response.data.data.picture_url === null || !response.data.data.picture_url === '') {
+                foto.src = response.data.data.picture_url;
+                perfil.src = response.data.data.picture_url;
+            }
+
+            if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
+                const pontos = document.getElementById('pontos');
+                pontos.style.display = 'none';
+            }
 
         } catch (error) {
             console.log(error);

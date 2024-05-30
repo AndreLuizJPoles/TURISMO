@@ -25,14 +25,25 @@ window.onload = async function () {
     console.log(response);
 
     nome_user.innerHTML = response.data.data.name;
-    endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}`;
-    foto.src = response.data.data.picture_url;
-    fotoUsuario.src = response.data.data.picture_url;
+    if (response.data.data.address === null || response.data.data.address === ', , ') {
+      endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon">`;
+    } else {
+      endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}<p/>`;
+    }
+    if (!response.data.data.picture_url === null || !response.data.data.picture_url === '') {
+      foto.src = response.data.data.picture_url;
+      perfil.src = response.data.data.picture_url;
+    }
+
+    if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
+      const pontos = document.getElementById('pontos');
+      pontos.style.display = 'none';
+    }
 
   } catch (error) {
     console.log(error);
   }
-  
+
   try {
 
     console.log(LOCAL_API_URL);
@@ -50,51 +61,51 @@ window.onload = async function () {
 
     response.data.data.forEach(evento => {
       //if (evento.user_id === ID) {
-        let imagem;
-        if (evento.picture_url === null) {
-          imagem = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHyPvzYv6YnUrZvvGrZMpXdYANau0x7c4nNtSOmQpniA&s';
-        } else {
-          imagem = evento.picture_url;
-        }
+      let imagem;
+      if (evento.picture_url === null) {
+        imagem = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHyPvzYv6YnUrZvvGrZMpXdYANau0x7c4nNtSOmQpniA&s';
+      } else {
+        imagem = evento.picture_url;
+      }
 
-        const bloco = document.createElement('div');
-        bloco.onclick
-        bloco.classList.add('bloco');
-        const img = document.createElement('img');
-        bloco.appendChild(img);
-        img.classList.add('imagem');
-        img.src = imagem;
-        img.id = 'foto';
-        const inferior = document.createElement('div');
-        bloco.appendChild(inferior);
-        inferior.classList.add('inferior');
-        const h2 = document.createElement('h2');
-        inferior.appendChild(h2);
-        h2.id = 'nome';
-        h2.innerHTML = evento.name;
-        const conjNota = document.createElement('div');
-        inferior.appendChild(conjNota);
-        conjNota.id = 'conjunto-nota';
-        const icone = document.createElement('img');
-        conjNota.appendChild(icone);
-        icone.classList.add('icone');
-        icone.src = '../images/onibus.png';
-        const nota = document.createElement('h3');
-        conjNota.appendChild(nota);
-        nota.id = 'nota';
-        nota.innerHTML = '5.0';//TODO: Mockado 
-        const status = document.createElement('h3');
-        inferior.appendChild(status);
-        status.innerHTML = 'Aberto';// TODO: Mockado
-        status.id = 'status';
-        const grade = document.getElementById('grade');
+      const bloco = document.createElement('div');
+      bloco.onclick
+      bloco.classList.add('bloco');
+      const img = document.createElement('img');
+      bloco.appendChild(img);
+      img.classList.add('imagem');
+      img.src = imagem;
+      img.id = 'foto';
+      const inferior = document.createElement('div');
+      bloco.appendChild(inferior);
+      inferior.classList.add('inferior');
+      const h2 = document.createElement('h2');
+      inferior.appendChild(h2);
+      h2.id = 'nome';
+      h2.innerHTML = evento.name;
+      const conjNota = document.createElement('div');
+      inferior.appendChild(conjNota);
+      conjNota.id = 'conjunto-nota';
+      const icone = document.createElement('img');
+      conjNota.appendChild(icone);
+      icone.classList.add('icone');
+      icone.src = '../images/onibus.png';
+      const nota = document.createElement('h3');
+      conjNota.appendChild(nota);
+      nota.id = 'nota';
+      nota.innerHTML = '5.0';//TODO: Mockado 
+      const status = document.createElement('h3');
+      inferior.appendChild(status);
+      status.innerHTML = 'Aberto';// TODO: Mockado
+      status.id = 'status';
+      const grade = document.getElementById('grade');
 
-        bloco.onclick = function () {
-          localStorage.setItem('idAtracao', evento.id);
-          window.location.replace('../Perfil_Evento/perfil_evento_postagens.html');
-        }
+      bloco.onclick = function () {
+        localStorage.setItem('idAtracao', evento.id);
+        window.location.replace('../Perfil_Evento/perfil_evento_postagens.html');
+      }
 
-        grade.appendChild(bloco);
+      grade.appendChild(bloco);
       //}
     });
 
@@ -123,7 +134,7 @@ async function pegaID() {
   }
 }
 
-function sair(){
+function sair() {
   localStorage.setItem('token', null);
   window.location.replace('../Login/login.html');
 }
