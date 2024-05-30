@@ -13,6 +13,7 @@ const iconeEditar = document.getElementsByClassName('icone-editar');
 const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
 let idUsuario;
+let ID = null;
 
 window.onload = async function () {
     const token = localStorage.getItem("token");
@@ -26,7 +27,7 @@ window.onload = async function () {
             '<h3 id="texto-logar">Faça login para ter acesso a mais funções!</h3><a href="../Login/login.html" class="botao" id="logar"><p id="texto-evento">Logar</p></a>';
     } else {
 
-        const ID = await pegaID();
+        ID = await pegaID();
         const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
 
         try {
@@ -135,7 +136,7 @@ window.onload = async function () {
     }
 
     //Deve ficar por úlitmo
-    if (await pegaID() !== idUsuario) {
+    if (ID !== idUsuario) {
         novaPost.style.display = 'none';
         editarEst.style.display = 'none';
         for (i = 0; i < iconeEditar.length; i++) {
