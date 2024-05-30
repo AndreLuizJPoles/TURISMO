@@ -19,7 +19,8 @@
 
             <button id="login" class="botao" onclick="enviar()">Login</button>
 
-            <p id="link-cadastro">Não tem conta ainda? <a href="../Cadastro/cadastro.html">Cadastre-se aqui</a>
+            <p id="link-cadastro" class="link-login">Não tem conta ainda? <a href="../Cadastro/cadastro.html">Cadastre-se aqui</a>
+            <p id="link-menu" class="link-login"><a href="../Menu/index.html">Entrar Sem Logar</a>
             </p>
         </div>
     </div>
@@ -52,7 +53,7 @@
             if (errorMessage === 'Ops! Ação não autorizada.') {
                 alert('Credenciais Inválidas.')
             }
-            if(errorMessage === 'Ops! Dados não encontrados.'){
+            if (errorMessage === 'Ops! Dados não encontrados.') {
                 alert(errorMessage);
             }
         }

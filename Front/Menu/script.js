@@ -3,12 +3,24 @@ const endereco = document.getElementById("endereco");
 const filtro = document.getElementById("filtro");
 
 window.onload = async function () {
-  if (localStorage.getItem("token") !== null) {
-    const ID = await pegaID();
-    const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
+  const token = localStorage.getItem("token");
+  console.log(token);
+  if (token === 'null') {
+    const nav = document.getElementById("nav");
 
+    nav.innerHTML =
+      '<h3 id="texto-logar">Faça login para ter acesso a mais funções!</h3><a href="../Login/login.html" class="botao" id="logar"><p id="texto-evento">Logar</p></a>';
+  } else {
+    console.log(token);
     try {
-      const response = await axios.get(LOCAL_API_URL_USER);
+      const ID = await pegaID();
+      const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
+      const response = await axios.get(LOCAL_API_URL_USER,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
       console.log(response);
 
@@ -17,18 +29,12 @@ window.onload = async function () {
     } catch (error) {
       console.log(error);
     }
-  } else {
-    const nav = document.getElementById("nav");
-
-    nav.innerHTML =
-      '<h3 id="texto-logar">Faça login para ter acesso a mais funções!</h3><a href="../Login/login.html" class="botao" id="logar"><p id="texto-evento">Logar</p></a>';
   }
 
   const LOCAL_API_URL = `http://localhost:3000/api/establishments`;
 
   try {
     const response = await axios.get(LOCAL_API_URL);
-
     console.log(response);
 
     response.data.data.forEach((estab) => {
