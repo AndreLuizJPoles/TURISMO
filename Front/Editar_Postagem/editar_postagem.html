@@ -26,14 +26,25 @@
             <div class="caixa">
                 <label for="imagem1">
                     Imagem 1:
-                    <form enctype="multipart/form-data">
-                        <input type="file" id="imagem1" class="input-img" accept="image/*">
+                    <form enctype="multipart/form-data" method="POST">
+                        <input type="file" name="picture" id="imagem1" class="input-img" accept="image/*">
                     </form>
                 </label>
             </div>
 
             <button id="postar" class="botao" onclick="salvar()">Salvar Postagem</button>
-            <button id="apagar" class="botao" onclick="apagar()">Apagar Postagem</button>
+            <button id="apagar" class="botao" onclick="avisoExcluir()">Apagar Postagem</button>
+
+            <div id="confirmationPopup" class="popup">
+                <div class="popup-content">
+                    <span class="close-btn">&times;</span>
+                    <p>Você tem certeza que deseja deletar sua conta?</p>
+                    <div id="div-popup-buttons">
+                        <button id="confirmDelete" class="botao">Sim, Deletar</button>
+                        <button id="cancelDelete" class="botao">Cancelar</button>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
