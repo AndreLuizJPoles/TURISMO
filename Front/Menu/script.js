@@ -1,6 +1,9 @@
 const nome_user = document.getElementById("nome-usuario");
 const endereco = document.getElementById("endereco");
 const filtro = document.getElementById("filtro");
+const foto = document.getElementById('foto-perfil');
+const perfil = document.getElementById('perfil-usuario');
+
 
 window.onload = async function () {
   const token = localStorage.getItem("token");
@@ -26,6 +29,9 @@ window.onload = async function () {
 
       nome_user.innerHTML = response.data.data.name;
       endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}`;
+      foto.src = response.data.data.picture_url;
+      perfil.src = response.data.data.picture_url;
+
     } catch (error) {
       console.log(error);
     }

@@ -4,7 +4,6 @@ const nome = document.getElementById('nome');
 const enderecoEstab = document.getElementById('enderecoText');
 const descricao = document.getElementById('desc');
 const horario = document.getElementById('horario');
-const novaPost = document.getElementById('nova-postagem');
 const titulo = document.getElementById('titulo-pagina');
 const perfilFoto = document.getElementById('perfil-foto');
 const planoFundo = document.getElementById('plano-fundo');
@@ -65,60 +64,6 @@ window.onload = async function () {
 
         idUsuario = response.data.data.user_id;
 
-    } catch (error) {
-        console.log(error);
-    }
-
-    const LOCAL_API_URL_POST = `http://localhost:3000/api/posts`;
-
-    try {
-        const response = await axios.get(
-            LOCAL_API_URL_POST,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
-
-        const fundo = document.getElementById('fundo-perfil-est');
-
-        response.data.data.forEach(post => {
-            if (post.establishment_id == localStorage.getItem('idAtracao')) {
-                const postagem = document.createElement('div');
-                postagem.classList.add('postagem');
-                const titulo = document.createElement('h2');
-                titulo.id = 'titulo-postagem'
-                titulo.innerHTML = post.name;
-                postagem.appendChild(titulo);
-                const a = document.createElement('a');
-                const img = document.createElement('img');
-                img.src = "../images/editar.png";
-                img.classList.add("icone-editar");
-                a.appendChild(img);
-                a.onclick = function () {
-                    localStorage.setItem('idPost', post.id);
-                    window.location.replace('../Editar_Postagem/editar_postagem.html');
-                }
-                postagem.appendChild(a);
-                const texto = document.createElement('p');
-                texto.id = 'texto-postagem';
-                texto.innerHTML = post.description;
-                postagem.appendChild(texto);
-                const divImg = document.createElement('div');
-                divImg.id = "box-img-post";
-                const imgPost = document.createElement('img');
-                imgPost.src = "../images/baffs.png"; //TODO: Mockado
-                imgPost.classList.add("img-postagem");
-                divImg.appendChild(imgPost);
-                postagem.appendChild(divImg);
-                fundo.appendChild(postagem);
-            }
-        });
-
-        const mensagem = document.createElement('div');
-        mensagem.innerHTML = '<p>Não há mais postagens!</p><br><br><br>';
-        fundo.appendChild(mensagem);
     } catch (error) {
         console.log(error);
     }

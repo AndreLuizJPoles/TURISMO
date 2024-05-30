@@ -1,5 +1,7 @@
 const nome_user = document.getElementById('nome-usuario');
 const endereco = document.getElementById('endereco');
+const foto = document.getElementById('foto-perfil');
+const fotoUsuario = document.getElementById('perfil-usuario');
 
 window.onload = async function () {
   const ID = await pegaID();
@@ -24,6 +26,8 @@ window.onload = async function () {
 
     nome_user.innerHTML = response.data.data.name;
     endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}`;
+    foto.src = response.data.data.picture_url;
+    fotoUsuario.src = response.data.data.picture_url;
 
   } catch (error) {
     console.log(error);
