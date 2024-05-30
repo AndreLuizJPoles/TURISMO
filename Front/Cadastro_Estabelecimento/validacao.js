@@ -27,7 +27,7 @@ const descricao = document.getElementById("descricao");
 
 async function cadastrar() {
   if (validar()) {
-    const category = document.getElementById("categorias"); 
+    const category = document.getElementById("categorias");
     const neighborhood = document.getElementById("bairro").value;
     const street = document.getElementById("rua").value;
     const number = document.getElementById("numero").value;
@@ -36,27 +36,27 @@ async function cadastrar() {
       {
         day_of_week_id:
           "5bd361e1-a5ec-4d26-8cba-0dc434a71fdc" /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
-        opening_time: horaAberto.value,
-        closing_time: horaFecha.value,
+        opening_time: "1997-07-16T19:20:30+01:00", //TODO:
+        closing_time: "1997-07-16T19:20:30+01:00", //TODO:
       },
     ]; //TODO: modelo de array pra armazenar os dias de funcionamento e seus horários
 
-    if(email1.value == ''){
+    if (email1.value == '') {
       email1.value = 'sememail@email.com';
     }
-    if(email2.value == ''){
+    if (email2.value == '') {
       email2.value = 'sememail@email.com';
     }
-    if(email3.value == ''){
+    if (email3.value == '') {
       email3.value = 'sememail@email.com';
     }
-    if(telefone1.value == ''){
+    if (telefone1.value == '') {
       telefone1.value = '0';
     }
-    if(telefone2.value == ''){
+    if (telefone2.value == '') {
       telefone2.value = '0';
     }
-    if(telefone3.value == ''){
+    if (telefone3.value == '') {
       telefone3.value = '0';
     }
 
@@ -69,7 +69,7 @@ async function cadastrar() {
       name: nomeEstab.value,
       cnpj: cnpj.value,
       description: descricao.value,
-      category_id: category.value, 
+      category_id: category.value,
       address: adress,
       city: cidade.value,
       zip_code: cep.value,
@@ -107,10 +107,10 @@ function validar() {
     alert("CNPJ inválido!");
     return false;
   }
-  if (validaHora()) {
+  /*if (validaHora()) {
     alert("O horário de abertura deve ser menor que o horário de fechamento!");
     return false;
-  }
+  }*/
   return true;
 }
 
