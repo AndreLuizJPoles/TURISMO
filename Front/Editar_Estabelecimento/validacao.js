@@ -162,21 +162,44 @@ async function salvar() {
 
       const imagemPerfilValue = document.getElementById("imagem-perfil");
       const file = imagemPerfilValue.files[0];
-      const formData = new FormData();
-      formData.append("picture", file);
+      if (file) {
+        const formData = new FormData();
+        formData.append("picture", file);
 
-      console.log("formData", formData);
-      const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${localStorage.getItem(
-        "idAtracao"
-      )}/upload/picture_upload?type=profile`;
-      const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+        console.log("formData", formData);
+        const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${localStorage.getItem(
+          "idAtracao"
+        )}/upload/picture_upload?type=profile`;
+        const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-      console.log(imagemRequest);
+        console.log(imagemRequest);
+      }
+      const imagemPlanoValue = document.getElementById("imagem-plano");
+      const filePlano = imagemPlanoValue.files[0];
+      if (filePlano) {
+        const formDataPlano = new FormData();
+        formDataPlano.append("picture", filePlano);
+
+        console.log("formDataPlano", formDataPlano);
+        const LOCAL_API_URL_IMAGE_BACK = `${LOCAL_API_URL}/${localStorage.getItem(
+          "idAtracao"
+        )}/upload/picture_upload?type=background_picture`;
+        const imagemPlanoRequest = await axios.post(LOCAL_API_URL_IMAGE_BACK, formDataPlano, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        console.log(imagemPlanoRequest);
+      }
+      window.location.replace('../Perfil_Estabelecimento/perfil_estab_postagens.html');
+
     } catch (error) {
       console.log(error);
     }
