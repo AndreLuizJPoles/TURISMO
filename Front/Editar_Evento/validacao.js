@@ -144,7 +144,7 @@ window.onload = async function () {
     descricao.value = response.data.data.description; 
     if(response.data.data.attraction_id == null){
       ponto.value = '';
-      estabelecimento.value = response.data.data.establishment_id; //TODO: Não está trazendo na tela
+      estabelecimento.value = response.data.data.establishment_id;
     }else{
       ponto.value = response.data.data.attraction_id;
       estabelecimento.value = ' '

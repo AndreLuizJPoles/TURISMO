@@ -30,9 +30,11 @@ window.onload = async function () {
 
       nome_user.innerHTML = response.data.data.name;
       endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}`;
-      foto.src = response.data.data.picture_url;
-      perfil.src = response.data.data.picture_url;
 
+      if (!response.data.data.picture_url === null || !response.data.data.picture_url === '') {
+        foto.src = response.data.data.picture_url;
+        perfil.src = response.data.data.picture_url;
+      }
     } catch (error) {
       console.log(error);
     }

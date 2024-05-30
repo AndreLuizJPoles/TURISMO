@@ -134,11 +134,6 @@ async function salvar() {
       const imagemPerfilValue = document.getElementById("imagem-perfil");
       const file = imagemPerfilValue.files[0];
 
-      const formData = new FormData();
-      formData.append("picture", file);
-
-      console.log(formData);
-
       const response = await axios.put(
         LOCAL_API_URL,
         {
@@ -161,16 +156,20 @@ async function salvar() {
         }
       );
 
-      const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${ID}/upload/profile_picture`;
+      if (file) {
+        const formData = new FormData();
+        formData.append("picture", file);
+        const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${ID}/upload/profile_picture`;
 
-      const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+        const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-      console.log(imagemRequest);
+        console.log(imagemRequest);
+      }
 
       alert("Edição concluída!");
       window.location.replace("../Menu/index.html");
@@ -200,7 +199,6 @@ window.onload = async function () {
     cep.value = response.data.data.zip_code;
     uf.value = response.data.data.state;
     cidade.value = response.data.data.city;
-    senha.value = response.data.data.password;
 
     const dataAux = new Date(response.data.data.birthdate);
     const dia = dataAux.getUTCDate();

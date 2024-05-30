@@ -49,7 +49,6 @@ async function salvar() {
   const LOCAL_API_URL = `http://localhost:3000/api/posts`;
 
   try {
-    let estab = null, evento = null, ponto = localStorage.getItem('idAtracao');
     if (localStorage.getItem("tipoAtracao") == 'estabelecimento') {
       estab = localStorage.getItem('idAtracao');
       ponto = null;
@@ -77,6 +76,7 @@ async function salvar() {
     const formData = new FormData();
     formData.append("picture", file);
 
+    //TODO: ARRUMAR IMAGEM
     const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${localStorage.getItem('idPost')}/upload/post_picture`;
 
       const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
