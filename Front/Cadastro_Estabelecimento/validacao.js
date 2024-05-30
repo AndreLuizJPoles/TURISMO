@@ -119,8 +119,6 @@ function verificaVazio() {
     nomeEstab.value == "" ||
     cnpj.value == "" ||
     categoria.value == "" ||
-    horaAberto.value == "" ||
-    horaFecha.value == "" ||
     cep.value == "" ||
     cidade.value == "" ||
     bairro.value == "" ||
@@ -184,9 +182,6 @@ window.onload = async function () {
   const LOCAL_API_URL = `http://localhost:3000/api/establishmentCategories`;
 
   try {
-
-    console.log(LOCAL_API_URL);
-
     const response = await axios.get(
       LOCAL_API_URL,
       {

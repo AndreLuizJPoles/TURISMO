@@ -7,14 +7,15 @@ const perfil = document.getElementById('perfil-usuario');
 
 window.onload = async function () {
   const token = localStorage.getItem("token");
-  console.log(token);
   if (token === 'null') {
     const nav = document.getElementById("nav");
+    const linkPerfil = document.getElementById("link-perfil");
+
+    linkPerfil.style.display = 'none';
 
     nav.innerHTML =
       '<h3 id="texto-logar">Faça login para ter acesso a mais funções!</h3><a href="../Login/login.html" class="botao" id="logar"><p id="texto-evento">Logar</p></a>';
   } else {
-    console.log(token);
     try {
       const ID = await pegaID();
       const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;

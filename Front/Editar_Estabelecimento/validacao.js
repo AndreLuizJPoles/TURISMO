@@ -23,6 +23,11 @@ const telefone3 = document.getElementById("telefone3");
 const email1 = document.getElementById("email1");
 const email2 = document.getElementById("email2");
 const email3 = document.getElementById("email3");
+const imagemPerfilValue = document.getElementById("imagem-perfil");
+const file = imagemPerfilValue.files[0];
+
+const formData = new FormData();
+formData.append("picture", file);
 
 function validar() {
   if (verificaVazio()) {
@@ -33,10 +38,10 @@ function validar() {
     alert("CNPJ inválido!");
     return false;
   }
-  if (validaHora()) {
+  /*if (validaHora()) {
     alert("O horário de abertura deve ser menor que o horário de fechamento!");
     return false;
-  }
+  }*/
   return true;
 }
 
@@ -45,8 +50,6 @@ function verificaVazio() {
     nomeEstab.value == "" ||
     cnpj.value == "" ||
     categoria.value == "" ||
-    horaAberto.value == "" ||
-    horaFecha.value == "" ||
     cep.value == "" ||
     cidade.value == "" ||
     bairro.value == "" ||
@@ -106,32 +109,32 @@ function validaHora() {
   return horaFecha.value <= horaAberto.value;
 }
 
-async function salvar() { 
+async function salvar() {
   if (validar()) {
     const workingTime = [//TODO: modelo de array que vamos enviar, aqui vamos ter TODOS os dias da semana e seus horários
       {
         day_of_week_id: "5bd361e1-a5ec-4d26-8cba-0dc434a71fdc", //TODO: pegar id que foi retornado da base na listagem
-        opening_time: horaAberto.value,
-        closing_time: horaFecha.value,
+        opening_time: '1997-07-16T19:20:30+01:00', //TODO:
+        closing_time: '1997-07-16T19:20:30+01:00',//TODO:
       },
-    ]; 
+    ];
 
-    if(email1.value == ''){
+    if (email1.value == '') {
       email1.value = 'sememail@email.com';
     }
-    if(email2.value == ''){
+    if (email2.value == '') {
       email2.value = 'sememail@email.com';
     }
-    if(email3.value == ''){
+    if (email3.value == '') {
       email3.value = 'sememail@email.com';
     }
-    if(telefone1.value == ''){
+    if (telefone1.value == '') {
       telefone1.value = '0';
     }
-    if(telefone2.value == ''){
+    if (telefone2.value == '') {
       telefone2.value = '0';
     }
-    if(telefone3.value == ''){
+    if (telefone3.value == '') {
       telefone3.value = '0';
     }
 
@@ -141,7 +144,7 @@ async function salvar() {
     };
 
     const payload = {
-      id: localStorage.getItem("idAtracao"), 
+      id: localStorage.getItem("idAtracao"),
       name: nomeEstab.value,
       cnpj: cnpj.value,
       description: descricao.value,
@@ -160,6 +163,17 @@ async function salvar() {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      console.log(localStorage.getItem("idAtracao"));
+      const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${localStorage.getItem("idAtracao")}/upload/picture_upload?type=profile`;
+      const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log(imagemRequest);
+
     } catch (error) {
       console.log(error);
     }
@@ -214,9 +228,6 @@ window.onload = async function () {
   const LOCAL_API_URL_CAT = `http://localhost:3000/api/establishmentCategories`;
 
   try {
-
-    console.log(LOCAL_API_URL_CAT);
-
     const response = await axios.get(
       LOCAL_API_URL_CAT,
       {
@@ -239,13 +250,9 @@ window.onload = async function () {
     console.log(error);
   }
 
-  const idEstab = localStorage.getItem("iidAtracao");
+  const idEstab = localStorage.getItem("idAtracao");
   const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
-
   try {
-
-    console.log(LOCAL_API_URL);
-
     const response = await axios.get(
       LOCAL_API_URL,
       {
