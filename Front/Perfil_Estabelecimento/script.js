@@ -135,7 +135,7 @@ window.onload = async function () {
     }
 
     //Deve ficar por úlitmo
-    if (ID !== idUsuario) {
+    if (await pegaID() !== idUsuario) {
         novaPost.style.display = 'none';
         editarEst.style.display = 'none';
         for (i = 0; i < iconeEditar.length; i++) {
