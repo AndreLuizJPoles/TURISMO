@@ -23,11 +23,6 @@ const telefone3 = document.getElementById("telefone3");
 const email1 = document.getElementById("email1");
 const email2 = document.getElementById("email2");
 const email3 = document.getElementById("email3");
-const imagemPerfilValue = document.getElementById("imagem-perfil");
-const file = imagemPerfilValue.files[0];
-
-const formData = new FormData();
-formData.append("picture", file);
 
 function validar() {
   if (verificaVazio()) {
@@ -111,31 +106,32 @@ function validaHora() {
 
 async function salvar() {
   if (validar()) {
-    const workingTime = [//TODO: modelo de array que vamos enviar, aqui vamos ter TODOS os dias da semana e seus horários
+    const workingTime = [
+      //TODO: modelo de array que vamos enviar, aqui vamos ter TODOS os dias da semana e seus horários
       {
         day_of_week_id: "5bd361e1-a5ec-4d26-8cba-0dc434a71fdc", //TODO: pegar id que foi retornado da base na listagem
-        opening_time: '1997-07-16T19:20:30+01:00', //TODO:
-        closing_time: '1997-07-16T19:20:30+01:00',//TODO:
+        opening_time: "1997-07-16T19:20:30+01:00", //TODO:
+        closing_time: "1997-07-16T19:20:30+01:00", //TODO:
       },
     ];
 
-    if (email1.value == '') {
-      email1.value = 'sememail@email.com';
+    if (email1.value == "") {
+      email1.value = "sememail@email.com";
     }
-    if (email2.value == '') {
-      email2.value = 'sememail@email.com';
+    if (email2.value == "") {
+      email2.value = "sememail@email.com";
     }
-    if (email3.value == '') {
-      email3.value = 'sememail@email.com';
+    if (email3.value == "") {
+      email3.value = "sememail@email.com";
     }
-    if (telefone1.value == '') {
-      telefone1.value = '0';
+    if (telefone1.value == "") {
+      telefone1.value = "0";
     }
-    if (telefone2.value == '') {
-      telefone2.value = '0';
+    if (telefone2.value == "") {
+      telefone2.value = "0";
     }
-    if (telefone3.value == '') {
-      telefone3.value = '0';
+    if (telefone3.value == "") {
+      telefone3.value = "0";
     }
 
     const contacts = {
@@ -149,7 +145,7 @@ async function salvar() {
       cnpj: cnpj.value,
       description: descricao.value,
       category_id: categoria.value,
-      address: bairro.value + ', ' + rua.value + ', ' + numero.value,
+      address: bairro.value + ", " + rua.value + ", " + numero.value,
       zip_code: cep.value,
       state: uf.value,
       workingTime,
@@ -163,8 +159,16 @@ async function salvar() {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(localStorage.getItem("idAtracao"));
-      const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${localStorage.getItem("idAtracao")}/upload/picture_upload?type=profile`;
+
+      const imagemPerfilValue = document.getElementById("imagem-perfil");
+      const file = imagemPerfilValue.files[0];
+      const formData = new FormData();
+      formData.append("picture", file);
+
+      console.log("formData", formData);
+      const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${localStorage.getItem(
+        "idAtracao"
+      )}/upload/picture_upload?type=profile`;
       const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -173,7 +177,6 @@ async function salvar() {
       });
 
       console.log(imagemRequest);
-
     } catch (error) {
       console.log(error);
     }
@@ -228,24 +231,20 @@ window.onload = async function () {
   const LOCAL_API_URL_CAT = `http://localhost:3000/api/establishmentCategories`;
 
   try {
-    const response = await axios.get(
-      LOCAL_API_URL_CAT,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const response = await axios.get(LOCAL_API_URL_CAT, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
     const dataList = document.getElementById("categorias");
 
-    response.data.data.forEach(option => {
-      const optionElement = document.createElement('option');
+    response.data.data.forEach((option) => {
+      const optionElement = document.createElement("option");
       optionElement.value = option.id;
       optionElement.textContent = option.name;
       dataList.appendChild(optionElement);
     });
-
   } catch (error) {
     console.log(error);
   }
@@ -253,14 +252,11 @@ window.onload = async function () {
   const idEstab = localStorage.getItem("idAtracao");
   const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
   try {
-    const response = await axios.get(
-      LOCAL_API_URL,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const response = await axios.get(LOCAL_API_URL, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
     console.log(response);
 
@@ -269,18 +265,16 @@ window.onload = async function () {
     categorias.value = response.data.data.category_id;
     descricao.value = response.data.data.description;
 
-
     cep.value = response.data.data.zip_code;
     uf.value = response.data.data.state;
     cidade.value = response.data.data.city;
 
-    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(', ');
+    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(", ");
 
     bairro.value = bairroAux;
     rua.value = ruaAux;
     numero.value = numAux;
-
   } catch (error) {
     console.log(error);
   }
-}
+};
