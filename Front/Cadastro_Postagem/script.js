@@ -57,6 +57,22 @@ async function postar(){
         },
       }
     );
+    const file = imagem1.files[0];
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("picture", file);
+      const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${response.data.data.id}/upload/post_picture`;
+
+      const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log(imagemRequest);
+    }
 
     window.location.replace(urlAux);
   } catch (error) {
