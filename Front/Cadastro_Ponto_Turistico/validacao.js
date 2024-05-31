@@ -4,15 +4,13 @@ const uf = document.getElementById("uf");
 const cidade = document.getElementById("cidade");
 const bairro = document.getElementById("bairro");
 const rua = document.getElementById("rua");
-const numero = document.getElementById("numero");
 const descricao = document.getElementById('descricao');
 
 async function cadastrar() {
     if (validar()) {
         const neighborhood = document.getElementById("bairro").value;
         const street = document.getElementById("rua").value;
-        const number = document.getElementById("numero").value;
-        const address = neighborhood + ', ' + street + ', ' + number;
+        const address = neighborhood + ', ' + street;
 
         const payload = {
             name: nomePonto.value,
