@@ -195,13 +195,25 @@ window.onload = async function () {
     }
 
     //Deve ficar por úlitmo
-    if (ID !== idUsuario) {
-        novaPost.style.display = 'none';
-        editarEst.style.display = 'none';
-        for (i = 0; i < iconeEditar.length; i++) {
-            iconeEditar[i].style.display = 'none';
+    try{
+        const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
+          const response = await axios.get(LOCAL_API_URL_USER,
+            {
+              headers: {
+                authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
+    
+            if (ID !== idUsuario || response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
+                novaPost.style.display = 'none';
+                editarEst.style.display = 'none';
+                for (i = 0; i < iconeEditar.length; i++) {
+                    iconeEditar[i].style.display = 'none';
+            }
         }
-    }
+      }catch (error) {
+        console.log(error);
+      }
 }
 
 async function pegaID() {
