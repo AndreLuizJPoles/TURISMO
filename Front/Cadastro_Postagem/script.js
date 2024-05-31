@@ -31,13 +31,15 @@ async function postar(){
     const LOCAL_API_URL = `http://localhost:3000/api/posts`;
 
   try {
-    let estab=null, evento=null, ponto=localStorage.getItem('idAtracao');
+    let estab=null, evento=null, ponto=localStorage.getItem('idAtracao'), urlAux;
     if(localStorage.getItem("tipoAtracao") == 'estabelecimento'){
         estab = localStorage.getItem('idAtracao');
         ponto = null;
+        urlAux = '../Perfil_Estabelecimento/perfil_estab_postagens.html';
     }else if(localStorage.getItem("tipoAtracao") == 'evento'){
         evento = localStorage.getItem('idAtracao');
         ponto = null;
+        urlAux = '../Perfil_Evento/perfil_evento_postagens.html';
     }
 
     const response = await axios.post(
@@ -56,7 +58,7 @@ async function postar(){
       }
     );
 
-    window.location.replace('../Perfil_Estabelecimento/perfil_estab_postagens.html');
+    window.location.replace(urlAux);
   } catch (error) {
     console.log(error);
   }
