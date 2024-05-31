@@ -237,5 +237,12 @@ function comparaDatas(dataInicio, dataFim, horaInicio, horaFim) {
     dataInicio.setDate(dataInicio.getDate() + 1);
     dataFim.setDate(dataFim.getDate() + 1);
 
-    return dataInicio <= agora && dataFim >= agora;
+    const hora = comparaHora(horaInicio, horaFim, agora);
+
+    return dataInicio <= agora && dataFim >= agora && hora;
+}
+
+function comparaHora(horaInicio, horaFim, agora){
+    const agoraStr = `${(agora.getHours()).toString().padStart(2, '0')}:${(agora.getMinutes()).toString().padStart(2, '0')}`;
+    return horaInicio <= agoraStr && horaFim >= agoraStr;
 }
