@@ -29,9 +29,14 @@ window.onload = async function () {
       console.log(response);
 
       nome_user.innerHTML = response.data.data.name;
-      endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}`;
 
-      if (!response.data.data.picture_url === null || !response.data.data.picture_url === '') {
+      if (response.data.data.address === ', , ' || response.data.data.addres === null) {
+        endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon">`;
+      }else{
+        endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}`;
+      }
+
+      if (response.data.data.picture_url !== null || !response.data.data.picture_url === '') {
         foto.src = response.data.data.picture_url;
         perfil.src = response.data.data.picture_url;
       }
@@ -216,7 +221,7 @@ async function mudou() {
         const grade = document.getElementById("grade");
 
         bloco.onclick = function () {
-          localStorage.setItem("idEstab", estab.id);
+          localStorage.setItem("idAtracao", estab.id);
           localStorage.setItem("tipoAtracao", "evento");
           window.location.replace(
             "../Perfil_Evento/perfil_evento_postagens.html"
@@ -268,7 +273,7 @@ async function mudou() {
         const grade = document.getElementById("grade");
 
         bloco.onclick = function () {
-          localStorage.setItem("idEstab", estab.id);
+          localStorage.setItem("idAtracao", estab.id);
           localStorage.setItem("tipoAtracao", "ponto");
           window.location.replace("../Perfil_Ponto/perfil_ponto.html");
         };
