@@ -36,7 +36,7 @@ window.onload = async function () {
         } else {
             endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}<p/>`;
         }
-        if (!response.data.data.picture_url === null || !response.data.data.picture_url === '') {
+        if (response.data.data.picture_url !== null || !response.data.data.picture_url === '') {
             foto.src = response.data.data.picture_url;
             perfil.src = response.data.data.picture_url;
         }
