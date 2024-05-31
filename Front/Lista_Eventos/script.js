@@ -10,9 +10,6 @@ window.onload = async function () {
   const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
 
   try {
-
-    console.log(LOCAL_API_URL_USER);
-
     const response = await axios.get(
       LOCAL_API_URL_USER,
       {
@@ -45,70 +42,60 @@ window.onload = async function () {
   }
 
   try {
+    const response = await axios.get(LOCAL_API_URL);
 
-    console.log(LOCAL_API_URL);
+    response.data.data.forEach((estab) => {
+      let statusValor = 'Fechado';
+      const dataInicio = new Date(estab.start_date);
+      const dataFim = new Date(estab.end_date);
 
-    const response = await axios.get(
-      LOCAL_API_URL,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+        const bloco = document.createElement("div");
+        bloco.onclick;
+        bloco.classList.add("bloco");
+        const img = document.createElement("img");
+        bloco.appendChild(img);
+        img.classList.add("imagem");
+        img.src = estab.picture_url;
+        img.id = "foto";
+        const inferior = document.createElement("div");
+        bloco.appendChild(inferior);
+        inferior.classList.add("inferior");
+        const h2 = document.createElement("h2");
+        inferior.appendChild(h2);
+        h2.id = "nome";
+        h2.innerHTML = estab.name;
+        const conjNota = document.createElement("div");
+        inferior.appendChild(conjNota);
+        conjNota.id = "conjunto-nota";
+        const icone = document.createElement("img");
+        conjNota.appendChild(icone);
+        icone.classList.add("icone");
+        icone.src = "../images/onibus.png";
+        const nota = document.createElement("h3");
+        conjNota.appendChild(nota);
+        nota.id = "nota";
+        nota.innerHTML = "5.0"; //TODO: Mockado
+        const status = document.createElement("h3");
+        inferior.appendChild(status);
+        if (comparaDatas(dataInicio, dataFim, estab.start_time, estab.end_time)) {
+          statusValor = 'Aberto';
+        } else {
+          status.style.color = 'red';
+        }
+        status.innerHTML = statusValor;
+        status.id = "status";
+        const grade = document.getElementById("grade");
 
-    console.log(response);
+        bloco.onclick = function () {
+          localStorage.setItem("idAtracao", estab.id);
+          localStorage.setItem("tipoAtracao", "evento");
+          window.location.replace(
+            "../Perfil_Evento/perfil_evento_postagens.html"
+          );
+        };
 
-    response.data.data.forEach(evento => {
-      //if (evento.user_id === ID) {
-      let imagem;
-      if (evento.picture_url === null) {
-        imagem = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHyPvzYv6YnUrZvvGrZMpXdYANau0x7c4nNtSOmQpniA&s';
-      } else {
-        imagem = evento.picture_url;
-      }
-
-      const bloco = document.createElement('div');
-      bloco.onclick
-      bloco.classList.add('bloco');
-      const img = document.createElement('img');
-      bloco.appendChild(img);
-      img.classList.add('imagem');
-      img.src = imagem;
-      img.id = 'foto';
-      const inferior = document.createElement('div');
-      bloco.appendChild(inferior);
-      inferior.classList.add('inferior');
-      const h2 = document.createElement('h2');
-      inferior.appendChild(h2);
-      h2.id = 'nome';
-      h2.innerHTML = evento.name;
-      const conjNota = document.createElement('div');
-      inferior.appendChild(conjNota);
-      conjNota.id = 'conjunto-nota';
-      const icone = document.createElement('img');
-      conjNota.appendChild(icone);
-      icone.classList.add('icone');
-      icone.src = '../images/onibus.png';
-      const nota = document.createElement('h3');
-      conjNota.appendChild(nota);
-      nota.id = 'nota';
-      nota.innerHTML = '5.0';//TODO: Mockado 
-      const status = document.createElement('h3');
-      inferior.appendChild(status);
-      status.innerHTML = 'Aberto';// TODO: Mockado
-      status.id = 'status';
-      const grade = document.getElementById('grade');
-
-      bloco.onclick = function () {
-        localStorage.setItem('idAtracao', evento.id);
-        window.location.replace('../Perfil_Evento/perfil_evento_postagens.html');
-      }
-
-      grade.appendChild(bloco);
-      //}
+        grade.appendChild(bloco);
     });
-
   } catch (error) {
     console.log(error);
   }
@@ -137,4 +124,22 @@ async function pegaID() {
 function sair() {
   localStorage.setItem('token', null);
   window.location.replace('../Login/login.html');
+}
+
+function comparaDatas(dataInicio, dataFim, horaInicio, horaFim) {
+  const agora = new Date();
+  dataInicio.setHours(horaInicio.substring(0, 2));
+  dataFim.setHours(horaFim.substring(0, 2));
+
+  dataInicio.setDate(dataInicio.getDate() + 1);
+  dataFim.setDate(dataFim.getDate() + 1);
+
+  const hora = comparaHora(horaInicio, horaFim, agora);
+
+  return dataInicio <= agora && dataFim >= agora && hora;
+}
+
+function comparaHora(horaInicio, horaFim, agora){
+  const agoraStr = `${(agora.getHours()).toString().padStart(2, '0')}:${(agora.getMinutes()).toString().padStart(2, '0')}`;
+  return horaInicio <= agoraStr && horaFim >= agoraStr;
 }
