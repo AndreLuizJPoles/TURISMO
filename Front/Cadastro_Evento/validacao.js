@@ -32,8 +32,7 @@ function verificaVazio() {
     horaAberta.value == "" ||
     horaEncer.value == "" ||
     dataInicio.value == "" ||
-    dataFim.value == "" ||
-    estabelecimento.value == ""
+    dataFim.value == "" 
   );
 }
 

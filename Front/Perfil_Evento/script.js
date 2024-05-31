@@ -12,6 +12,8 @@ const editarEst = document.getElementById('editar-est');
 const iconeEditar = document.getElementsByClassName('icone-editar');
 const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
+const data = document.getElementById('data');
+let idUsuario;
 let ID = null;
 
 window.onload = async function () {
@@ -62,8 +64,8 @@ window.onload = async function () {
         }
     }
 
-    const idEstab = localStorage.getItem("idAtracao");
-    const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
+    const idEvento = localStorage.getItem("idAtracao");
+    const LOCAL_API_URL = `http://localhost:3000/api/events/${idEvento}`;
 
     try {
         const response = await axios.get(
@@ -78,23 +80,121 @@ window.onload = async function () {
         console.log(response);
 
         nome.innerHTML = response.data.data.name;
-        enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}. CEP: ${response.data.data.zip_code}`;
         descricao.innerHTML = response.data.data.description;
         horario.innerHTML = `Das 12:00 às 18:00`; //TODO: Mockado
         titulo.innerHTML = response.data.data.name;
         perfilFoto.src = response.data.data.picture_url;
         planoFundo.src = response.data.data.background_picture_url;
+        horario.innerHTML = `Das ${response.data.data.start_time} às ${response.data.data.end_time}`;
+        const dataInicio = new Date(response.data.data.start_date);
+        const dataInicioStr = `${(dataInicio.getDate()+1).toString().padStart(2, '0')}/${(dataInicio.getUTCMonth()+1).toString().padStart(2, '0')}/${dataInicio.getFullYear()} `;
+        const dataFim = new Date(response.data.data.end_date);
+        const dataFimStr = `${(dataFim.getDate()+1).toString().padStart(2, '0')}/${(dataFim.getUTCMonth()+1).toString().padStart(2, '0')}/${dataFim.getFullYear()} `;
 
-        if(ID !== response.data.data.user_id){
-            novaPost.style.display = 'none';
-            editarEst.style.display = 'none';
-            for(i=0; i<iconeEditar.length; i++){
-                iconeEditar[i].style.display = 'none';
+        data.innerHTML = `De ${dataInicioStr} a ${dataFimStr}`
+
+        if (response.data.data.establishment_id) {
+            const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments/${response.data.data.establishment_id}`;
+
+            try {
+                const response = await axios.get(
+                    LOCAL_API_URL_EST,
+                    {
+                        headers: {
+                            authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                    }
+                );
+
+                enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}`;
+                idUsuario = response.data.data.user_id;
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            const LOCAL_API_URL_ATT = `http://localhost:3000/api/attractions/${response.data.data.attraction_id}`;
+
+            try {
+                const response = await axios.get(
+                    LOCAL_API_URL_ATT,
+                    {
+                        headers: {
+                            authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                    }
+                );
+
+                enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}`;
+            } catch (error) {
+                console.log(error);
             }
         }
 
     } catch (error) {
         console.log(error);
+    }
+
+    const LOCAL_API_URL_POST = `http://localhost:3000/api/posts`;
+
+    try {
+        const response = await axios.get(
+            LOCAL_API_URL_POST,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        const fundo = document.getElementById('fundo-perfil-est');
+
+        response.data.data.forEach(post => {
+            if (post.establishment_id == localStorage.getItem('idAtracao')) {
+                const postagem = document.createElement('div');
+                postagem.classList.add('postagem');
+                const titulo = document.createElement('h2');
+                titulo.id = 'titulo-postagem'
+                titulo.innerHTML = post.name;
+                postagem.appendChild(titulo);
+                const a = document.createElement('a');
+                const img = document.createElement('img');
+                img.src = "../images/editar.png";
+                img.classList.add("icone-editar");
+                a.appendChild(img);
+                a.onclick = function () {
+                    localStorage.setItem('idPost', post.id);
+                    window.location.replace('../Editar_Postagem/editar_postagem.html');
+                }
+                postagem.appendChild(a);
+                const texto = document.createElement('p');
+                texto.id = 'texto-postagem';
+                texto.innerHTML = post.description;
+                postagem.appendChild(texto);
+                const divImg = document.createElement('div');
+                divImg.id = "box-img-post";
+                const imgPost = document.createElement('img');
+                imgPost.src = "../images/baffs.png"; //TODO: Mockado
+                imgPost.classList.add("img-postagem");
+                divImg.appendChild(imgPost);
+                postagem.appendChild(divImg);
+                fundo.appendChild(postagem);
+            }
+        });
+
+        const mensagem = document.createElement('div');
+        mensagem.innerHTML = '<p>Não há mais postagens!</p><br><br><br>';
+        fundo.appendChild(mensagem);
+    } catch (error) {
+        console.log(error);
+    }
+
+    //Deve ficar por úlitmo
+    if (ID !== idUsuario) {
+        novaPost.style.display = 'none';
+        editarEst.style.display = 'none';
+        for (i = 0; i < iconeEditar.length; i++) {
+            iconeEditar[i].style.display = 'none';
+        }
     }
 }
 
@@ -118,7 +218,7 @@ async function pegaID() {
     }
 }
 
-function sair(){
+function sair() {
     localStorage.setItem('token', null);
     window.location.replace('../Login/login.html');
 }
