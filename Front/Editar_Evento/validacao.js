@@ -191,24 +191,31 @@ window.onload = async function () {
     let mes = dataAux.getUTCMonth() + 1;
     let ano = dataAux.getFullYear();
 
+    if(dia < 10){
+      dia = '0' + dia;
+    }
+
     if (mes < 10) {
       mes = "0" + mes;
     }
 
     dataInicio.value = `${ano}-${mes}-${dia}`;
 
+
     dataAux = new Date(response.data.data.end_date);
     dia = dataAux.getUTCDate();
     mes = dataAux.getUTCMonth() + 1;
     ano = dataAux.getFullYear();
+
+    if(dia < 10){
+      dia = '0' + dia;
+    }
 
     if (mes < 10) {
       mes = "0" + mes;
     }
 
     dataFim.value = `${ano}-${mes}-${dia}`;
-
-
 
     const LOCAL_API_URL_P = `http://localhost:3000/api/attractions`;
 
