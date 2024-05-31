@@ -13,7 +13,8 @@ const iconeEditar = document.getElementsByClassName('icone-editar');
 const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
 const data = document.getElementById('data');
-let idUsuario;
+const statusEst = document.getElementById('status');
+let idUsuario, statusValor = 'Fechado';
 let ID = null;
 
 window.onload = async function () {
@@ -81,17 +82,22 @@ window.onload = async function () {
 
         nome.innerHTML = response.data.data.name;
         descricao.innerHTML = response.data.data.description;
-        horario.innerHTML = `Das 12:00 às 18:00`; //TODO: Mockado
         titulo.innerHTML = response.data.data.name;
         perfilFoto.src = response.data.data.picture_url;
         planoFundo.src = response.data.data.background_picture_url;
         horario.innerHTML = `Das ${response.data.data.start_time} às ${response.data.data.end_time}`;
         const dataInicio = new Date(response.data.data.start_date);
-        const dataInicioStr = `${(dataInicio.getDate()+1).toString().padStart(2, '0')}/${(dataInicio.getUTCMonth()+1).toString().padStart(2, '0')}/${dataInicio.getFullYear()} `;
+        const dataInicioStr = `${(dataInicio.getDate() + 1).toString().padStart(2, '0')}/${(dataInicio.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataInicio.getFullYear()} `;
         const dataFim = new Date(response.data.data.end_date);
-        const dataFimStr = `${(dataFim.getDate()+1).toString().padStart(2, '0')}/${(dataFim.getUTCMonth()+1).toString().padStart(2, '0')}/${dataFim.getFullYear()} `;
+        const dataFimStr = `${(dataFim.getDate() + 1).toString().padStart(2, '0')}/${(dataFim.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataFim.getFullYear()} `;
+        data.innerHTML = `De ${dataInicioStr} a ${dataFimStr}`;
 
-        data.innerHTML = `De ${dataInicioStr} a ${dataFimStr}`
+        if (comparaDatas(dataInicio, dataFim, response.data.data.start_time, response.data.data.end_time)) {
+            statusValor = 'Aberto';
+            statusEst.style.color = '#05679F';
+        }
+
+        statusEst.innerHTML = statusValor;
 
         if (response.data.data.establishment_id) {
             const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments/${response.data.data.establishment_id}`;
@@ -221,4 +227,15 @@ async function pegaID() {
 function sair() {
     localStorage.setItem('token', null);
     window.location.replace('../Login/login.html');
+}
+
+function comparaDatas(dataInicio, dataFim, horaInicio, horaFim) {
+    const agora = new Date();
+    dataInicio.setHours(horaInicio.substring(0, 2));
+    dataFim.setHours(horaFim.substring(0, 2));
+
+    dataInicio.setDate(dataInicio.getDate() + 1);
+    dataFim.setDate(dataFim.getDate() + 1);
+
+    return dataInicio <= agora && dataFim >= agora;
 }

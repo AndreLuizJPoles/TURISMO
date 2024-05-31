@@ -188,7 +188,7 @@ input:focus-visible {
 }
 
 #status{
-    color: #05679F;
+    color: red;
     font-weight: bolder;
     width: 20%;
     margin-top: 0;
