@@ -303,3 +303,54 @@ function tiraPonto() {
 function tiraEst() {
   estabelecimento.value = '';
 }
+
+async function excluir() {
+  const LOCAL_API_URL_DELETE = `http://localhost:3000/api/events/${localStorage.getItem("idAtracao")}`;
+  try {
+    const response = await axios.delete(LOCAL_API_URL_DELETE, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    console.log(response);
+
+    window.location.replace("../Menu/index.html");
+  } catch (error) {
+    console.log({
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    console.log(error);
+  }
+}
+
+function avisoExcluir() {
+  const confirmationPopup = document.getElementById("confirmationPopup");
+  const closeBtn = document.querySelector(".close-btn");
+  const confirmDelete = document.getElementById("confirmDelete");
+  const cancelDelete = document.getElementById("cancelDelete");
+
+  confirmationPopup.style.display = "block";
+
+  closeBtn.addEventListener("click", function () {
+    confirmationPopup.style.display = "none";
+  });
+
+  cancelDelete.addEventListener("click", function () {
+    confirmationPopup.style.display = "none";
+  });
+
+  confirmDelete.addEventListener("click", function () {
+    excluir();
+    alert("Evento deletado com sucesso!");
+    confirmationPopup.style.display = "none";
+  });
+
+  window.addEventListener("click", function (event) {
+    if (event.target == confirmationPopup) {
+      confirmationPopup.style.display = "none";
+    }
+  });
+}

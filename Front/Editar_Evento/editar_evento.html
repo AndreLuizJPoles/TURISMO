@@ -77,8 +77,18 @@
 
 
             <button id="salvar" class="botao" onclick="salvar()">Salvar</button>
-            <button id="excluir" class="botao" onclick="">Excluir Evento</button>
+            <button id="excluir" class="botao" onclick="avisoExcluir()">Excluir Evento</button>
 
+            <div id="confirmationPopup" class="popup">
+                <div class="popup-content">
+                    <span class="close-btn">&times;</span>
+                    <p>Você tem certeza que deseja deletar esse Evento?</p>
+                    <div id="div-popup-buttons">
+                        <button id="confirmDelete" class="botao">Sim, Deletar</button>
+                        <button id="cancelDelete" class="botao">Cancelar</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
