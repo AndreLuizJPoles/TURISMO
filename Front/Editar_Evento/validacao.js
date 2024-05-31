@@ -46,10 +46,10 @@ function validaData() {
 async function salvar() {
   if (validar()) {
     let pontoAux, estAux;
-    if(ponto.value === ''){
+    if (ponto.value === '') {
       pontoAux = null;
       estAux = estabelecimento.value;
-    }else{
+    } else {
       pontoAux = ponto.value;
       estAux = null;
     }
@@ -58,7 +58,7 @@ async function salvar() {
       id: localStorage.getItem("idAtracao"),
       name: nome.value,
       description: descricao.value,
-      establishment_id: estAux, 
+      establishment_id: estAux,
       attraction_id: pontoAux,
       start_date: dataInicio.value,
       end_date: dataFim.value,
@@ -74,6 +74,47 @@ async function salvar() {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+
+      const imagemPerfilValue = document.getElementById("imagem-perfil");
+      const file = imagemPerfilValue.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append("picture", file);
+
+        console.log("formData", formData);
+        const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${localStorage.getItem(
+          "idAtracao"
+        )}/upload/picture_upload?type=profile`;
+        const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        console.log(imagemRequest);
+      }
+      const imagemPlanoValue = document.getElementById("imagem-plano");
+      const filePlano = imagemPlanoValue.files[0];
+      if (filePlano) {
+        const formDataPlano = new FormData();
+        formDataPlano.append("picture", filePlano);
+
+        console.log("formDataPlano", formDataPlano);
+        const LOCAL_API_URL_IMAGE_BACK = `${LOCAL_API_URL}/${localStorage.getItem(
+          "idAtracao"
+        )}/upload/picture_upload?type=background_picture`;
+        const imagemPlanoRequest = await axios.post(LOCAL_API_URL_IMAGE_BACK, formDataPlano, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        console.log(imagemPlanoRequest);
+      }
+      alert('Evento alterado!');
+      window.location.replace('../Perfil_Evento/perfil_evento_postagens.html');
     } catch (error) {
       console.log(error);
     }
@@ -141,14 +182,7 @@ window.onload = async function () {
     console.log(response);
 
     nome.value = response.data.data.name;
-    descricao.value = response.data.data.description; 
-    if(response.data.data.attraction_id == null){
-      ponto.value = '';
-      estabelecimento.value = response.data.data.establishment_id;
-    }else{
-      ponto.value = response.data.data.attraction_id;
-      estabelecimento.value = ' '
-    }
+    descricao.value = response.data.data.description;
     horaAberta.value = response.data.data.start_time;
     horaEncer.value = response.data.data.end_time;
 
@@ -157,7 +191,7 @@ window.onload = async function () {
     let mes = dataAux.getUTCMonth() + 1;
     let ano = dataAux.getFullYear();
 
-    if(mes < 10){
+    if (mes < 10) {
       mes = "0" + mes;
     }
 
@@ -168,64 +202,74 @@ window.onload = async function () {
     mes = dataAux.getUTCMonth() + 1;
     ano = dataAux.getFullYear();
 
-    if(mes < 10){
+    if (mes < 10) {
       mes = "0" + mes;
     }
 
     dataFim.value = `${ano}-${mes}-${dia}`;
 
-  } catch (error) {
-    console.log(error);
-  }
 
-  const LOCAL_API_URL_P = `http://localhost:3000/api/attractions`;
 
-  try {
-    const response = await axios.get(
-      LOCAL_API_URL_P,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const LOCAL_API_URL_P = `http://localhost:3000/api/attractions`;
 
-    const dataList = document.getElementById("ponto");
+    try {
+      const response = await axios.get(
+        LOCAL_API_URL_P,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
-    response.data.data.forEach(option => {
-      const optionElement = document.createElement('option');
-      optionElement.value = option.id;
-      optionElement.textContent = option.name;
-      dataList.appendChild(optionElement);
-    });
+      const dataList = document.getElementById("ponto");
 
-  } catch (error) {
-    console.log(error);
-  }
-
-  const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments`;
-  const ID = await pegaID();
-
-  try {
-    const response = await axios.get(
-      LOCAL_API_URL_EST,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    const dataList = document.getElementById("estabelecimento");
-
-    response.data.data.forEach(option => {
-      if (option.user_id === ID) {
+      response.data.data.forEach(option => {
         const optionElement = document.createElement('option');
         optionElement.value = option.id;
         optionElement.textContent = option.name;
         dataList.appendChild(optionElement);
-      }
-    });
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+
+    const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments`;
+    const ID = await pegaID();
+
+    try {
+      const response = await axios.get(
+        LOCAL_API_URL_EST,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      const dataList = document.getElementById("estabelecimento");
+
+      response.data.data.forEach(option => {
+        if (option.user_id === ID) {
+          const optionElement = document.createElement('option');
+          optionElement.value = option.id;
+          optionElement.textContent = option.name;
+          dataList.appendChild(optionElement);
+        }
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+
+    if (response.data.data.attraction_id === null) {
+      ponto.value = '';
+      estabelecimento.value = response.data.data.establishment_id;
+    } else {
+      ponto.value = response.data.data.attraction_id;
+      estabelecimento.value = '';
+    }
 
   } catch (error) {
     console.log(error);
@@ -236,26 +280,26 @@ async function pegaID() {
   const LOCAL_API_URL_ID = 'http://localhost:3000/api/users/loggedUser';
   try {
 
-      const response = await axios.get(
-          LOCAL_API_URL_ID,
-          {
-              headers: {
-                  authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-          }
-      );
+    const response = await axios.get(
+      LOCAL_API_URL_ID,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
-      return response.data.data;
+    return response.data.data;
 
   } catch (error) {
-      console.log(error);
+    console.log(error);
   }
 }
 
-function tiraPonto(){
+function tiraPonto() {
   ponto.value = '';
 }
 
-function tiraEst(){
+function tiraEst() {
   estabelecimento.value = '';
 }

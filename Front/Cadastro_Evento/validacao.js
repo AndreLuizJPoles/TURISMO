@@ -75,6 +75,45 @@ async function cadastrar() {
         },
       });
 
+      const imagemPerfilValue = document.getElementById("imagem-perfil");
+      const file = imagemPerfilValue.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append("picture", file);
+
+        console.log("formData", formData);
+        const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${localStorage.getItem(
+          "idAtracao"
+        )}/upload/picture_upload?type=profile`;
+        const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        console.log(imagemRequest);
+      }
+      const imagemPlanoValue = document.getElementById("imagem-plano");
+      const filePlano = imagemPlanoValue.files[0];
+      if (filePlano) {
+        const formDataPlano = new FormData();
+        formDataPlano.append("picture", filePlano);
+
+        console.log("formDataPlano", formDataPlano);
+        const LOCAL_API_URL_IMAGE_BACK = `${LOCAL_API_URL}/${localStorage.getItem(
+          "idAtracao"
+        )}/upload/picture_upload?type=background_picture`;
+        const imagemPlanoRequest = await axios.post(LOCAL_API_URL_IMAGE_BACK, formDataPlano, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        console.log(imagemPlanoRequest);
+      }
+
       alert('Evento criado!');
       window.location.replace('../Menu/index.html');
     } catch (error) {
@@ -131,9 +170,6 @@ window.onload = async function () {
   const LOCAL_API_URL = `http://localhost:3000/api/attractions`;
 
   try {
-
-    console.log(LOCAL_API_URL);
-
     const response = await axios.get(
       LOCAL_API_URL,
       {
@@ -160,9 +196,6 @@ window.onload = async function () {
   const ID = await pegaID();
 
   try {
-
-    console.log(LOCAL_API_URL_EST);
-
     const response = await axios.get(
       LOCAL_API_URL_EST,
       {
@@ -174,10 +207,7 @@ window.onload = async function () {
 
     const dataList = document.getElementById("estabelecimento");
 
-    console.log(ID);
-
     response.data.data.forEach(option => {
-      console.log(option);
       if (option.user_id === ID) {
         const optionElement = document.createElement('option');
         optionElement.value = option.id;

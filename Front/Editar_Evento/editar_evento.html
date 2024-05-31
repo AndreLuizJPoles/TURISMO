@@ -60,20 +60,21 @@
                 <div class="caixa">
                     <label for="imagem-perfil">
                         Imagem de Perfil:
-                        <form enctype="multipart/form-data">
-                            <input type="file" id="imagem-perfil" class="input-img" accept="image/*">
+                        <form enctype="multipart/form-data" method="POST">
+                            <input type="file" name="picture" id="imagem-perfil" class="input-img" accept="image/*">
                         </form>
                     </label>
                 </div>
                 <div class="caixa">
                     <label for="imagem-plano">
                         Imagem de Plano de Fundo:
-                        <form enctype="multipart/form-data">
-                            <input type="file" id="imagem-plano" class="input-img" accept="image/*">
+                        <form enctype="multipart/form-data" method="POST">
+                            <input type="file" name="picture" id="imagem-plano" class="input-img" accept="image/*">
                         </form>
                     </label>
                 </div>
             </div>
+
 
             <button id="salvar" class="botao" onclick="salvar()">Salvar</button>
             <button id="excluir" class="botao" onclick="">Excluir Evento</button>
