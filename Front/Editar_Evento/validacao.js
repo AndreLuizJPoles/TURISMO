@@ -238,6 +238,25 @@ window.onload = async function () {
     const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments`;
     const ID = await pegaID();
 
+    try{
+      const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
+        const response = await axios.get(LOCAL_API_URL_USER,
+          {
+            headers: {
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+  
+          if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
+            const pontos = document.getElementById('ponto');
+            const textoAviso = document.getElementById('texto-aviso');
+            textoAviso.style.display = 'none';
+            pontos.style.display = 'none';
+          }
+    }catch (error) {
+      console.log(error);
+    }
+
     try {
       const response = await axios.get(
         LOCAL_API_URL_EST,
