@@ -101,6 +101,13 @@ async function salvar() {
 
 
 async function excluir() {
+  let urlAux = '../Perfil_Ponto/perfil_ponto.html';
+    if (localStorage.getItem("tipoAtracao") == 'estabelecimento') {
+        urlAux = '../Perfil_Estabelecimento/perfil_estab_comentarios.html';
+    } else if (localStorage.getItem("tipoAtracao") == 'evento') {
+        urlAux = '../Perfil_Evento/perfil_evento_comentarios.html';
+    }
+
   const LOCAL_API_URL_DELETE = `http://localhost:3000/api/posts/${localStorage.getItem('idPost')}`;
   try {
     const response = await axios.delete(LOCAL_API_URL_DELETE, {
@@ -111,7 +118,7 @@ async function excluir() {
 
     console.log(response);
 
-    window.location.replace("../Perfil_Estabelecimento/perfil_estab_postagens.html");
+    window.location.replace(urlAux);
   } catch (error) {
     console.log({
       headers: {

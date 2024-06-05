@@ -102,6 +102,7 @@ window.onload = async function () {
 
         bloco.onclick = function () {
           localStorage.setItem('idAtracao', estab.id);
+          localStorage.setItem("tipoAtracao", "estabelecimento");
           window.location.replace('../Perfil_Estabelecimento/perfil_estab_postagens.html');
         }
 

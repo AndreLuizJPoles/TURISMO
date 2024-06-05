@@ -101,6 +101,7 @@ window.onload = async function () {
 
       bloco.onclick = function () {
         localStorage.setItem('idAtracao', evento.id);
+        localStorage.setItem("tipoAtracao", "ponto");
         window.location.replace('../Perfil_Ponto/perfil_ponto.html');
       }
 

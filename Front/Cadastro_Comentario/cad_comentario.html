@@ -20,14 +20,14 @@
                 <p id="texto">Todos os campos com * são obrigatórios</p>
             </label>
 
-            <input type="number" list="notas" id="nota" class="input" placeholder="Nota *" required>
-                <datalist id="notas">
-                    <option value=1>
-                    <option value=2>
-                    <option value=3>
-                    <option value=4>
-                    <option value=5>
-                </datalist>
+            <select type="number" list="notas" id="nota" class="input" placeholder="Nota *" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+                
             <textarea id="descricao" class="input" placeholder="Descrição do Comentário" cols="30" rows="10" style="resize: none;"></textarea>
 
             <button id="postar" class="botao" onclick="comentar()">Comentar</button>
