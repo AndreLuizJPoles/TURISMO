@@ -52,9 +52,8 @@
 
         try {
             const response = await axios.post('http://localhost:3000/api/users', payload);
-            window.location.replace('../Login/index.html');
+            window.location.replace('../Login/login.html');
         } catch (error) {
-            console.log(error)
             const aux = error.response.data.message;
             alert(aux);
         }

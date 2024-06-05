@@ -13,21 +13,21 @@
     <div class="box" id="box-cadastro-est">
         <div class="fundo" id="fundo-cad-est">
 
-            <a href="../Menu/menu.html" id="voltar" class="botao">Voltar</a>
+            <a href="../\" id="voltar" class="botao">Voltar</a>
 
             <label for="titulo-cadastro" id="aviso">
                 <h1 id="titulo-cadastro">Cadastro de Postagem</h1>
                 <p id="texto">Todos os campos com * são obrigatórios</p>
             </label>
 
-            <input type="text" class="input" placeholder="Título da Postagem *" required>
+            <input type="text" class="input" id="titulo" placeholder="Título da Postagem *" required>
             <textarea id="descricao" class="input" placeholder="Descrição da Postagem *" cols="30" rows="10" style="resize: none;" required></textarea>
 
             <div class="caixa">
                 <label for="imagem1">
                     Imagem 1:
-                    <form enctype="multipart/form-data">
-                        <input type="file" id="imagem1" class="input-img" accept="image/*">
+                    <form enctype="multipart/form-data" method="POST">
+                        <input type="file" name="picture" id="imagem1" class="input-img" accept="image/*">
                     </form>
                 </label>
             </div>
@@ -36,32 +36,7 @@
         </div>
     </div>
 
-    <!-- Script Preview imagens-->
-    <script>
-        const imagem1 = document.querySelector('#imagem1');
-
-        imagem1.addEventListener('change', event => {
-
-            const reader = new FileReader;
-            reader.onload = function (event) {
-                const preview1 = document.querySelector('#preview-imagem1');
-
-                if (preview1) {
-                    preview1.remove();
-                }
-
-                const previewImagem1 = document.createElement('img');
-                previewImagem1.width = 200;
-                previewImagem1.height = 200;
-                previewImagem1.id = 'preview-imagem1';
-                imagem1.insertAdjacentElement('afterend', previewImagem1);
-                previewImagem1.src = event.target.result;
-            }
-
-            reader.readAsDataURL(imagem1.files[0]);
-
-        })
-    </script>
+    <script src="script.js"></script>
 
 </body>
 

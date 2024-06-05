@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOME DO ESTABELECIMENTO </title>
+    <title id="titulo-pagina">NOME DO ESTABELECIMENTO </title>
     <link rel="stylesheet" href="perfil_estab_comentarios.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body id="tela-pefil-estab">
@@ -20,21 +21,20 @@
             <div id="informacoes">
                 <img src="../images/foto_padrao.png" id="foto-perfil">
                 <h2 id="nome-usuario">Nome Usuário</h2>
-                <h3 id="id">ID 12345678</h3>
             </div>
     
             <a href="../Editar_Usuario/editar_usuario.html" id="editar" class="botao"> <img src="../Perfil_Usuario/imgs/editar.png" id="icone-editar" class="icon"><p id="texto-editar">Editar Usuário</p></a>
             <a href="../Editar_Usuario/editar_usuario.html" id="endereco" class="botao"> <img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">Al. Francisco Alves, 162. Nova Tatuí.</p></a>
     
-            <a href="" class="botao" id="favoritos"><img src="../Perfil_Usuario/imgs/coracao.png" id="icone-favoritos" class="icon"><p id="texto-favoritos">Favoritos</p></a>
-            <a href="../Lista_Estabelecimentos/lista_estab.html" class="botao" id="meus-estab"><img src="../Perfil_Usuario/imgs/estabelecimento.png" id="icone-estab" class="icon"><p id="texto-estab">Meus Estabelecimentos</p></a>
+            <a href="../Lista_Favoritos/lista_fav.html" class="botao" id="favoritos"><img src="../Perfil_Usuario/imgs/coracao.png" id="icone-favoritos" class="icon"><p id="texto-favoritos">Favoritos</p></a>            <a href="../Lista_Estabelecimentos/lista_estab.html" class="botao" id="meus-estab"><img src="../Perfil_Usuario/imgs/estabelecimento.png" id="icone-estab" class="icon"><p id="texto-estab">Meus Estabelecimentos</p></a>
             <a href="../Lista_Eventos/lista_evento.html" class="botao" id="meus-eventos"><img src="../Perfil_Usuario/imgs/evento.png" id="icone-evento" class="icon"><p id="texto-evento">Meus Eventos</p></a>
-            <a href="" class="botao" id="config"><img src="../Perfil_Usuario/imgs/config.png" id="icone-config" class="icon"><p id="texto-config">Configurações</p></a>
+            <a href="../Lista_Pontos/lista_pontos.html" class="botao" id="pontos"><img src="../Perfil_Usuario/imgs/ponto-de-informacao.png" id="icone-ponto" class="icon"><p id="texto-evento">Pontos Turísticos</p></a>
+            <a class="botao" onclick="sair()" id="config"><img src="../Perfil_Usuario/imgs/sair.png" id="icone-sair" class="icon"><p id="texto-config">Sair</p></a>
         </div>
 
         <div class="fundo" id="fundo-perfil-est">
             <div id="cab-perfil">
-                <a href="../Menu/menu.html" id="voltar" class="botao">Voltar</a>
+                <a href="../Menu/index.html" id="voltar" class="botao">Voltar</a>
                 <img src="../images/baffs.png" id="plano-fundo">
                 <div id="box-informacoes">
                     <img src="../images/baffs_foto.png" id="perfil-foto">
@@ -84,6 +84,7 @@
     </div>
 
     <script src="../navbar.js"></script>
+    <script src="scriptComentario.js"></script>
 </body>
 
 </html>

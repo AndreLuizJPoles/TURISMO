@@ -13,22 +13,24 @@
     <div class="box" id="box-cadastro-est">
         <div class="fundo" id="fundo-cad-est">
 
-            <a href="../Menu/menu.html" id="voltar" class="botao">Voltar</a>
+            <a href="../Menu/index.html" id="voltar" class="botao">Voltar</a>
 
             <label for="titulo-cadastro" id="aviso">
                 <h1 id="titulo-cadastro">Cadastro de Evento</h1>
                 <p id="texto">Todos os campos com * são obrigatórios</p>
+                <h4 id="texto-aviso">Selecione um Estabelecimento ou um Ponto Turístico para seu evento</h4>
             </label>
 
             <h2 id="titulo-geral">Informações Gerais</h2>
             <div id="inf-gerais" class="inf">
                 <input type="text" id="nome" class="input" placeholder="Nome do Evento *" required>
 
-                <input list="estabelecimentos" id="estabelecimento" class="input" placeholder="Estabelecimento *"
-                    required>
-                <datalist id="estabelecimentos">
-                    <option value="Baffs">
-                </datalist>
+                    <select id="estabelecimento" class="input" onchange="tiraPonto()" required>
+                        <option value="">Selecione um estabelecimento</option>
+                    </select>
+                    <select id="ponto" class="input" onchange="tiraEst()" required>
+                        <option value="">Selecione um ponto turístico</option>
+                    </select>
 
                 <textarea id="descricao" cols="30" rows="10" style="resize: none;"
                     placeholder="Descrição do Evento"></textarea>
@@ -37,20 +39,20 @@
 
             <h2 id="titulo-funcionamento">Informações de Funcionamento</h2>
             <div id="inf-funcionamento" class="inf">
-                    <label for="data-inicio" class="label">Data de Início *:
-                        <input type="date" id="data-inicio" class="input" required>
-                    </label>
-                    <label for="data-fim" class="label">Data de Encerramento *:
-                        <input type="date" id="data-fim" class="input" required>
-                    </label>
+                <label for="data-inicio" class="label">Data de Início *:
+                    <input type="date" id="data-inicio" class="input" required>
+                </label>
+                <label for="data-fim" class="label">Data de Encerramento *:
+                    <input type="date" id="data-fim" class="input" required>
+                </label>
 
 
-                    <label for="hora-abertura" class="label">Horário de Abertura *:
-                        <input type="time" id="hora-abertura" class="input" required>
-                    </label>
-                    <label for="hora-encerramento" class="label">Horário de Encerramento *:
-                        <input type="time" id="hora-encerramento" class="input" required>
-                    </label>
+                <label for="hora-abertura" class="label">Horário de Abertura *:
+                    <input type="time" id="hora-abertura" class="input" required>
+                </label>
+                <label for="hora-encerramento" class="label">Horário de Encerramento *:
+                    <input type="time" id="hora-encerramento" class="input" required>
+                </label>
             </div>
 
             <h2 id="titulo-imagem">Imagens do Perfil</h2>
@@ -58,16 +60,16 @@
                 <div class="caixa">
                     <label for="imagem-perfil">
                         Imagem de Perfil:
-                        <form enctype="multipart/form-data">
-                            <input type="file" id="imagem-perfil" class="input-img" accept="image/*">
+                        <form enctype="multipart/form-data" method="POST">
+                            <input type="file" name="picture" id="imagem-perfil" class="input-img" accept="image/*">
                         </form>
                     </label>
                 </div>
                 <div class="caixa">
                     <label for="imagem-plano">
                         Imagem de Plano de Fundo:
-                        <form enctype="multipart/form-data">
-                            <input type="file" id="imagem-plano" class="input-img" accept="image/*">
+                        <form enctype="multipart/form-data" method="POST">
+                            <input type="file" name="picture" id="imagem-plano" class="input-img" accept="image/*">
                         </form>
                     </label>
                 </div>
@@ -80,59 +82,6 @@
     <!-- Bibliotecas e códigos de terceiros -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
-
-    <!-- Script Preview imagens-->
-    <script>
-        const imagemPlano = document.querySelector('#imagem-plano');
-
-        imagemPlano.addEventListener('change', event => {
-
-            const reader = new FileReader;
-            reader.onload = function (event) {
-                const previewPlano = document.querySelector('#preview-imagem-plano');
-
-                if (previewPlano) {
-                    previewPlano.remove();
-                }
-
-                const previewImagemPlano = document.createElement('img');
-                previewImagemPlano.width = 300;
-                previewImagemPlano.height = 100;
-                previewImagemPlano.id = 'preview-imagem-plano';
-                imagemPlano.insertAdjacentElement('afterend', previewImagemPlano);
-                previewImagemPlano.src = event.target.result;
-            }
-
-            reader.readAsDataURL(imagemPlano.files[0]);
-
-        })
-    </script>
-    <script>
-        const imagemPerfil = document.querySelector('#imagem-perfil');
-
-        imagemPerfil.addEventListener('change', event => {
-
-            const reader = new FileReader;
-            reader.onload = function (event) {
-                const preview = document.querySelector('#preview-imagem');
-
-                if (preview) {
-                    preview.remove();
-                }
-
-                const previewImagem = document.createElement('img');
-                previewImagem.width = 100;
-                previewImagem.height = 100;
-                previewImagem.id = 'preview-imagem';
-                imagemPerfil.insertAdjacentElement('afterend', previewImagem);
-                previewImagem.src = event.target.result;
-            }
-
-            reader.readAsDataURL(imagemPerfil.files[0]);
-
-        })
-    </script>
-
 
     <script src="../Cadastro_Evento/validacao.js"></script>
 </body>

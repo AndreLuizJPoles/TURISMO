@@ -18,8 +18,10 @@
             <input type="password" id="senha" class="input" placeholder="Senha">
 
             <button id="login" class="botao" onclick="enviar()">Login</button>
-            
-            <p id="link-cadastro">Não tem conta ainda? <a href="../Cadastro/cadastro.html">Cadastre-se aqui</a>
+
+            <p id="link-cadastro" class="link-login">Não tem conta ainda? <a href="../Cadastro/cadastro.html">Cadastre-se aqui</a>
+            <p id="link-menu" class="link-login"><a href="../Menu/index.html">Entrar Sem Logar</a>
+                <p id="link-menu" class="link-login"><a href="../Recuperar_Senha/recuperar.html">Esqueci Minha Senha</a>
             </p>
         </div>
     </div>
@@ -40,15 +42,21 @@
         try {
             const response = await axios.post(LOCAL_API_URL, payload);
             console.log(response);
-            if(response.status === 200){
+            if (response.status === 200) {
                 const data = response.data.data;
                 localStorage.setItem('token', data);
-                
-                window.location.replace('../Menu/menu.html');
+
+                window.location.replace('../Menu/index.html');
             }
         } catch (error) {
-            const aux = error.response.data.message;
-            alert(aux);
+            const errorMessage = error.response.data.message;
+
+            if (errorMessage === 'Ops! Ação não autorizada.') {
+                alert('Credenciais Inválidas.')
+            }
+            if (errorMessage === 'Ops! Dados não encontrados.') {
+                alert(errorMessage);
+            }
         }
     }
 </script>

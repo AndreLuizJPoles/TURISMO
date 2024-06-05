@@ -34,15 +34,17 @@
 
                 <label for="grupo">Gênero:
                     <div id="grupo">
-                        <label for="masc">Masculino</label>
                         <input type="radio" class="radio" name="genero" id="masc" value="male">
-                        <label for="fem">Feminino</label>
+                        <label for="masc">Masculino</label>
+
                         <input type="radio" class="radio" name="genero" id="fem" value="female">
-                        <label for="outro">Outro</label>
+                        <label for="fem">Feminino</label>
+
                         <input type="radio" class="radio" name="genero" id="outro" value="other">
+                        <label for="outro">Outro</label>
+
                     </div>
                 </label>
-
             </div>
 
             <h2 id="titulo-endereco">Informações de Endereço</h2>
@@ -53,7 +55,6 @@
                 <input type="text" id="rua" class="input" placeholder="Rua">
                 <input type="text" id="bairro" class="input" placeholder="Bairro">
                 <input type="text" id="numero" class="input" placeholder="Número">
-                <input type="text" id="complemento" class="input" placeholder="Complemento">
             </div>
 
             <h2 id="titulo-contato">Informações de Contato</h2>
@@ -63,15 +64,26 @@
                 <div class="caixa">
                     <label for="imagem-perfil">
                         Imagem de Perfil:
-                        <form enctype="multipart/form-data">
-                            <input type="file" id="imagem-perfil" class="input-img" accept="image/*">
+                        <form enctype="multipart/form-data" method="POST">
+                            <input type="file" name="picture" id="imagem-perfil" class="input-img" accept="image/*">
                         </form>
                     </label>
                 </div>
             </div>
 
             <button id="confirmar" class="botao" onclick="salvar()">Confirmar Edição</button>
-            <button id="excluir" class="botao" onclick="">Excluir Perfil</button>
+            <button id="excluir" class="botao" onclick="avisoExcluir()">Excluir Perfil</button>
+
+            <div id="confirmationPopup" class="popup">
+                <div class="popup-content">
+                    <span class="close-btn">&times;</span>
+                    <p>Você tem certeza que deseja deletar sua conta?</p>
+                    <div id="div-popup-buttons">
+                        <button id="confirmDelete" class="botao">Sim, Deletar</button>
+                        <button id="cancelDelete" class="botao">Cancelar</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -83,34 +95,6 @@
     <script>$('#cpf').mask('000.000.000-00');</script>
     <script>$('#cep').mask('00000-000');</script>
     <script>$('#telefone').mask('(00) 00000-0000');</script>
-
-    <!-- Script Preview imagens-->
-    <script>
-        
-        const imagemPerfil = document.querySelector('#imagem-perfil');
-
-        imagemPerfil.addEventListener('change', async event => {
-
-            const reader = new FileReader;
-            reader.onload = function (event) {
-                const preview = document.querySelector('#preview-imagem');
-
-                if (preview) {
-                    preview.remove();
-                }
-
-                const previewImagem = document.createElement('img');
-                previewImagem.width = 100;
-                previewImagem.height = 100;
-                previewImagem.id = 'preview-imagem';
-                imagemPerfil.insertAdjacentElement('afterend', previewImagem);
-                previewImagem.src = event.target.result;
-            }
-            
-            reader.readAsDataURL(imagemPerfil.files[0]);
-            
-        })
-    </script>
 
     <script src="../Editar_Usuario/cep.js"></script>
     <script src="../Editar_Usuario/validacao.js"></script>

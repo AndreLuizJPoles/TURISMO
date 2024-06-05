@@ -40,6 +40,17 @@ input:focus-visible {
     padding-left: 1rem;
 }
 
+.input {
+    width: 18rem;
+    height: 2rem;
+    font-size: 1rem;
+    border-radius: 15px;
+    border: 0;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    padding-left: 5px;
+    margin: 1.5rem;
+}
+
 #barra-pesquisa {
     width: 90%;
     border: none;
@@ -115,6 +126,9 @@ button{
     top: 0;
     width: 74%;
     margin-bottom: 0;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #status{
@@ -242,7 +256,16 @@ a p{
     width: 50%;
 }
 
-@media screen and (max-width: 660px){
+#logar{
+    margin-top: 5rem;
+    width: 25rem;
+}
+
+#texto-logar{
+    margin-top: 5rem;
+}
+
+@media screen and (max-width: 1100px){
     #grupo-pesquisa {
         width: 20rem;
         margin-left: 0;

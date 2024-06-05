@@ -29,7 +29,7 @@ body {
     overflow: scroll;
 }
 
-#voltar{
+#voltar {
     width: 7rem;
     align-self: flex-start;
     margin: 10px;
@@ -50,7 +50,7 @@ body {
     padding-left: 5px;
 }
 
-.box #editar{
+.box #editar {
     background-color: white;
     color: black;
     border: 1px black solid;
@@ -80,46 +80,47 @@ body {
     cursor: pointer;
 }
 
-#informacoes{
+#informacoes {
     text-align: center;
 }
 
-#foto-perfil{
+#foto-perfil {
     margin-top: 2rem;
     border-radius: 100%;
     width: 15rem;
+    height: 15rem;
 }
 
-#nome{
+#nome {
     font-weight: 900;
 }
 
-#id{
+#id {
     color: #05679F;
 }
 
-#editar{
+#editar {
     justify-content: safe;
 }
 
-a p{
+a p {
     padding: 1rem;
     font-weight: bolder;
 }
 
-#end-texto{
+#end-texto {
     padding: 0;
 }
 
-.icon{
+.icon {
     height: 70%;
 }
 
-#endereco{
+#endereco {
     background-color: white;
     color: black;
     border: 1px black solid;
-    width: 50%;
+    width: 25rem;
 }
 
 @media screen and (max-width: 660px) {
@@ -142,15 +143,15 @@ a p{
         width: 60%;
     }
 
-    .inf{
+    .inf {
         flex-direction: column;
     }
 
-    .label{
+    .label {
         width: 20rem;
     }
 
-    #endereco{
+    #endereco {
         width: 25rem;
     }
 }

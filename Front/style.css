@@ -84,7 +84,7 @@ body {
     font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
-#link-cadastro {
+.link-login {
     font-family: 'M PLUS Rounded 1c', sans-serif;
     font-size: 1.2rem;
     font-weight: 900;
@@ -92,7 +92,7 @@ body {
     margin-left: 1rem;
 }
 
-#link-cadastro a {
+.link-login a {
     text-decoration: none;
     color: var(--cor-principal);
 }

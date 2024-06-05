@@ -13,7 +13,7 @@
     <div class="box" id="box-cadastro-est">
         <div class="fundo" id="fundo-cad-est">
 
-            <a href="../Menu/menu.html" id="voltar" class="botao">Voltar</a>
+            <a href="../Menu/index.html" id="voltar" class="botao">Voltar</a>
 
             <label for="titulo-cadastro" id="aviso">
                 <h1 id="titulo-cadastro">Cadastro de Ponto Turístico</h1>
@@ -23,47 +23,9 @@
             <h2 id="titulo-geral">Informações Gerais</h2>
             <div id="inf-gerais" class="inf">
                 <input type="text" id="nome" class="input" placeholder="Nome do Ponto Turístico *" required>
-            </div>
 
-            <h2 id="titulo-funcionamento">Informações de Funcionamento</h2>
-            <div id="inf-funcionamento" class="inf">
-                <label for="hora-abertura" class="label">Horário de Abertura *:
-                    <input type="time" id="hora-abertura" class="input" required>
-                </label>
-                <label for="hora-encerramento" class="label">Horário de Encerramento *:
-                    <input type="time" id="hora-encerramento" class="input" required>
-                </label>
-                <div id="semanario">
-                    <h3 id="titulo-dias">Dias de Funcionamento: </h3>
-                    <label for="segunda">
-                        <input type="checkbox" id="segunda" value="segunda" class="check">
-                        Segunda-feira
-                    </label>
-                    <label for="terca">
-                        <input type="checkbox" id="terca" value="terca" class="check">
-                        Terça-feira
-                    </label>
-                    <label for="quarta">
-                        <input type="checkbox" id="quarta" value="quarta" class="check">
-                        Quarta-feira
-                    </label>
-                    <label for="quinta">
-                        <input type="checkbox" id="quinta" value="quinta" class="check">
-                        Quinta-feira
-                    </label>
-                    <label for="sexta">
-                        <input type="checkbox" id="sexta" value="sexta" class="check">
-                        Sexta-feira
-                    </label>
-                    <label for="sabado">
-                        <input type="checkbox" id="sabado" value="sabado" class="check">
-                        Sábado
-                    </label>
-                    <label for="domingo">
-                        <input type="checkbox" id="domingo" value="domingo" class="check">
-                        Domingo
-                    </label>
-                </div>
+                <textarea id="descricao" cols="30" rows="10" style="resize: none;"
+                    placeholder="Descrição do Estabelecimento"></textarea>
             </div>
 
             <h2 id="titulo-endereco">Informações de Endereço</h2>
@@ -73,8 +35,6 @@
                 <input type="text" id="cidade" class="input" placeholder="Cidade *" required>
                 <input type="text" id="bairro" class="input" placeholder="Bairro *" required>
                 <input type="text" id="rua" class="input" placeholder="Rua *" required>
-                <input type="number" id="numero" class="input" placeholder="Número">
-                <input type="text" id="complemento" class="input" placeholder="Complemento">
             </div>
 
 

@@ -17,6 +17,14 @@ header {
     z-index: 10;
 }
 
+#voltar{
+    width: 7rem;
+    align-self: flex-start;
+    margin: 10px;
+    text-decoration: none;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
 #icone-menu {
     height: 2rem;
     margin: 1.5rem;
@@ -115,6 +123,9 @@ button{
     top: 0;
     width: 74%;
     margin-bottom: 0;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #status{
@@ -243,14 +254,14 @@ a p{
 }
 
 #novo-evento{
-    margin-top: 7rem;
+    margin-top: 1rem;
     align-self: center;
     margin-left: auto;
     margin-right: auto;
     width: 25rem;
 }
 
-@media screen and (max-width: 660px){
+@media screen and (max-width: 1100px){
     #grupo-pesquisa {
         width: 20rem;
         margin-left: 0;

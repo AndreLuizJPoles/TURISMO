@@ -367,12 +367,12 @@ a p{
     width: 50%;
 }
 
-#icone-editar{
+.icone-editar{
     margin-top: 1rem;
     height: 2.5rem;
 }
 
-@media screen and (max-width: 990px){
+@media screen and (max-width: 1100px){
     #perfil-usuario{
         display: none;
     }
@@ -449,7 +449,7 @@ a p{
     }
 
     #nome-usuario{
-        width: 70%;
+        width: 100%;
     }
 
     .postagem h2{

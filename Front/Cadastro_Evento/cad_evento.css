@@ -40,10 +40,15 @@ body {
 #titulo-cadastro {
     font-weight: 900;
     margin-top: 1rem;
+    text-align: center;
 }
 
 #aviso{
     font-weight: 100;
+}
+
+#texto-aviso{
+    font-weight: 100%;
 }
 
 #aviso #texto{

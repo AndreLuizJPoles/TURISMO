@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pontos Turísticos</title>
+    <link rel="stylesheet" href="lista_pontos.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <img src="../Menu/imgs/menu.png" id="icone-menu" onclick="nav()">
+        <a href="../Perfil_Usuario/perfil_usuario.html"><img src="../images/foto_padrao.png" id="perfil-usuario"></a>
+    </header>
+
+    <div id="nav" class="nav">
+        <div id="informacoes">
+            <img src="../images/foto_padrao.png" id="foto-perfil">
+            <h2 id="nome-usuario">Nome Usuário</h2>
+        </div>
+
+        <a href="../Editar_Usuario/editar_usuario.html" id="editar" class="botao"> <img src="../Perfil_Usuario/imgs/editar.png" id="icone-editar" class="icon"><p id="texto-editar">Editar Usuário</p></a>
+        <a href="../Editar_Usuario/editar_usuario.html" id="endereco" class="botao"> <img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">Al. Francisco Alves, 162. Nova Tatuí.</p></a>
+
+        <a href="../Lista_Favoritos/lista_fav.html" class="botao" id="favoritos"><img src="../Perfil_Usuario/imgs/coracao.png" id="icone-favoritos" class="icon"><p id="texto-favoritos">Favoritos</p></a>        <a href="../Lista_Estabelecimentos/lista_estab.html" class="botao" id="meus-estab"><img src="../Perfil_Usuario/imgs/estabelecimento.png" id="icone-estab" class="icon"><p id="texto-estab">Meus Estabelecimentos</p></a>
+        <a href="../Lista_Eventos/lista_evento.html" class="botao" id="meus-eventos"><img src="../Perfil_Usuario/imgs/evento.png" id="icone-evento" class="icon"><p id="texto-evento">Meus Eventos</p></a>
+        <a class="botao" onclick="sair()" id="config"><img src="../Perfil_Usuario/imgs/sair.png" id="icone-sair" class="icon"><p id="texto-config">Sair</p></a>
+    </div>
+
+    <br><br><br>
+    <a href="../Menu/index.html" id="voltar" class="botao">Voltar</a>
+
+    <a href="../Cadastro_Ponto_Turistico/cad_ponto.html" class="botao" id="novo-evento">Novo Ponto Turístico</a>
+
+    <div id="grade"></div>
+
+    <script src="../navbar.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
