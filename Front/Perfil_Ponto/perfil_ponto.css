@@ -160,7 +160,7 @@ input:focus-visible {
 }
 
 #nome {
-    width: 70%;
+    width: 60%;
 }
 
 .box-nota {
@@ -343,7 +343,7 @@ a p {
     flex-wrap: wrap;
 }
 
-#foto-perfil-usuario {
+.foto-perfil-usuario {
     margin-left: 1rem;
     margin-top: 1rem;
     height: 3rem;
@@ -351,7 +351,7 @@ a p {
     border-radius: 100%;
 }
 
-#nome-usuario {
+.nome-usuario {
     margin-left: 1.5rem;
     width: 80%;
 }
