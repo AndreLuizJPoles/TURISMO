@@ -107,7 +107,7 @@ window.onload = async function () {
         const fundo = document.getElementById('fundo-perfil-est');
 
         response.data.data.forEach(post => {
-            if (post.establishment_id == localStorage.getItem('idAtracao')) {
+            if (post.establishment_id == localStorage.getItem('idAtracao') || post.event_id == localStorage.getItem('idAtracao')) {
                 const postagem = document.createElement('div');
                 postagem.classList.add('postagem');
                 const titulo = document.createElement('h2');

@@ -38,7 +38,7 @@ window.onload = async function () {
         }
         if (response.data.data.picture_url !== null || !response.data.data.picture_url === '') {
             foto.src = response.data.data.picture_url;
-            perfil.src = response.data.data.picture_url;
+            fotoUsuario.src = response.data.data.picture_url;
         }
 
         if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
@@ -79,6 +79,88 @@ window.onload = async function () {
         console.log(error);
     }
 
+    const LOCAL_API_URL_POST = `http://localhost:3000/api/comments`;
+
+    try {
+        const response = await axios.get(
+            LOCAL_API_URL_POST,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        const fundo = document.getElementById('fundo-perfil-est');
+
+        const comments = response.data.data;
+        const promises = [];
+    
+        comments.forEach(comment => {
+            if (comment.establishment_id == localStorage.getItem('idAtracao') || comment.event_id == localStorage.getItem('idAtracao') || comment.attraction_id == localStorage.getItem('idAtracao')) {
+                const LOCAL_API_URL_USER_COM = `http://localhost:3000/api/users/${comment.user_id}`;
+                
+                const promise = axios.get(LOCAL_API_URL_USER_COM, {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }).then(response => {
+                    const comentario = document.createElement('div');
+                    comentario.classList.add('comentario');
+                    const fotoUsuarioPerfil = document.createElement('img');
+                    fotoUsuarioPerfil.classList.add('foto-perfil-usuario');
+                    if (response.data.data.picture_url) {
+                        fotoUsuarioPerfil.src = response.data.data.picture_url;
+                    } else {
+                        fotoUsuarioPerfil.src = '../images/foto_padrao.png';
+                    }
+                    comentario.appendChild(fotoUsuarioPerfil);
+                    const nomeUsuario = document.createElement('h3');
+                    nomeUsuario.classList.add('nome-usuario');
+                    nomeUsuario.innerHTML = response.data.data.name;
+                    comentario.appendChild(nomeUsuario);
+                    const a = document.createElement('a');
+                    const img = document.createElement('img');
+                    img.src = "../images/editar.png";
+                    img.classList.add("icone-editar");
+                    a.appendChild(img);
+                    a.onclick = function () {
+                        localStorage.setItem('idComment', comment.id);
+                        window.location.replace('../Editar_Comentario/editar_comentario.html');
+                    }
+                    comentario.appendChild(a);
+                    const boxNota = document.createElement('div');
+                    boxNota.classList.add('box-nota');
+                    boxNota.id = 'nota-comentario';
+                    const iconeOnibus = document.createElement('img');
+                    iconeOnibus.id = 'onibus-icon';
+                    iconeOnibus.src = '../images/onibus.png';
+                    boxNota.appendChild(iconeOnibus);
+                    const valorNota = document.createElement('h3');
+                    valorNota.id = 'valor-nota';
+                    valorNota.innerHTML = comment.evaluation_note;
+                    boxNota.appendChild(valorNota);
+                    comentario.appendChild(boxNota);
+                    const descr = document.createElement('p');
+                    descr.id = 'texto-comentario';
+                    descr.innerHTML = comment.description;
+                    comentario.appendChild(descr);
+                    fundo.appendChild(comentario);
+                }).catch(error => {
+                    console.log(error);
+                });
+    
+                promises.push(promise);
+            }
+        });
+    
+        await Promise.all(promises);
+        await imprimeMensagem();
+        
+    } catch (error) {
+        console.log(error);
+    }
+
     //Deve ficar por úlitmo
     if (ID !== idUsuario) {
         novaPost.style.display = 'none';
@@ -87,6 +169,13 @@ window.onload = async function () {
             iconeEditar[i].style.display = 'none';
         }
     }
+}
+
+async function imprimeMensagem(){
+    const fundo = document.getElementById('fundo-perfil-est');
+    const mensagem = document.createElement('div');
+    mensagem.innerHTML = '<p>Não há mais comentários!</p><br><br><br>';
+    fundo.appendChild(mensagem);
 }
 
 async function pegaID() {
@@ -109,7 +198,7 @@ async function pegaID() {
     }
 }
 
-function sair(){
+function sair() {
     localStorage.setItem('token', null);
     window.location.replace('../Login/login.html');
 }
