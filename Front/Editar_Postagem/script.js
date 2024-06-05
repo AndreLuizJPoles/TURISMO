@@ -46,16 +46,15 @@ window.onload = async function () {
 }
 
 async function salvar() {
+  let urlAux = '../Perfil_Ponto/perfil_ponto.html';
   const LOCAL_API_URL = `http://localhost:3000/api/posts`;
 
   try {
     if (localStorage.getItem("tipoAtracao") == 'estabelecimento') {
-      estab = localStorage.getItem('idAtracao');
-      ponto = null;
-    } else if (localStorage.getItem("tipoAtracao") == 'evento') {
-      evento = localStorage.getItem('idAtracao');
-      ponto = null;
-    }
+      urlAux = '../Perfil_Estabelecimento/perfil_estab_comentarios.html';
+  } else if (localStorage.getItem("tipoAtracao") == 'evento') {
+      urlAux = '../Perfil_Evento/perfil_evento_comentarios.html';
+  }
 
     const response = await axios.put(
       LOCAL_API_URL,
@@ -93,7 +92,7 @@ async function salvar() {
 
     alert("Edição concluída!");
 
-    window.location.replace('../Perfil_Estabelecimento/perfil_estab_postagens.html');
+    window.location.replace(urlAux);
   } catch (error) {
     console.log(error);
   }
