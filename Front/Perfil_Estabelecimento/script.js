@@ -128,13 +128,15 @@ window.onload = async function () {
                 texto.id = 'texto-postagem';
                 texto.innerHTML = post.description;
                 postagem.appendChild(texto);
-                const divImg = document.createElement('div');
-                divImg.id = "box-img-post";
-                const imgPost = document.createElement('img');
-                imgPost.src = "../images/baffs.png"; //TODO: Mockado
-                imgPost.classList.add("img-postagem");
-                divImg.appendChild(imgPost);
-                postagem.appendChild(divImg);
+                if (post.picture_url) {
+                    const divImg = document.createElement('div');
+                    divImg.id = "box-img-post";
+                    const imgPost = document.createElement('img');
+                    imgPost.src = post.picture_url;
+                    imgPost.classList.add("img-postagem");
+                    divImg.appendChild(imgPost);
+                    postagem.appendChild(divImg);
+                }
                 fundo.appendChild(postagem);
             }
         });
@@ -147,26 +149,26 @@ window.onload = async function () {
     }
 
     //Deve ficar por úlitmo
-    try{
+    try {
         const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
-          const response = await axios.get(LOCAL_API_URL_USER,
+        const response = await axios.get(LOCAL_API_URL_USER,
             {
-              headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
             });
-    
-            console.log(ID !== idUsuario)
-            if (ID !== idUsuario && response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
-                novaPost.style.display = 'none';
-                editarEst.style.display = 'none';
-                for (i = 0; i < iconeEditar.length; i++) {
-                    iconeEditar[i].style.display = 'none';
+
+        console.log(ID !== idUsuario)
+        if (ID !== idUsuario && response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
+            novaPost.style.display = 'none';
+            editarEst.style.display = 'none';
+            for (i = 0; i < iconeEditar.length; i++) {
+                iconeEditar[i].style.display = 'none';
             }
         }
-      }catch (error) {
+    } catch (error) {
         console.log(error);
-      }
+    }
 }
 
 async function pegaID() {

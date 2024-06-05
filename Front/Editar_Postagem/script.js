@@ -73,11 +73,13 @@ async function salvar() {
     const imagemValue = document.getElementById("imagem1");
     const file = imagemValue.files[0];
 
-    const formData = new FormData();
-    formData.append("picture", file);
+    if (file) {
+      const formData = new FormData();
+      formData.append("picture", file);
+      
+      const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${response.data.data.id}/upload/picture_upload`;
 
-    //TODO: ARRUMAR IMAGEM
-    const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${localStorage.getItem('idPost')}/upload/post_picture`;
+      console.log(formData)
 
       const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
         headers: {
@@ -87,8 +89,9 @@ async function salvar() {
       });
 
       console.log(imagemRequest);
+    }
 
-      alert("Edição concluída!");
+    alert("Edição concluída!");
 
     window.location.replace('../Perfil_Estabelecimento/perfil_estab_postagens.html');
   } catch (error) {
@@ -137,7 +140,7 @@ function avisoExcluir() {
 
   confirmDelete.addEventListener("click", function () {
     excluir();
-    alert("Conta deletada com sucesso!");
+    alert("Postagem deletada com sucesso!");
     confirmationPopup.style.display = "none";
   });
 
