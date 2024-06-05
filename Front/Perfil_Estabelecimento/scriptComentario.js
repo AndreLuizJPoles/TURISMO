@@ -31,7 +31,7 @@ window.onload = async function () {
         console.log(response);
 
         nome_user.innerHTML = response.data.data.name;
-        if (response.data.data.address === null || response.data.data.address === ', , ') {
+        if (response.data.data.address == null || response.data.data.address === ', , ') {
             endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon">`;
         } else {
             endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}<p/>`;
