@@ -158,7 +158,6 @@ window.onload = async function () {
                 },
             });
 
-        console.log(ID !== idUsuario)
         if (ID !== idUsuario && response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
             novaPost.style.display = 'none';
             editarEst.style.display = 'none';
