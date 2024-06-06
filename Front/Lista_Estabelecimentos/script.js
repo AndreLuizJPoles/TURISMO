@@ -61,20 +61,17 @@ window.onload = async function () {
 
     response.data.data.forEach(async estab => {
       if (estab.user_id === ID) {
-        let imagem;
-        if (estab.picture_url === null) {
-          imagem = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHyPvzYv6YnUrZvvGrZMpXdYANau0x7c4nNtSOmQpniA&s';
-        } else {
-          imagem = estab.picture_url;
-        }
-
         const bloco = document.createElement('div');
         bloco.onclick
         bloco.classList.add('bloco');
         const img = document.createElement('img');
         bloco.appendChild(img);
         img.classList.add('imagem');
-        img.src = imagem;
+        if (estab.picture_url) {
+          img.src = estab.picture_url;
+        } else{
+          img.src = '../images/cinza.png';
+        }
         img.id = 'foto';
         const inferior = document.createElement('div');
         bloco.appendChild(inferior);

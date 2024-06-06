@@ -55,7 +55,11 @@ window.onload = async function () {
         const img = document.createElement("img");
         bloco.appendChild(img);
         img.classList.add("imagem");
-        img.src = estab.picture_url;
+        if (estab.picture_url) {
+          img.src = estab.picture_url;
+        } else{
+          img.src = '../images/cinza.png';
+        }
         img.id = "foto";
         const inferior = document.createElement("div");
         bloco.appendChild(inferior);
