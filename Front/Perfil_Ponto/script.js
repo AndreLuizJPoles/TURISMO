@@ -66,7 +66,11 @@ window.onload = async function () {
             }
         );
 
-        console.log(response);
+        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?attraction_id=${idEstab}`);
+
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+            valorNotaTotal.innerHTML = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(2);
+        }
 
         nome.innerHTML = response.data.data.name;
         enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}. CEP: ${response.data.data.zip_code}`;
@@ -174,8 +178,6 @@ window.onload = async function () {
     if (controle > 0) {
         novoComentario.style.display = 'none';
     }
-
-    valorNotaTotal.innerHTML = (somaNotas / contComentarios).toFixed(2);
 }
 
 async function imprimeMensagem() {
@@ -205,7 +207,7 @@ async function pegaID() {
     }
 }
 
-function sair(){
+function sair() {
     localStorage.setItem('token', null);
     window.location.replace('../Login/login.html');
 }

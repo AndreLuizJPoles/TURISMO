@@ -83,6 +83,12 @@ window.onload = async function () {
 
         console.log(response);
 
+        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?event_id=${idEvento}`);
+
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+            valorNotaTotal.innerHTML = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(2);
+        }
+
         nome.innerHTML = response.data.data.name;
         descricao.innerHTML = response.data.data.description;
         titulo.innerHTML = response.data.data.name;
@@ -236,8 +242,6 @@ window.onload = async function () {
     if (controle > 0) {
         novoComentario.style.display = 'none';
     }
-
-    valorNotaTotal.innerHTML = (somaNotas / contComentarios).toFixed(2);
 }
 
 async function imprimeMensagem() {

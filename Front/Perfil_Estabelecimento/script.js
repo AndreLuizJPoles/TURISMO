@@ -12,6 +12,7 @@ const editarEst = document.getElementById('editar-est');
 const iconeEditar = document.getElementsByClassName('icone-editar');
 const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
+const valorNotaTotal = document.getElementById('valor-nota-total');
 let idUsuario;
 let ID = null;
 
@@ -77,6 +78,12 @@ window.onload = async function () {
         );
 
         console.log(response);
+
+        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${idEstab}`);
+
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+            valorNotaTotal.innerHTML = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(2);
+        }
 
         nome.innerHTML = response.data.data.name;
         enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}. CEP: ${response.data.data.zip_code}`;

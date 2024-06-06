@@ -68,6 +68,12 @@ window.onload = async function () {
 
         console.log(response);
 
+        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${idEstab}`);
+
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+            valorNotaTotal.innerHTML = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(2);
+        }
+
         nome.innerHTML = response.data.data.name;
         enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}. CEP: ${response.data.data.zip_code}`;
         descricao.innerHTML = response.data.data.description;
@@ -98,7 +104,7 @@ window.onload = async function () {
 
         const comments = response.data.data;
         const promises = [];
-    
+
         comments.forEach(comment => {
             if (comment.establishment_id == localStorage.getItem('idAtracao') || comment.event_id == localStorage.getItem('idAtracao') || comment.attraction_id == localStorage.getItem('idAtracao')) {
                 const LOCAL_API_URL_USER_COM = `http://localhost:3000/api/users/${comment.user_id}`;
@@ -133,9 +139,9 @@ window.onload = async function () {
                         localStorage.setItem('idComment', comment.id);
                         window.location.replace('../Editar_Comentario/editar_comentario.html');
                     }
-                    if (ID !== comment.user_id && (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com')){
+                    if (ID !== comment.user_id && (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com')) {
                         a.style.display = 'none';
-                    }else{
+                    } else {
                         controle++;
                     }
                     comentario.appendChild(a);
@@ -159,14 +165,14 @@ window.onload = async function () {
                 }).catch(error => {
                     console.log(error);
                 });
-    
+
                 promises.push(promise);
             }
         });
-    
+
         await Promise.all(promises);
         await imprimeMensagem();
-        
+
     } catch (error) {
         console.log(error);
     }
@@ -175,11 +181,9 @@ window.onload = async function () {
     if (controle > 0) {
         novoComentario.style.display = 'none';
     }
-
-    valorNotaTotal.innerHTML = (somaNotas/contComentarios).toFixed(2);
 }
 
-async function imprimeMensagem(){
+async function imprimeMensagem() {
     const fundo = document.getElementById('fundo-perfil-est');
     const mensagem = document.createElement('div');
     mensagem.innerHTML = '<p>Não há mais comentários!</p><br><br><br>';

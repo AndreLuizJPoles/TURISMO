@@ -14,6 +14,7 @@ const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
 const data = document.getElementById('data');
 const statusEst = document.getElementById('status');
+const valorNotaTotal = document.getElementById('valor-nota-total');
 let idUsuario, statusValor = 'Fechado';
 let ID = null;
 
@@ -79,6 +80,12 @@ window.onload = async function () {
         );
 
         console.log(response);
+
+        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?event_id=${idEvento}`);
+
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+            valorNotaTotal.innerHTML = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(2);
+        }
 
         nome.innerHTML = response.data.data.name;
         descricao.innerHTML = response.data.data.description;
