@@ -51,18 +51,22 @@ window.onload = async function () {
 
     response.data.data.forEach(async fav => {
       let obj = null;
+      let palavra = '';
       if (fav.establishment_id) {
         const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments/${fav.establishment_id}`;
         const response = await axios.get(LOCAL_API_URL_EST);
         obj = response.data.data;
+        palavra = 'establishment';
       }else if(fav.event_id){
         const LOCAL_API_URL_EST = `http://localhost:3000/api/events/${fav.event_id}`;
         const response = await axios.get(LOCAL_API_URL_EST);
         obj = response.data.data;
+        palavra = 'event';
       }else{
         const LOCAL_API_URL_EST = `http://localhost:3000/api/attractions/${fav.attraction_id}`;
         const response = await axios.get(LOCAL_API_URL_EST);
         obj = response.data.data;
+        palavra = 'attraction'
       }
       const bloco = document.createElement('div');
       bloco.onclick
@@ -93,7 +97,7 @@ window.onload = async function () {
       const nota = document.createElement('h3');
       conjNota.appendChild(nota);
       nota.id = 'nota';
-      const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?attraction_id=${obj.id}`);
+      const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?${palavra}_id=${obj.id}`);
       let valorNotaTotal = '0.0';
       if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
         valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
