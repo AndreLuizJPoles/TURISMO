@@ -60,20 +60,17 @@ window.onload = async function () {
     console.log(response);
 
     response.data.data.forEach(async evento => {
-      let imagem;
-      if (evento.picture_url === null) {
-        imagem = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHyPvzYv6YnUrZvvGrZMpXdYANau0x7c4nNtSOmQpniA&s';
-      } else {
-        imagem = evento.picture_url;
-      }
-
       const bloco = document.createElement('div');
       bloco.onclick
       bloco.classList.add('bloco');
       const img = document.createElement('img');
       bloco.appendChild(img);
       img.classList.add('imagem');
-      img.src = imagem;
+      if (evento.picture_url) {
+        img.src = evento.picture_url;
+      } else{
+        img.src = '../images/cinza.png';
+      }
       img.id = 'foto';
       const inferior = document.createElement('div');
       bloco.appendChild(inferior);
@@ -92,7 +89,7 @@ window.onload = async function () {
       const nota = document.createElement('h3');
       conjNota.appendChild(nota);
       nota.id = 'nota';
-      const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?attraction_id=${estab.id}`);
+      const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?attraction_id=${evento.id}`);
         let valorNotaTotal = '0.0';
         if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
           valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
