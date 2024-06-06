@@ -90,8 +90,16 @@ window.onload = async function () {
         nome.innerHTML = response.data.data.name;
         descricao.innerHTML = response.data.data.description;
         titulo.innerHTML = response.data.data.name;
-        perfilFoto.src = response.data.data.picture_url;
-        planoFundo.src = response.data.data.background_picture_url;
+        if (response.data.data.picture_url) {
+            perfilFoto.src = response.data.data.picture_url;
+        } else {
+            perfilFoto.src = '../images/cinza.png';
+        }
+        if (response.data.data.background_picture_url) {
+            planoFundo.src = response.data.data.background_picture_url;
+        } else {
+            planoFundo.src = '../images/cinza.png';
+        }
         horario.innerHTML = `Das ${response.data.data.start_time} às ${response.data.data.end_time}`;
         const dataInicio = new Date(response.data.data.start_date);
         const dataInicioStr = `${(dataInicio.getDate() + 1).toString().padStart(2, '0')}/${(dataInicio.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataInicio.getFullYear()} `;

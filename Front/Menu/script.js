@@ -3,6 +3,7 @@ const endereco = document.getElementById("endereco");
 const filtro = document.getElementById("filtro");
 const foto = document.getElementById('foto-perfil');
 const perfil = document.getElementById('perfil-usuario');
+let usuarioObj = null;
 
 
 window.onload = async function () {
@@ -26,11 +27,10 @@ window.onload = async function () {
           },
         });
 
-      console.log(response);
+      usuarioObj = response.data.data;
 
       nome_user.innerHTML = response.data.data.name;
 
-      console.log(response.data.data.address);
       if (response.data.data.address === ', , ' || response.data.data.address == null) {
         endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon">`;
       } else {
@@ -58,93 +58,7 @@ window.onload = async function () {
     const response = await axios.get(LOCAL_API_URL);
     console.log(response);
     response.data.data.forEach(async (estab) => {
-      const bloco = document.createElement("div");
-      bloco.onclick;
-      bloco.classList.add("bloco");
-      const img = document.createElement("img");
-      bloco.appendChild(img);
-      img.classList.add("imagem");
-      if (estab.picture_url) {
-        img.src = estab.picture_url;
-      } else{
-        img.src = '../images/cinza.png';
-      }
-      img.id = "foto";
-      const inferior = document.createElement("div");
-      bloco.appendChild(inferior);
-      inferior.classList.add("inferior");
-      const h2 = document.createElement("h2");
-      inferior.appendChild(h2);
-      h2.id = "nome";
-      h2.innerHTML = estab.name;
-      const conjNota = document.createElement("div");
-      inferior.appendChild(conjNota);
-      conjNota.id = "conjunto-nota";
-      const icone = document.createElement("img");
-      conjNota.appendChild(icone);
-      icone.classList.add("icone");
-      icone.src = "../images/onibus.png";
-      const nota = document.createElement("h3");
-      conjNota.appendChild(nota);
-      nota.id = "nota";
-      const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${estab.id}`);
-      let valorNotaTotal = '0.0';
-      if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
-        valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
-      }
-      nota.innerHTML = valorNotaTotal;
-      const status = document.createElement("h3");
-      inferior.appendChild(status);
-      status.innerHTML = "Aberto"; // TODO: Mockado
-      status.id = "status";
-      const grade = document.getElementById("grade");
-
-      bloco.onclick = function () {
-        localStorage.setItem("idAtracao", estab.id);
-        localStorage.setItem("tipoAtracao", "estabelecimento");
-        window.location.replace(
-          "../Perfil_Estabelecimento/perfil_estab_postagens.html"
-        );
-      };
-
-      grade.appendChild(bloco);
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-async function pegaID() {
-  const LOCAL_API_URL_ID = "http://localhost:3000/api/users/loggedUser";
-  try {
-    const response = await axios.get(LOCAL_API_URL_ID, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-
-    return response.data.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function mudou() {
-  const grade = document.getElementById("grade");
-
-  while (grade.firstChild) {
-    grade.removeChild(grade.firstChild);
-  }
-
-  if (filtro.value === "estabelecimento") {
-    const LOCAL_API_URL = `http://localhost:3000/api/establishments`;
-
-    try {
-      console.log(LOCAL_API_URL);
-
-      const response = await axios.get(LOCAL_API_URL);
-
-      response.data.data.forEach(async (estab) => {
+      if (estab.city === usuarioObj.city) {
         const bloco = document.createElement("div");
         bloco.onclick;
         bloco.classList.add("bloco");
@@ -153,7 +67,7 @@ async function mudou() {
         img.classList.add("imagem");
         if (estab.picture_url) {
           img.src = estab.picture_url;
-        } else{
+        } else {
           img.src = '../images/cinza.png';
         }
         img.id = "foto";
@@ -195,6 +109,196 @@ async function mudou() {
         };
 
         grade.appendChild(bloco);
+      }else if(usuarioObj.city === ''){
+        const bloco = document.createElement("div");
+        bloco.onclick;
+        bloco.classList.add("bloco");
+        const img = document.createElement("img");
+        bloco.appendChild(img);
+        img.classList.add("imagem");
+        if (estab.picture_url) {
+          img.src = estab.picture_url;
+        } else {
+          img.src = '../images/cinza.png';
+        }
+        img.id = "foto";
+        const inferior = document.createElement("div");
+        bloco.appendChild(inferior);
+        inferior.classList.add("inferior");
+        const h2 = document.createElement("h2");
+        inferior.appendChild(h2);
+        h2.id = "nome";
+        h2.innerHTML = estab.name;
+        const conjNota = document.createElement("div");
+        inferior.appendChild(conjNota);
+        conjNota.id = "conjunto-nota";
+        const icone = document.createElement("img");
+        conjNota.appendChild(icone);
+        icone.classList.add("icone");
+        icone.src = "../images/onibus.png";
+        const nota = document.createElement("h3");
+        conjNota.appendChild(nota);
+        nota.id = "nota";
+        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${estab.id}`);
+        let valorNotaTotal = '0.0';
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+          valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+        }
+        nota.innerHTML = valorNotaTotal;
+        const status = document.createElement("h3");
+        inferior.appendChild(status);
+        status.innerHTML = "Aberto"; // TODO: Mockado
+        status.id = "status";
+        const grade = document.getElementById("grade");
+
+        bloco.onclick = function () {
+          localStorage.setItem("idAtracao", estab.id);
+          localStorage.setItem("tipoAtracao", "estabelecimento");
+          window.location.replace(
+            "../Perfil_Estabelecimento/perfil_estab_postagens.html"
+          );
+        };
+
+        grade.appendChild(bloco);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+async function pegaID() {
+  const LOCAL_API_URL_ID = "http://localhost:3000/api/users/loggedUser";
+  try {
+    const response = await axios.get(LOCAL_API_URL_ID, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function mudou() {
+  const grade = document.getElementById("grade");
+
+  while (grade.firstChild) {
+    grade.removeChild(grade.firstChild);
+  }
+
+  if (filtro.value === "estabelecimento") {
+    const LOCAL_API_URL = `http://localhost:3000/api/establishments`;
+
+    try {
+      const response = await axios.get(LOCAL_API_URL);
+
+      response.data.data.forEach(async (estab) => {
+        if (estab.city === usuarioObj.city) {
+          const bloco = document.createElement("div");
+          bloco.onclick;
+          bloco.classList.add("bloco");
+          const img = document.createElement("img");
+          bloco.appendChild(img);
+          img.classList.add("imagem");
+          if (estab.picture_url) {
+            img.src = estab.picture_url;
+          } else {
+            img.src = '../images/cinza.png';
+          }
+          img.id = "foto";
+          const inferior = document.createElement("div");
+          bloco.appendChild(inferior);
+          inferior.classList.add("inferior");
+          const h2 = document.createElement("h2");
+          inferior.appendChild(h2);
+          h2.id = "nome";
+          h2.innerHTML = estab.name;
+          const conjNota = document.createElement("div");
+          inferior.appendChild(conjNota);
+          conjNota.id = "conjunto-nota";
+          const icone = document.createElement("img");
+          conjNota.appendChild(icone);
+          icone.classList.add("icone");
+          icone.src = "../images/onibus.png";
+          const nota = document.createElement("h3");
+          conjNota.appendChild(nota);
+          nota.id = "nota";
+          const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${estab.id}`);
+          let valorNotaTotal = '0.0';
+          if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+            valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+          }
+          nota.innerHTML = valorNotaTotal;
+          const status = document.createElement("h3");
+          inferior.appendChild(status);
+          status.innerHTML = "Aberto"; // TODO: Mockado
+          status.id = "status";
+          const grade = document.getElementById("grade");
+  
+          bloco.onclick = function () {
+            localStorage.setItem("idAtracao", estab.id);
+            localStorage.setItem("tipoAtracao", "estabelecimento");
+            window.location.replace(
+              "../Perfil_Estabelecimento/perfil_estab_postagens.html"
+            );
+          };
+  
+          grade.appendChild(bloco);
+        }else if(usuarioObj.city === ''){
+          const bloco = document.createElement("div");
+          bloco.onclick;
+          bloco.classList.add("bloco");
+          const img = document.createElement("img");
+          bloco.appendChild(img);
+          img.classList.add("imagem");
+          if (estab.picture_url) {
+            img.src = estab.picture_url;
+          } else {
+            img.src = '../images/cinza.png';
+          }
+          img.id = "foto";
+          const inferior = document.createElement("div");
+          bloco.appendChild(inferior);
+          inferior.classList.add("inferior");
+          const h2 = document.createElement("h2");
+          inferior.appendChild(h2);
+          h2.id = "nome";
+          h2.innerHTML = estab.name;
+          const conjNota = document.createElement("div");
+          inferior.appendChild(conjNota);
+          conjNota.id = "conjunto-nota";
+          const icone = document.createElement("img");
+          conjNota.appendChild(icone);
+          icone.classList.add("icone");
+          icone.src = "../images/onibus.png";
+          const nota = document.createElement("h3");
+          conjNota.appendChild(nota);
+          nota.id = "nota";
+          const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${estab.id}`);
+          let valorNotaTotal = '0.0';
+          if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+            valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+          }
+          nota.innerHTML = valorNotaTotal;
+          const status = document.createElement("h3");
+          inferior.appendChild(status);
+          status.innerHTML = "Aberto"; // TODO: Mockado
+          status.id = "status";
+          const grade = document.getElementById("grade");
+  
+          bloco.onclick = function () {
+            localStorage.setItem("idAtracao", estab.id);
+            localStorage.setItem("tipoAtracao", "estabelecimento");
+            window.location.replace(
+              "../Perfil_Estabelecimento/perfil_estab_postagens.html"
+            );
+          };
+  
+          grade.appendChild(bloco);
+        }
       });
     } catch (error) {
       console.log(error);
@@ -220,7 +324,7 @@ async function mudou() {
           img.classList.add("imagem");
           if (estab.picture_url) {
             img.src = estab.picture_url;
-          } else{
+          } else {
             img.src = '../images/cinza.png';
           }
           img.id = "foto";
@@ -287,7 +391,7 @@ async function mudou() {
         img.classList.add("imagem");
         if (estab.picture_url) {
           img.src = estab.picture_url;
-        } else{
+        } else {
           img.src = '../images/cinza.png';
         }
         img.id = "foto";

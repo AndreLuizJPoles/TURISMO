@@ -45,9 +45,6 @@ window.onload = async function () {
   }
 
   try {
-
-    console.log(LOCAL_API_URL);
-
     const response = await axios.get(
       LOCAL_API_URL,
       {

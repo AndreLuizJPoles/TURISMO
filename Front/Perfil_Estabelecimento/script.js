@@ -15,6 +15,7 @@ const fotoUsuario = document.getElementById('perfil-usuario');
 const valorNotaTotal = document.getElementById('valor-nota-total');
 let idUsuario;
 let ID = null;
+let idFav = null;
 
 window.onload = async function () {
     const token = localStorage.getItem("token");
@@ -90,11 +91,40 @@ window.onload = async function () {
         descricao.innerHTML = response.data.data.description;
         horario.innerHTML = `Das 12:00 às 18:00`; //TODO: Mockado
         titulo.innerHTML = response.data.data.name;
-        perfilFoto.src = response.data.data.picture_url;
-        planoFundo.src = response.data.data.background_picture_url;
+        if (response.data.data.picture_url) {
+            perfilFoto.src = response.data.data.picture_url;
+        } else {
+            perfilFoto.src = '../images/cinza.png';
+        }
+        if (response.data.data.background_picture_url) {
+            planoFundo.src = response.data.data.background_picture_url;
+        } else {
+            planoFundo.src = '../images/cinza.png';
+        }
 
         idUsuario = response.data.data.user_id;
 
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
+        const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
+        const response = await axios.get(LOCAL_API_URL_FAV,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+
+        response.data.data.forEach(fav => {
+            if (fav.establishment_id === localStorage.getItem('idAtracao')) {
+                const coracao = document.getElementById('coracao');
+                coracao.src = '../images/coracaoClick.png';
+                idFav = fav.id;
+                console.log(idFav)
+            }
+        });
     } catch (error) {
         console.log(error);
     }
@@ -200,4 +230,45 @@ async function pegaID() {
 function sair() {
     localStorage.setItem('token', null);
     window.location.replace('../Login/login.html');
+}
+
+async function favoritar() {
+    const coracao = document.getElementById('coracao');
+
+    const src = coracao.src;
+    const relativePath = src.substring(src.indexOf('images'));
+
+    if (relativePath === 'images/coracao.png') {
+        coracao.src = '../images/coracaoClick.png';
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments`;
+            const response = await axios.post(LOCAL_API_URL_FAV,
+                {
+                    establishment_id: localStorage.getItem('idAtracao'),
+                    attraction_id: null,
+                    event_id: null,
+                },
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+        } catch (error) {
+            console.log(error);
+        }
+
+    } else {
+        coracao.src = '../images/coracao.png';
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/${idFav}`;
+            const response = await axios.delete(LOCAL_API_URL_FAV,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }

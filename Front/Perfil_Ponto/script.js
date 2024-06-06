@@ -76,8 +76,16 @@ window.onload = async function () {
         enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}. CEP: ${response.data.data.zip_code}`;
         descricao.innerHTML = response.data.data.description;
         titulo.innerHTML = response.data.data.name;
-        perfilFoto.src = response.data.data.picture_url;
-        planoFundo.src = response.data.data.background_picture_url;
+        if (response.data.data.picture_url) {
+            perfilFoto.src = response.data.data.picture_url;
+        } else {
+            perfilFoto.src = '../images/cinza.png';
+        }
+        if (response.data.data.background_picture_url) {
+            planoFundo.src = response.data.data.background_picture_url;
+        } else {
+            planoFundo.src = '../images/cinza.png';
+        }
 
         idUsuario = response.data.data.user_id;
 

@@ -1,8 +1,6 @@
 const nomeEstab = document.getElementById("nome");
 const cnpj = document.getElementById("cnpj");
 const categoria = document.getElementById("categorias");
-const horaAberto = document.getElementById("hora-abertura");
-const horaFecha = document.getElementById("hora-encerramento");
 const segunda = document.getElementById("segunda");
 const terca = document.getElementById("terca");
 const quarta = document.getElementById("quarta");
@@ -24,6 +22,20 @@ const telefone1 = document.getElementById("telefone1");
 const telefone2 = document.getElementById("telefone2");
 const telefone3 = document.getElementById("telefone3");
 const descricao = document.getElementById("descricao");
+let horaAbertoSeg = document.getElementById('hora-abertura-segunda');
+let horaEncerSeg = document.getElementById('hora-encerramento-segunda');
+let horaAbertoTer = document.getElementById('hora-abertura-terca');
+let horaEncerTer = document.getElementById('hora-encerramento-terca');
+let horaAbertoQua = document.getElementById('hora-abertura-quarta');
+let horaEncerQua = document.getElementById('hora-encerramento-quarta');
+let horaAbertoQui = document.getElementById('hora-abertura-quinta');
+let horaEncerQui = document.getElementById('hora-encerramento-quinta');
+let horaAbertoSex = document.getElementById('hora-abertura-sexta');
+let horaEncerSex = document.getElementById('hora-encerramento-sexta');
+let horaAbertoSab = document.getElementById('hora-abertura-sabado');
+let horaEncerSab = document.getElementById('hora-encerramento-sabado');
+let horaAbertoDom = document.getElementById('hora-abertura-domingo');
+let horaEncerDom = document.getElementById('hora-encerramento-domingo');
 
 async function cadastrar() {
   if (validar()) {
@@ -32,12 +44,70 @@ async function cadastrar() {
     const street = document.getElementById("rua").value;
     const number = document.getElementById("numero").value;
     const adress = neighborhood + ', ' + street + ', ' + number;
+    if(!segunda.checked){
+      horaAbertoSeg.value = '00:00';
+      horaEncerSeg.value = '00:00';
+    }
+    if(!terca.checked){
+      horaAbertoTer.value = '00:00';
+      horaEncerTer.value = '00:00';
+    }
+    if(!quarta.checked){
+      horaAbertoQua.value = '00:00';
+      horaEncerQua.value = '00:00';
+    }
+    if(!quinta.checked){
+      horaAbertoQui.value = '00:00';
+      horaEncerQui.value = '00:00';
+    }
+    if(!sexta.checked){
+      horaAbertoSex.value = '00:00';
+      horaEncerSex.value = '00:00';
+    }
+    if(!sabado.checked){
+      horaAbertoSab.value = '00:00';
+      horaEncerSab.value = '00:00';
+    }
+    if(!domingo.checked){
+      horaAbertoDom.value = '00:00';
+      horaEncerDom.value = '00:00';
+    }
+
     const workingTime = [
       {
-        day_of_week_id:
-          "5bd361e1-a5ec-4d26-8cba-0dc434a71fdc" /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
-        opening_time: "1997-07-16T19:20:30+01:00", //TODO:
-        closing_time: "1997-07-16T19:20:30+01:00", //TODO:
+        day_of_week_id:'2af68f89-9b08-4398-a25f-b6beb607313a'/*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        opening_time: horaAbertoSeg.value,
+        closing_time: horaEncerSeg.value,
+      },
+      {
+        day_of_week_id: '4a7ab39d-7663-4de2-9d9a-0a13e2c2e579' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        opening_time: horaAbertoTer.value,
+        closing_time: horaEncerTer.value,
+      },
+      {
+        day_of_week_id:'863971fc-18e0-45f0-83a4-5d341e837822' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        opening_time: horaAbertoQua.value,
+        closing_time: horaEncerQua.value,
+      },
+      {
+        day_of_week_id:'af7bc1e7-68cc-477c-8da6-2c2577995476' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        opening_time: horaAbertoQui.value,
+        closing_time: horaEncerQui.value,
+      },
+      {
+        day_of_week_id: 'b091776c-9d14-4a83-afc8-07cc45f1e7e5' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        opening_time: horaAbertoSex.value,
+        closing_time: horaEncerSex.value,
+      },
+      {
+        day_of_week_id: 'b3f16a71-088c-4ef8-abf4-d83f9668716a' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        opening_time: horaAbertoSab.value,
+        closing_time: horaEncerSab.value,
+      },
+      {
+        day_of_week_id: 'cf95022b-d958-4a1e-b6f3-5027563cdea7' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        opening_time: horaAbertoDom.value,
+        closing_time: horaEncerDom.value,
       },
     ]; //TODO: modelo de array pra armazenar os dias de funcionamento e seus horários
 
