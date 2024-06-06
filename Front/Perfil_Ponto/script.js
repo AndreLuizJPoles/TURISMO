@@ -262,6 +262,8 @@ async function favoritar() {
                         authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
+
+                idFav = response.data.data.id;
         } catch (error) {
             console.log(error);
         }

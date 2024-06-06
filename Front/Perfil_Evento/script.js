@@ -17,6 +17,7 @@ const statusEst = document.getElementById('status');
 const valorNotaTotal = document.getElementById('valor-nota-total');
 let idUsuario, statusValor = 'Fechado';
 let ID = null;
+let idFav = null;
 
 window.onload = async function () {
     const token = localStorage.getItem("token");
@@ -165,7 +166,7 @@ window.onload = async function () {
             });
 
         response.data.data.forEach(fav => {
-            if (fav.establishment_id === localStorage.getItem('idAtracao')) {
+            if (fav.event_id === localStorage.getItem('idAtracao')) {
                 const coracao = document.getElementById('coracao');
                 coracao.src = '../images/coracaoClick.png';
                 idFav = fav.id;
@@ -309,15 +310,16 @@ async function favoritar() {
             const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments`;
             const response = await axios.post(LOCAL_API_URL_FAV,
                 {
-                    establishment_id: localStorage.getItem('idAtracao'),
+                    establishment_id: null,
                     attraction_id: null,
-                    event_id: null,
+                    event_id: localStorage.getItem('idAtracao'),
                 },
                 {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
+                idFav = response.data.data.id;
         } catch (error) {
             console.log(error);
         }
