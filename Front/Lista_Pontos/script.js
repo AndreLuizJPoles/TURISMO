@@ -30,9 +30,9 @@ window.onload = async function () {
     } else {
       endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}<p/>`;
     }
-    if (!response.data.data.picture_url === null || !response.data.data.picture_url === '') {
+    if (response.data.data.picture_url !== null || !response.data.data.picture_url === '') {
       foto.src = response.data.data.picture_url;
-      perfil.src = response.data.data.picture_url;
+      fotoUsuario.src = response.data.data.picture_url;
     }
 
     if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
@@ -59,7 +59,7 @@ window.onload = async function () {
 
     console.log(response);
 
-    response.data.data.forEach(evento => {
+    response.data.data.forEach(async evento => {
       let imagem;
       if (evento.picture_url === null) {
         imagem = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHyPvzYv6YnUrZvvGrZMpXdYANau0x7c4nNtSOmQpniA&s';
@@ -92,7 +92,12 @@ window.onload = async function () {
       const nota = document.createElement('h3');
       conjNota.appendChild(nota);
       nota.id = 'nota';
-      nota.innerHTML = '5.0';//TODO: Mockado 
+      const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?attraction_id=${estab.id}`);
+        let valorNotaTotal = '0.0';
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+          valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+        }
+        nota.innerHTML = valorNotaTotal;
       const status = document.createElement('h3');
       inferior.appendChild(status);
       status.innerHTML = 'Aberto';// TODO: Mockado
