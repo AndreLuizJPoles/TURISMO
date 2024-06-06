@@ -63,7 +63,6 @@ async function postar() {
 
     if (file) {
       const formData = new FormData();
-
       formData.append("picture", file);
       
       const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${response.data.data.id}/upload/picture_upload`;
@@ -79,6 +78,8 @@ async function postar() {
 
       console.log(imagemRequest);
     }
+
+    alert("Postagem concluída!");
 
     window.location.replace(urlAux);
   } catch (error) {

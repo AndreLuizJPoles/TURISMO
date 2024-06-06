@@ -12,6 +12,7 @@ const editarEst = document.getElementById('editar-est');
 const iconeEditar = document.getElementsByClassName('icone-editar');
 const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
+const valorNotaTotal = document.getElementById('valor-nota-total');
 let idUsuario;
 let ID = null;
 
@@ -78,6 +79,12 @@ window.onload = async function () {
 
         console.log(response);
 
+        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${idEstab}`);
+
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+            valorNotaTotal.innerHTML = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(2);
+        }
+
         nome.innerHTML = response.data.data.name;
         enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}. CEP: ${response.data.data.zip_code}`;
         descricao.innerHTML = response.data.data.description;
@@ -107,7 +114,7 @@ window.onload = async function () {
         const fundo = document.getElementById('fundo-perfil-est');
 
         response.data.data.forEach(post => {
-            if (post.establishment_id == localStorage.getItem('idAtracao')) {
+            if (post.establishment_id == localStorage.getItem('idAtracao') || post.event_id == localStorage.getItem('idAtracao')) {
                 const postagem = document.createElement('div');
                 postagem.classList.add('postagem');
                 const titulo = document.createElement('h2');
@@ -128,13 +135,15 @@ window.onload = async function () {
                 texto.id = 'texto-postagem';
                 texto.innerHTML = post.description;
                 postagem.appendChild(texto);
-                const divImg = document.createElement('div');
-                divImg.id = "box-img-post";
-                const imgPost = document.createElement('img');
-                imgPost.src = "../images/baffs.png"; //TODO: Mockado
-                imgPost.classList.add("img-postagem");
-                divImg.appendChild(imgPost);
-                postagem.appendChild(divImg);
+                if (post.picture_url) {
+                    const divImg = document.createElement('div');
+                    divImg.id = "box-img-post";
+                    const imgPost = document.createElement('img');
+                    imgPost.src = post.picture_url;
+                    imgPost.classList.add("img-postagem");
+                    divImg.appendChild(imgPost);
+                    postagem.appendChild(divImg);
+                }
                 fundo.appendChild(postagem);
             }
         });
@@ -147,26 +156,25 @@ window.onload = async function () {
     }
 
     //Deve ficar por úlitmo
-    try{
+    try {
         const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
-          const response = await axios.get(LOCAL_API_URL_USER,
+        const response = await axios.get(LOCAL_API_URL_USER,
             {
-              headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
             });
-    
-            console.log(ID !== idUsuario)
-            if (ID !== idUsuario && response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
-                novaPost.style.display = 'none';
-                editarEst.style.display = 'none';
-                for (i = 0; i < iconeEditar.length; i++) {
-                    iconeEditar[i].style.display = 'none';
+
+        if (ID !== idUsuario && response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
+            novaPost.style.display = 'none';
+            editarEst.style.display = 'none';
+            for (i = 0; i < iconeEditar.length; i++) {
+                iconeEditar[i].style.display = 'none';
             }
         }
-      }catch (error) {
+    } catch (error) {
         console.log(error);
-      }
+    }
 }
 
 async function pegaID() {

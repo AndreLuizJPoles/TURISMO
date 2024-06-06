@@ -14,8 +14,10 @@ const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
 const data = document.getElementById('data');
 const statusEst = document.getElementById('status');
+const novoComentario = document.getElementById('novo-comentario');
 const valorNotaTotal = document.getElementById('valor-nota-total');
-let idUsuario, statusValor = 'Fechado';
+let controle = 0;
+let idUsuario, somaNotas = 0, contComentarios = 0, statusValor = 'Fechado';
 let ID = null;
 
 window.onload = async function () {
@@ -147,7 +149,7 @@ window.onload = async function () {
         console.log(error);
     }
 
-    const LOCAL_API_URL_POST = `http://localhost:3000/api/posts`;
+    const LOCAL_API_URL_POST = `http://localhost:3000/api/comments`;
 
     try {
         const response = await axios.get(
@@ -161,68 +163,92 @@ window.onload = async function () {
 
         const fundo = document.getElementById('fundo-perfil-est');
 
-        response.data.data.forEach(post => {
-            if (post.event_id == localStorage.getItem('idAtracao')) {
-                const postagem = document.createElement('div');
-                postagem.classList.add('postagem');
-                const titulo = document.createElement('h2');
-                titulo.id = 'titulo-postagem'
-                titulo.innerHTML = post.name;
-                postagem.appendChild(titulo);
-                const a = document.createElement('a');
-                const img = document.createElement('img');
-                img.src = "../images/editar.png";
-                img.classList.add("icone-editar");
-                a.appendChild(img);
-                a.onclick = function () {
-                    localStorage.setItem('idPost', post.id);
-                    window.location.replace('../Editar_Postagem/editar_postagem.html');
-                }
-                postagem.appendChild(a);
-                const texto = document.createElement('p');
-                texto.id = 'texto-postagem';
-                texto.innerHTML = post.description;
-                postagem.appendChild(texto);
-                if (post.picture_url) {
-                    const divImg = document.createElement('div');
-                    divImg.id = "box-img-post";
-                    const imgPost = document.createElement('img');
-                    imgPost.src = post.picture_url;
-                    imgPost.classList.add("img-postagem");
-                    divImg.appendChild(imgPost);
-                    postagem.appendChild(divImg);
-                }
-                fundo.appendChild(postagem);
+        const comments = response.data.data;
+        const promises = [];
+
+        comments.forEach(comment => {
+            if (comment.establishment_id == localStorage.getItem('idAtracao') || comment.event_id == localStorage.getItem('idAtracao') || comment.attraction_id == localStorage.getItem('idAtracao')) {
+                const LOCAL_API_URL_USER_COM = `http://localhost:3000/api/users/${comment.user_id}`;
+                contComentarios++;
+                somaNotas += parseInt(comment.evaluation_note, 10);
+
+                const promise = axios.get(LOCAL_API_URL_USER_COM, {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }).then(response => {
+                    const comentario = document.createElement('div');
+                    comentario.classList.add('comentario');
+                    const fotoUsuarioPerfil = document.createElement('img');
+                    fotoUsuarioPerfil.classList.add('foto-perfil-usuario');
+                    if (response.data.data.picture_url) {
+                        fotoUsuarioPerfil.src = response.data.data.picture_url;
+                    } else {
+                        fotoUsuarioPerfil.src = '../images/foto_padrao.png';
+                    }
+                    comentario.appendChild(fotoUsuarioPerfil);
+                    const nomeUsuario = document.createElement('h3');
+                    nomeUsuario.classList.add('nome-usuario');
+                    nomeUsuario.innerHTML = response.data.data.name;
+                    comentario.appendChild(nomeUsuario);
+                    const a = document.createElement('a');
+                    const img = document.createElement('img');
+                    img.src = "../images/editar.png";
+                    img.classList.add("icone-editar");
+                    a.appendChild(img);
+                    a.onclick = function () {
+                        localStorage.setItem('idComment', comment.id);
+                        window.location.replace('../Editar_Comentario/editar_comentario.html');
+                    }
+                    if (ID !== comment.user_id && (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com')) {
+                        a.style.display = 'none';
+                    } else {
+                        controle++;
+                    }
+                    comentario.appendChild(a);
+                    const boxNota = document.createElement('div');
+                    boxNota.classList.add('box-nota');
+                    boxNota.id = 'nota-comentario';
+                    const iconeOnibus = document.createElement('img');
+                    iconeOnibus.id = 'onibus-icon';
+                    iconeOnibus.src = '../images/onibus.png';
+                    boxNota.appendChild(iconeOnibus);
+                    const valorNota = document.createElement('h3');
+                    valorNota.id = 'valor-nota';
+                    valorNota.innerHTML = comment.evaluation_note;
+                    boxNota.appendChild(valorNota);
+                    comentario.appendChild(boxNota);
+                    const descr = document.createElement('p');
+                    descr.id = 'texto-comentario';
+                    descr.innerHTML = comment.description;
+                    comentario.appendChild(descr);
+                    fundo.appendChild(comentario);
+                }).catch(error => {
+                    console.log(error);
+                });
+
+                promises.push(promise);
             }
         });
 
-        const mensagem = document.createElement('div');
-        mensagem.innerHTML = '<p>Não há mais postagens!</p><br><br><br>';
-        fundo.appendChild(mensagem);
+        await Promise.all(promises);
+        await imprimeMensagem();
+
     } catch (error) {
         console.log(error);
     }
 
     //Deve ficar por úlitmo
-    try{
-        const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
-          const response = await axios.get(LOCAL_API_URL_USER,
-            {
-              headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            });
+    if (controle > 0) {
+        novoComentario.style.display = 'none';
+    }
+}
 
-            if (ID !== idUsuario && (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com')) {
-                novaPost.style.display = 'none';
-                editarEst.style.display = 'none';
-                for (i = 0; i < iconeEditar.length; i++) {
-                    iconeEditar[i].style.display = 'none';
-            }
-        }
-      }catch (error) {
-        console.log(error);
-      }
+async function imprimeMensagem() {
+    const fundo = document.getElementById('fundo-perfil-est');
+    const mensagem = document.createElement('div');
+    mensagem.innerHTML = '<p>Não há mais comentários!</p><br><br><br>';
+    fundo.appendChild(mensagem);
 }
 
 async function pegaID() {
@@ -263,7 +289,7 @@ function comparaDatas(dataInicio, dataFim, horaInicio, horaFim) {
     return dataInicio <= agora && dataFim >= agora && hora;
 }
 
-function comparaHora(horaInicio, horaFim, agora){
+function comparaHora(horaInicio, horaFim, agora) {
     const agoraStr = `${(agora.getHours()).toString().padStart(2, '0')}:${(agora.getMinutes()).toString().padStart(2, '0')}`;
     return horaInicio <= agoraStr && horaFim >= agoraStr;
 }

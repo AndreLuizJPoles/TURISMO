@@ -57,8 +57,7 @@ window.onload = async function () {
   try {
     const response = await axios.get(LOCAL_API_URL);
     console.log(response);
-
-    response.data.data.forEach((estab) => {
+    response.data.data.forEach(async (estab) => {
       const bloco = document.createElement("div");
       bloco.onclick;
       bloco.classList.add("bloco");
@@ -84,7 +83,12 @@ window.onload = async function () {
       const nota = document.createElement("h3");
       conjNota.appendChild(nota);
       nota.id = "nota";
-      nota.innerHTML = "5.0"; //TODO: Mockado
+      const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${estab.id}`);
+      let valorNotaTotal = '0.0';
+      if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+        valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+      }
+      nota.innerHTML = valorNotaTotal;
       const status = document.createElement("h3");
       inferior.appendChild(status);
       status.innerHTML = "Aberto"; // TODO: Mockado
@@ -136,7 +140,7 @@ async function mudou() {
 
       const response = await axios.get(LOCAL_API_URL);
 
-      response.data.data.forEach((estab) => {
+      response.data.data.forEach(async (estab) => {
         const bloco = document.createElement("div");
         bloco.onclick;
         bloco.classList.add("bloco");
@@ -162,7 +166,12 @@ async function mudou() {
         const nota = document.createElement("h3");
         conjNota.appendChild(nota);
         nota.id = "nota";
-        nota.innerHTML = "5.0"; //TODO: Mockado
+        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${estab.id}`);
+        let valorNotaTotal = '0.0';
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+          valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+        }
+        nota.innerHTML = valorNotaTotal;
         const status = document.createElement("h3");
         inferior.appendChild(status);
         status.innerHTML = "Aberto"; // TODO: Mockado
@@ -188,7 +197,7 @@ async function mudou() {
     try {
       const response = await axios.get(LOCAL_API_URL);
 
-      response.data.data.forEach((estab) => {
+      response.data.data.forEach(async (estab) => {
         let statusValor = 'Fechado';
         const dataInicio = new Date(estab.start_date);
         const dataFim = new Date(estab.end_date);
@@ -220,7 +229,12 @@ async function mudou() {
           const nota = document.createElement("h3");
           conjNota.appendChild(nota);
           nota.id = "nota";
-          nota.innerHTML = "5.0"; //TODO: Mockado
+          const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?event_id=${estab.id}`);
+          let valorNotaTotal = '0.0';
+          if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+            valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+          }
+          nota.innerHTML = valorNotaTotal;
           const status = document.createElement("h3");
           inferior.appendChild(status);
           if (comparaDatas(dataInicio, dataFim, estab.start_time, estab.end_time)) {
@@ -252,7 +266,7 @@ async function mudou() {
     try {
       const response = await axios.get(LOCAL_API_URL);
 
-      response.data.data.forEach((estab) => {
+      response.data.data.forEach(async (estab) => {
         const bloco = document.createElement("div");
         bloco.onclick;
         bloco.classList.add("bloco");
@@ -278,7 +292,12 @@ async function mudou() {
         const nota = document.createElement("h3");
         conjNota.appendChild(nota);
         nota.id = "nota";
-        nota.innerHTML = "5.0"; //TODO: Mockado
+        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?attraction_id=${estab.id}`);
+        let valorNotaTotal = '0.0';
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+          valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+        }
+        nota.innerHTML = valorNotaTotal;
         const status = document.createElement("h3");
         inferior.appendChild(status);
         status.innerHTML = "Aberto"; // TODO: Mockado
@@ -317,7 +336,7 @@ function comparaDatas(dataInicio, dataFim, horaInicio, horaFim) {
   return dataInicio <= agora && dataFim >= agora && hora;
 }
 
-function comparaHora(horaInicio, horaFim, agora){
+function comparaHora(horaInicio, horaFim, agora) {
   const agoraStr = `${(agora.getHours()).toString().padStart(2, '0')}:${(agora.getMinutes()).toString().padStart(2, '0')}`;
   return horaInicio <= agoraStr && horaFim >= agoraStr;
 }
