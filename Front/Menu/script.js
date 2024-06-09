@@ -109,7 +109,7 @@ window.onload = async function () {
         };
 
         grade.appendChild(bloco);
-      }else if(usuarioObj.city === ''){
+      }else{
         const bloco = document.createElement("div");
         bloco.onclick;
         bloco.classList.add("bloco");
