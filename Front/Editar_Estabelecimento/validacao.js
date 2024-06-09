@@ -297,9 +297,47 @@ window.onload = async function () {
     bairro.value = bairroAux;
     rua.value = ruaAux;
     numero.value = numAux;
+
+    const LOCAL_API_URL_CONTATOS = `http://localhost:3000/api/establishmentContacts/establishments/${idEstab}`;
+
+        const responseContacts = await axios.get(
+            LOCAL_API_URL_CONTATOS,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        console.log(responseContacts.data.data);
+
+        responseContacts.data.data.forEach(contact => {
+          if (contact.email === 'sememail@email.com' || contact.phone_number === '0'){
+      
+          }else{
+              if(contact.email){
+                  if(email1.value === ''){
+                    email1.value = contact.email;
+                  }else if(email2.value === ''){
+                    email2.value = contact.email;
+                  }else{
+                    email3.value = contact.email;
+                  }
+              }else{
+                if(telefone1.value === ''){
+                  telefone1.value = contact.phone_number;
+                }else if(telefone2.value === ''){
+                  telefone2.value = contact.phone_number;
+                }else{
+                  telefone3.value = contact.phone_number;
+                }
+              }
+          }
+      });
   } catch (error) {
     console.log(error);
   }
+
 };
 
 async function excluir() {

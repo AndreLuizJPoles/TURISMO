@@ -86,9 +86,11 @@ window.onload = async function () {
             valorNotaTotal.innerHTML = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(2);
         }
 
+        let strContatos = '';
+
         nome.innerHTML = response.data.data.name;
         enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}. CEP: ${response.data.data.zip_code}`;
-        descricao.innerHTML = response.data.data.description;
+        descricao.innerHTML = `${response.data.data.description}`;
         horario.innerHTML = `Das 12:00 às 18:00`; //TODO: Mockado
         titulo.innerHTML = response.data.data.name;
         if (response.data.data.picture_url) {
@@ -103,6 +105,39 @@ window.onload = async function () {
         }
 
         idUsuario = response.data.data.user_id;
+
+        const LOCAL_API_URL_CONTATOS = `http://localhost:3000/api/establishmentContacts/establishments/${idEstab}`;
+
+        const responseContacts = await axios.get(
+            LOCAL_API_URL_CONTATOS,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        console.log(responseContacts.data.data);
+        let controle = 0, strEmails = '', strTelefones = '';
+
+        responseContacts.data.data.forEach(contact => {
+            if (contact.email === 'sememail@email.com' || contact.phone_number === '0'){
+
+            }else{
+                if(controle === 0){
+                    descricao.innerHTML += '<br> Contatos: <br>';
+                    controle++;
+                }
+                if(contact.email){
+                    strEmails += contact.email + '<br>';
+                }else{
+                    strTelefones += contact.phone_number + '<br>';
+                }
+            }
+        });
+
+        descricao.innerHTML += strTelefones + strEmails;
+
 
     } catch (error) {
         console.log(error);
@@ -271,4 +306,9 @@ async function favoritar() {
             console.log(error);
         }
     }
+}
+
+function cadEvento(){
+    localStorage.setItem("idEstab", localStorage.getItem('idAtracao'));
+    window.location.replace('../Cadastro_Evento/cadastro_evento.html');
 }

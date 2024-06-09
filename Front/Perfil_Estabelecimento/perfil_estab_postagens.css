@@ -274,7 +274,6 @@ input:focus-visible {
     font-weight: 700;
     background-color: #05679F;
     color: white;
-    margin-bottom: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;

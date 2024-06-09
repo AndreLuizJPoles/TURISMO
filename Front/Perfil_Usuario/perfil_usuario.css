@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap');
 
 body {
-    background-image: url(/Front/images/turismo_fundo.png);
+    background-image: url('../images/turismo_fundo.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -26,7 +26,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 #voltar {
@@ -128,6 +128,7 @@ a p {
     border-radius: 20px;
     width: 50%;
     padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 .email{
