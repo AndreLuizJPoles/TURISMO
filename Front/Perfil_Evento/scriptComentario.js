@@ -132,6 +132,8 @@ window.onload = async function () {
 
                 enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}`;
                 idUsuario = response.data.data.user_id;
+
+                
             } catch (error) {
                 console.log(error);
             }

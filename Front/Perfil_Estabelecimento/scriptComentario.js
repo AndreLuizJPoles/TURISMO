@@ -92,6 +92,38 @@ window.onload = async function () {
 
         idUsuario = response.data.data.user_id;
 
+        const LOCAL_API_URL_CONTATOS = `http://localhost:3000/api/establishmentContacts/establishments/${idEstab}`;
+
+        const responseContacts = await axios.get(
+            LOCAL_API_URL_CONTATOS,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        console.log(responseContacts.data.data);
+        let controle = 0, strEmails = '', strTelefones = '';
+
+        responseContacts.data.data.forEach(contact => {
+            if (contact.email === 'sememail@email.com' || contact.phone_number === '0'){
+
+            }else{
+                if(controle === 0){
+                    descricao.innerHTML += '<br> Contatos: <br>';
+                    controle++;
+                }
+                if(contact.email){
+                    strEmails += contact.email + '<br>';
+                }else{
+                    strTelefones += contact.phone_number + '<br>';
+                }
+            }
+        });
+
+        descricao.innerHTML += strTelefones + strEmails;
+
     } catch (error) {
         console.log(error);
     }
