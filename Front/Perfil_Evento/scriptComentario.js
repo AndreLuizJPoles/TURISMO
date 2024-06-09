@@ -105,9 +105,9 @@ window.onload = async function () {
         }
         horario.innerHTML = `Das ${response.data.data.start_time} às ${response.data.data.end_time}`;
         const dataInicio = new Date(response.data.data.start_date);
-        const dataInicioStr = `${(dataInicio.getDate() + 1).toString().padStart(2, '0')}/${(dataInicio.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataInicio.getFullYear()} `;
+        const dataInicioStr = `${(dataInicio.getUTCDate()).toString().padStart(2, '0')}/${(dataInicio.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataInicio.getFullYear()} `;
         const dataFim = new Date(response.data.data.end_date);
-        const dataFimStr = `${(dataFim.getDate() + 1).toString().padStart(2, '0')}/${(dataFim.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataFim.getFullYear()} `;
+        const dataFimStr = `${(dataFim.getUTCDate()).toString().padStart(2, '0')}/${(dataFim.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataFim.getFullYear()} `;
         data.innerHTML = `De ${dataInicioStr} a ${dataFimStr}`;
 
         if (comparaDatas(dataInicio, dataFim, response.data.data.start_time, response.data.data.end_time)) {
