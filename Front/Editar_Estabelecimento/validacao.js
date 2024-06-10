@@ -23,6 +23,124 @@ const telefone3 = document.getElementById("telefone3");
 const email1 = document.getElementById("email1");
 const email2 = document.getElementById("email2");
 const email3 = document.getElementById("email3");
+let horaAbertoSeg = document.getElementById('hora-abertura-segunda');
+let horaEncerSeg = document.getElementById('hora-encerramento-segunda');
+let horaAbertoTer = document.getElementById('hora-abertura-terca');
+let horaEncerTer = document.getElementById('hora-encerramento-terca');
+let horaAbertoQua = document.getElementById('hora-abertura-quarta');
+let horaEncerQua = document.getElementById('hora-encerramento-quarta');
+let horaAbertoQui = document.getElementById('hora-abertura-quinta');
+let horaEncerQui = document.getElementById('hora-encerramento-quinta');
+let horaAbertoSex = document.getElementById('hora-abertura-sexta');
+let horaEncerSex = document.getElementById('hora-encerramento-sexta');
+let horaAbertoSab = document.getElementById('hora-abertura-sabado');
+let horaEncerSab = document.getElementById('hora-encerramento-sabado');
+let horaAbertoDom = document.getElementById('hora-abertura-domingo');
+let horaEncerDom = document.getElementById('hora-encerramento-domingo');
+let segId, terId, quaId, quiId, sexId, sabId, domId;
+
+window.onload = async function () {
+  const LOCAL_API_URL_CAT = `http://localhost:3000/api/establishmentCategories`;
+
+  try {
+    const response = await axios.get(LOCAL_API_URL_CAT, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    const dataList = document.getElementById("categorias");
+
+    response.data.data.forEach((option) => {
+      const optionElement = document.createElement("option");
+      optionElement.value = option.id;
+      optionElement.textContent = option.name;
+      dataList.appendChild(optionElement);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  const idEstab = localStorage.getItem("idAtracao");
+  const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
+  try {
+    const response = await axios.get(LOCAL_API_URL, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    console.log(response);
+
+    nome.value = response.data.data.name;
+    cnpj.value = response.data.data.cnpj;
+    categorias.value = response.data.data.category_id;
+    descricao.value = response.data.data.description;
+
+    cep.value = response.data.data.zip_code;
+    uf.value = response.data.data.state;
+    cidade.value = response.data.data.city;
+
+    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(", ");
+
+    bairro.value = bairroAux;
+    rua.value = ruaAux;
+    numero.value = numAux;
+
+    const LOCAL_API_URL_CONTATOS = `http://localhost:3000/api/establishmentContacts/establishments/${idEstab}`;
+
+        const responseContacts = await axios.get(
+            LOCAL_API_URL_CONTATOS,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        console.log(responseContacts.data.data);
+
+        responseContacts.data.data.forEach(contact => {
+          if (contact.email === 'sememail@email.com' || contact.phone_number === '0'){
+      
+          }else{
+              if(contact.email){
+                  if(email1.value === ''){
+                    email1.value = contact.email;
+                  }else if(email2.value === ''){
+                    email2.value = contact.email;
+                  }else{
+                    email3.value = contact.email;
+                  }
+              }else{
+                if(telefone1.value === ''){
+                  telefone1.value = contact.phone_number;
+                }else if(telefone2.value === ''){
+                  telefone2.value = contact.phone_number;
+                }else{
+                  telefone3.value = contact.phone_number;
+                }
+              }
+          }
+      });
+
+      const LOCAL_API_URL_WORKING = `http://localhost:3000/api/establishment_working_time/${idEstab}`;
+
+      const responseWork = await axios.get(
+        LOCAL_API_URL_WORKING,
+        {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        }
+    );
+
+    console.log(responseWork)
+  } catch (error) {
+    console.log(error);
+  }
+
+};
 
 function validar() {
   if (verificaVazio()) {
@@ -106,15 +224,72 @@ function validaHora() {
 
 async function salvar() {
   if (validar()) {
+    if (!segunda.checked) {
+      horaAbertoSeg.value = '00:00';
+      horaEncerSeg.value = '00:00';
+    }
+    if (!terca.checked) {
+      horaAbertoTer.value = '00:00';
+      horaEncerTer.value = '00:00';
+    }
+    if (!quarta.checked) {
+      horaAbertoQua.value = '00:00';
+      horaEncerQua.value = '00:00';
+    }
+    if (!quinta.checked) {
+      horaAbertoQui.value = '00:00';
+      horaEncerQui.value = '00:00';
+    }
+    if (!sexta.checked) {
+      horaAbertoSex.value = '00:00';
+      horaEncerSex.value = '00:00';
+    }
+    if (!sabado.checked) {
+      horaAbertoSab.value = '00:00';
+      horaEncerSab.value = '00:00';
+    }
+    if (!domingo.checked) {
+      horaAbertoDom.value = '00:00';
+      horaEncerDom.value = '00:00';
+    }
+
     const workingTime = [
-      //TODO: modelo de array que vamos enviar, aqui vamos ter TODOS os dias da semana e seus horários
       {
-        day_of_week_id: "5bd361e1-a5ec-4d26-8cba-0dc434a71fdc", //TODO: pegar id que foi retornado da base na listagem
-        opening_time: "1997-07-16T19:20:30+01:00", //TODO:
-        closing_time: "1997-07-16T19:20:30+01:00", //TODO:
+        day_of_week_id: segId,
+        opening_time: horaAbertoSeg.value,
+        closing_time: horaEncerSeg.value,
+      },
+      {
+        day_of_week_id: terId,
+        opening_time: horaAbertoTer.value,
+        closing_time: horaEncerTer.value,
+      },
+      {
+        day_of_week_id: quaId,
+        opening_time: horaAbertoQua.value,
+        closing_time: horaEncerQua.value,
+      },
+      {
+        day_of_week_id: quiId,
+        opening_time: horaAbertoQui.value,
+        closing_time: horaEncerQui.value,
+      },
+      {
+        day_of_week_id: sexId,
+        opening_time: horaAbertoSex.value,
+        closing_time: horaEncerSex.value,
+      },
+      {
+        day_of_week_id: sabId,
+        opening_time: horaAbertoSab.value,
+        closing_time: horaEncerSab.value,
+      },
+      {
+        day_of_week_id: domId,
+        opening_time: horaAbertoDom.value,
+        closing_time: horaEncerDom.value,
       },
     ];
-
     if (email1.value == "") {
       email1.value = "sememail@email.com";
     }
@@ -249,96 +424,6 @@ imagemPerfil.addEventListener("change", (event) => {
 
   reader.readAsDataURL(imagemPerfil.files[0]);
 });
-
-window.onload = async function () {
-  const LOCAL_API_URL_CAT = `http://localhost:3000/api/establishmentCategories`;
-
-  try {
-    const response = await axios.get(LOCAL_API_URL_CAT, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-
-    const dataList = document.getElementById("categorias");
-
-    response.data.data.forEach((option) => {
-      const optionElement = document.createElement("option");
-      optionElement.value = option.id;
-      optionElement.textContent = option.name;
-      dataList.appendChild(optionElement);
-    });
-  } catch (error) {
-    console.log(error);
-  }
-
-  const idEstab = localStorage.getItem("idAtracao");
-  const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
-  try {
-    const response = await axios.get(LOCAL_API_URL, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-
-    console.log(response);
-
-    nome.value = response.data.data.name;
-    cnpj.value = response.data.data.cnpj;
-    categorias.value = response.data.data.category_id;
-    descricao.value = response.data.data.description;
-
-    cep.value = response.data.data.zip_code;
-    uf.value = response.data.data.state;
-    cidade.value = response.data.data.city;
-
-    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(", ");
-
-    bairro.value = bairroAux;
-    rua.value = ruaAux;
-    numero.value = numAux;
-
-    const LOCAL_API_URL_CONTATOS = `http://localhost:3000/api/establishmentContacts/establishments/${idEstab}`;
-
-        const responseContacts = await axios.get(
-            LOCAL_API_URL_CONTATOS,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
-
-        console.log(responseContacts.data.data);
-
-        responseContacts.data.data.forEach(contact => {
-          if (contact.email === 'sememail@email.com' || contact.phone_number === '0'){
-      
-          }else{
-              if(contact.email){
-                  if(email1.value === ''){
-                    email1.value = contact.email;
-                  }else if(email2.value === ''){
-                    email2.value = contact.email;
-                  }else{
-                    email3.value = contact.email;
-                  }
-              }else{
-                if(telefone1.value === ''){
-                  telefone1.value = contact.phone_number;
-                }else if(telefone2.value === ''){
-                  telefone2.value = contact.phone_number;
-                }else{
-                  telefone3.value = contact.phone_number;
-                }
-              }
-          }
-      });
-  } catch (error) {
-    console.log(error);
-  }
-
-};
 
 async function excluir() {
   const LOCAL_API_URL_DELETE = `http://localhost:3000/api/establishments/${localStorage.getItem("idAtracao")}`;

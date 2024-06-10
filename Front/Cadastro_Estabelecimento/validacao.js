@@ -36,6 +36,70 @@ let horaAbertoSab = document.getElementById('hora-abertura-sabado');
 let horaEncerSab = document.getElementById('hora-encerramento-sabado');
 let horaAbertoDom = document.getElementById('hora-abertura-domingo');
 let horaEncerDom = document.getElementById('hora-encerramento-domingo');
+let segId, terId, quaId, quiId, sexId, sabId, domId;
+
+window.onload = async function () {
+  const LOCAL_API_URL = `http://localhost:3000/api/establishmentCategories`;
+
+  try {
+    const response = await axios.get(
+      LOCAL_API_URL,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const dataList = document.getElementById("categorias");
+
+    response.data.data.forEach(option => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option.id;
+      optionElement.textContent = option.name;
+      dataList.appendChild(optionElement);
+    });
+
+    const agora = new Date();
+
+    const LOCAL_API_URL_DAY = 'http://localhost:3000/api/daysOfWeek';
+
+    const responseDay = await axios.get(
+      LOCAL_API_URL_DAY
+    );
+
+    responseDay.data.data.forEach(day => {
+
+      switch (day.day_of_week) {
+        case "Domingo":
+          domId = day.id;
+          break;
+        case "Segunda-feira":
+          segId = day.id;
+          break;
+        case "Terça-feira":
+          terId = day.id;
+          break;
+        case "Quarta-feira":
+          quaId = day.id;
+          break;
+        case "Quinta-feira":
+          quiId = day.id;
+          break;
+        case "Sexta-feira":
+          sexId = day.id;
+          break;
+        case "Sábado":
+          sabId = day.id;
+          break;
+      }
+
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 async function cadastrar() {
   if (validar()) {
@@ -44,72 +108,72 @@ async function cadastrar() {
     const street = document.getElementById("rua").value;
     const number = document.getElementById("numero").value;
     const adress = neighborhood + ', ' + street + ', ' + number;
-    if(!segunda.checked){
+    if (!segunda.checked) {
       horaAbertoSeg.value = '00:00';
       horaEncerSeg.value = '00:00';
     }
-    if(!terca.checked){
+    if (!terca.checked) {
       horaAbertoTer.value = '00:00';
       horaEncerTer.value = '00:00';
     }
-    if(!quarta.checked){
+    if (!quarta.checked) {
       horaAbertoQua.value = '00:00';
       horaEncerQua.value = '00:00';
     }
-    if(!quinta.checked){
+    if (!quinta.checked) {
       horaAbertoQui.value = '00:00';
       horaEncerQui.value = '00:00';
     }
-    if(!sexta.checked){
+    if (!sexta.checked) {
       horaAbertoSex.value = '00:00';
       horaEncerSex.value = '00:00';
     }
-    if(!sabado.checked){
+    if (!sabado.checked) {
       horaAbertoSab.value = '00:00';
       horaEncerSab.value = '00:00';
     }
-    if(!domingo.checked){
+    if (!domingo.checked) {
       horaAbertoDom.value = '00:00';
       horaEncerDom.value = '00:00';
     }
 
     const workingTime = [
       {
-        day_of_week_id:'2af68f89-9b08-4398-a25f-b6beb607313a'/*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        day_of_week_id: segId,
         opening_time: horaAbertoSeg.value,
         closing_time: horaEncerSeg.value,
       },
       {
-        day_of_week_id: '4a7ab39d-7663-4de2-9d9a-0a13e2c2e579' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        day_of_week_id: terId,
         opening_time: horaAbertoTer.value,
         closing_time: horaEncerTer.value,
       },
       {
-        day_of_week_id:'863971fc-18e0-45f0-83a4-5d341e837822' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        day_of_week_id: quaId,
         opening_time: horaAbertoQua.value,
         closing_time: horaEncerQua.value,
       },
       {
-        day_of_week_id:'af7bc1e7-68cc-477c-8da6-2c2577995476' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        day_of_week_id: quiId,
         opening_time: horaAbertoQui.value,
         closing_time: horaEncerQui.value,
       },
       {
-        day_of_week_id: 'b091776c-9d14-4a83-afc8-07cc45f1e7e5' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        day_of_week_id: sexId,
         opening_time: horaAbertoSex.value,
         closing_time: horaEncerSex.value,
       },
       {
-        day_of_week_id: 'b3f16a71-088c-4ef8-abf4-d83f9668716a' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        day_of_week_id: sabId,
         opening_time: horaAbertoSab.value,
         closing_time: horaEncerSab.value,
       },
       {
-        day_of_week_id: 'cf95022b-d958-4a1e-b6f3-5027563cdea7' /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
+        day_of_week_id: domId,
         opening_time: horaAbertoDom.value,
         closing_time: horaEncerDom.value,
       },
-    ]; //TODO: modelo de array pra armazenar os dias de funcionamento e seus horários
+    ];
 
     if (email1.value == '') {
       email1.value = 'sememail@email.com';
@@ -246,31 +310,4 @@ function validaCNPJ() {
 
 function validaHora() {
   return horaFecha.value <= horaAberto.value;
-}
-
-window.onload = async function () {
-  const LOCAL_API_URL = `http://localhost:3000/api/establishmentCategories`;
-
-  try {
-    const response = await axios.get(
-      LOCAL_API_URL,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    const dataList = document.getElementById("categorias");
-
-    response.data.data.forEach(option => {
-      const optionElement = document.createElement('option');
-      optionElement.value = option.id;
-      optionElement.textContent = option.name;
-      dataList.appendChild(optionElement);
-    });
-
-  } catch (error) {
-    console.log(error);
-  }
 }
