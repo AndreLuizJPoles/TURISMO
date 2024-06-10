@@ -9,6 +9,7 @@ const titulo = document.getElementById('titulo-pagina');
 const perfilFoto = document.getElementById('perfil-foto');
 const planoFundo = document.getElementById('plano-fundo');
 const editarEst = document.getElementById('editar-est');
+const criarEvento = document.getElementById('criar-evento');
 const iconeEditar = document.getElementsByClassName('icone-editar');
 const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
@@ -233,6 +234,7 @@ window.onload = async function () {
         if (ID !== idUsuario && response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
             novaPost.style.display = 'none';
             editarEst.style.display = 'none';
+            criarEvento.style.display = 'none';
             for (i = 0; i < iconeEditar.length; i++) {
                 iconeEditar[i].style.display = 'none';
             }

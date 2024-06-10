@@ -448,6 +448,14 @@ a p {
     #nome-usuario{
         width: 70%;
     }
+
+    #coracao{
+        margin: 0.45rem;
+    }
+    
+    #coracaoClick{
+        margin: 0.45rem;
+    }
 }
 
 @media screen and (max-width: 550px){

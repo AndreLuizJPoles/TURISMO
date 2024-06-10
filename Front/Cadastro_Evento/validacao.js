@@ -276,4 +276,5 @@ function tiraEst() {
 
 function voltar() {
   localStorage.setItem("idEstab", null);
+  window.location.replace('../Menu/index.html');
 }

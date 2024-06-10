@@ -353,7 +353,7 @@ a p {
 
 .nome-usuario {
     margin-left: 1.5rem;
-    width: 80%;
+    width: 70%;
 }
 
 .comentario #texto-comentario {
@@ -447,6 +447,14 @@ a p {
 
     #nome-usuario{
         width: 70%;
+    }
+
+    #coracao{
+        margin: 0.45rem;
+    }
+    
+    #coracaoClick{
+        margin: 0.45rem;
     }
 }
 
