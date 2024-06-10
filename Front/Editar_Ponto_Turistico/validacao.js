@@ -5,6 +5,7 @@ const uf = document.getElementById("uf");
 const cidade = document.getElementById("cidade");
 const bairro = document.getElementById("bairro");
 const rua = document.getElementById("rua");
+const numero = document.getElementById("numero");
 
 function validar() {
     if (verificaVazio()) {
@@ -24,7 +25,7 @@ async function salvar() {
             id: localStorage.getItem("idAtracao"),
             name: nomePonto.value,
             description: descricao.value,
-            address: bairro.value + ", " + rua.value,
+            address: bairro.value + ", " + rua.value + ", " + numero.value,
             zip_code: cep.value,
             state: uf.value,
         };
@@ -146,10 +147,11 @@ window.onload = async function () {
         uf.value = response.data.data.state;
         cidade.value = response.data.data.city;
 
-        const [bairroAux, ruaAux] = response.data.data.address.split(", ");
+        const [bairroAux, ruaAux, numeroAux] = response.data.data.address.split(", ");
 
         bairro.value = bairroAux;
         rua.value = ruaAux;
+        numero.value = numeroAux;
     } catch (error) {
         console.log(error);
     }
