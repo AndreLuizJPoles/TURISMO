@@ -43,7 +43,7 @@ window.onload = async function () {
             fotoUsuario.src = response.data.data.picture_url;
         }
 
-        if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
+        if (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
             const pontos = document.getElementById('pontos');
             const editar = document.getElementById('editar-est');
             pontos.style.display = 'none';
@@ -165,7 +165,7 @@ window.onload = async function () {
                         localStorage.setItem('idComment', comment.id);
                         window.location.replace('../Editar_Comentario/editar_comentario.html');
                     }
-                    if (ID !== comment.user_id && (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com')) {
+                    if (ID !== comment.user_id && (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com')) {
                         a.style.display = 'none';
                     } else {
                         controle++;

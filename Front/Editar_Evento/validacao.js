@@ -254,7 +254,7 @@ window.onload = async function () {
             },
           });
   
-          if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
+          if (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
             const pontos = document.getElementById('ponto');
             const textoAviso = document.getElementById('texto-aviso');
             textoAviso.style.display = 'none';

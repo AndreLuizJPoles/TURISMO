@@ -15,6 +15,7 @@ const novoComentario = document.getElementById('novo-comentario');
 const valorNotaTotal = document.getElementById('valor-nota-total');
 let controle = 0;
 let idUsuario, somaNotas = 0, contComentarios = 0;
+let usuarioLogado = null;
 
 window.onload = async function () {
 
@@ -31,7 +32,7 @@ window.onload = async function () {
             }
         );
 
-        console.log(response);
+        usuarioLogado = response.data.data;
 
         nome_user.innerHTML = response.data.data.name;
         if (response.data.data.address == null || response.data.data.address === ', , ') {
@@ -44,7 +45,7 @@ window.onload = async function () {
             fotoUsuario.src = response.data.data.picture_url;
         }
 
-        if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
+        if (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
             const pontos = document.getElementById('pontos');
             pontos.style.display = 'none';
         }
@@ -102,8 +103,6 @@ window.onload = async function () {
                 },
             }
         );
-
-        console.log(responseContacts.data.data);
         let controle = 0, strEmails = '', strTelefones = '';
 
         responseContacts.data.data.forEach(contact => {
@@ -145,6 +144,7 @@ window.onload = async function () {
                 console.log(idFav)
             }
         });
+
     } catch (error) {
         console.log(error);
     }
@@ -200,7 +200,8 @@ window.onload = async function () {
                         localStorage.setItem('idComment', comment.id);
                         window.location.replace('../Editar_Comentario/editar_comentario.html');
                     }
-                    if (ID !== comment.user_id && (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com')) {
+                    console.log(response.data.data.email)
+                    if (ID !== comment.user_id && (usuarioLogado.email !== 'admin1@email.com' && usuarioLogado.email !== 'admin2@example.com' && usuarioLogado.email !== 'admin3@example.com')) {
                         a.style.display = 'none';
                     } else {
                         controle++;
