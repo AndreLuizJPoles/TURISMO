@@ -3,8 +3,10 @@ const endereco = document.getElementById("endereco");
 const filtro = document.getElementById("filtro");
 const foto = document.getElementById('foto-perfil');
 const perfil = document.getElementById('perfil-usuario');
-let usuarioObj = null;
-
+const cidade = document.getElementById('cidade');
+let usuarioObj = {
+  city: ''
+};
 
 window.onload = async function () {
   const token = localStorage.getItem("token");
@@ -30,6 +32,8 @@ window.onload = async function () {
       usuarioObj = response.data.data;
 
       nome_user.innerHTML = response.data.data.name;
+
+      cidade.innerHTML = response.data.data.city;
 
       if (response.data.data.address === ', , ' || response.data.data.address == null) {
         endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon">`;
@@ -59,6 +63,7 @@ window.onload = async function () {
   try {
     const response = await axios.get(LOCAL_API_URL);
     console.log(response);
+    console.log(usuarioObj.city)
     response.data.data.forEach(async (estab) => {
       if (estab.city === usuarioObj.city) {
         const bloco = document.createElement("div");
@@ -111,7 +116,7 @@ window.onload = async function () {
         };
 
         grade.appendChild(bloco);
-      }else{
+      }else if(usuarioObj.city === ''){
         const bloco = document.createElement("div");
         bloco.onclick;
         bloco.classList.add("bloco");

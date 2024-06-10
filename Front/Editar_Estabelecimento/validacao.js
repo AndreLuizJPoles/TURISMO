@@ -325,6 +325,7 @@ async function salvar() {
       state: uf.value,
       workingTime,
       contacts,
+      city: cidade.value,
     };
 
     try {
