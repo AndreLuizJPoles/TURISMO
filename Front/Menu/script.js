@@ -46,8 +46,6 @@ window.onload = async function () {
         perfil.src = response.data.data.picture_url;
       }
 
-      console.log(response.data.data.email !== 'admin1@email.com')
-
       if (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
         const pontos = document.getElementById('pontos');
         pontos.style.display = 'none';
@@ -63,7 +61,6 @@ window.onload = async function () {
   try {
     const response = await axios.get(LOCAL_API_URL);
     console.log(response);
-    console.log(usuarioObj.city)
     response.data.data.forEach(async (estab) => {
       if (estab.city === usuarioObj.city) {
         const bloco = document.createElement("div");
@@ -116,7 +113,7 @@ window.onload = async function () {
         };
 
         grade.appendChild(bloco);
-      }else if(usuarioObj.city === ''){
+      }else if(usuarioObj.city === '' || usuarioObj.city === null){
         const bloco = document.createElement("div");
         bloco.onclick;
         bloco.classList.add("bloco");
@@ -254,7 +251,7 @@ async function mudou() {
           };
   
           grade.appendChild(bloco);
-        }else if(usuarioObj.city === ''){
+        }else if(usuarioObj.city === '' || usuarioObj.city === null){
           const bloco = document.createElement("div");
           bloco.onclick;
           bloco.classList.add("bloco");
