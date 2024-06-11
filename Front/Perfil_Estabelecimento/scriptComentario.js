@@ -13,6 +13,10 @@ const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
 const novoComentario = document.getElementById('novo-comentario');
 const valorNotaTotal = document.getElementById('valor-nota-total');
+const instagram = document.getElementById('instagram');
+const facebook = document.getElementById('facebook');
+const linkedin = document.getElementById('linkedin');
+const website = document.getElementById('website');
 let controle = 0;
 let idUsuario, somaNotas = 0, contComentarios = 0;
 let usuarioLogado = null;
@@ -89,6 +93,26 @@ window.onload = async function () {
             planoFundo.src = response.data.data.background_picture_url;
         } else {
             planoFundo.src = '../images/cinza.png';
+        }
+        if (response.data.data.instagram_url === 'https://nada.com') {
+            instagram.style.display = 'none';
+        } else {
+            instagram.href = response.data.data.instagram_url;
+        }
+        if (response.data.data.facebook_url === 'https://nada.com') {
+            facebook.style.display = 'none';
+        } else {
+            facebook.href = response.data.data.facebook_url;
+        }
+        if (response.data.data.linkedin_url === 'https://nada.com') {
+            linkedin.style.display = 'none';
+        } else {
+            linkedin.href = response.data.data.linkedin_url;
+        }
+        if (response.data.data.website_url === 'https://nada.com') { 
+            website.style.display = 'none';
+        } else {
+            website.href = response.data.data.website_url;
         }
 
         idUsuario = response.data.data.user_id;

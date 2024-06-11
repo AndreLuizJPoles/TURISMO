@@ -94,50 +94,50 @@ window.onload = async function () {
 
     const LOCAL_API_URL_CONTATOS = `http://localhost:3000/api/establishmentContacts/establishments/${idEstab}`;
 
-        const responseContacts = await axios.get(
-            LOCAL_API_URL_CONTATOS,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+    const responseContacts = await axios.get(
+      LOCAL_API_URL_CONTATOS,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
-        console.log(responseContacts.data.data);
+    console.log(responseContacts.data.data);
 
-        responseContacts.data.data.forEach(contact => {
-          if (contact.email === 'sememail@email.com' || contact.phone_number === '0'){
-      
-          }else{
-              if(contact.email){
-                  if(email1.value === ''){
-                    email1.value = contact.email;
-                  }else if(email2.value === ''){
-                    email2.value = contact.email;
-                  }else{
-                    email3.value = contact.email;
-                  }
-              }else{
-                if(telefone1.value === ''){
-                  telefone1.value = contact.phone_number;
-                }else if(telefone2.value === ''){
-                  telefone2.value = contact.phone_number;
-                }else{
-                  telefone3.value = contact.phone_number;
-                }
-              }
+    responseContacts.data.data.forEach(contact => {
+      if (contact.email === 'sememail@email.com' || contact.phone_number === '0') {
+
+      } else {
+        if (contact.email) {
+          if (email1.value === '') {
+            email1.value = contact.email;
+          } else if (email2.value === '') {
+            email2.value = contact.email;
+          } else {
+            email3.value = contact.email;
           }
-      });
-
-      const LOCAL_API_URL_WORKING = `http://localhost:3000/api/establishment_working_time/${idEstab}`;
-
-      const responseWork = await axios.get(
-        LOCAL_API_URL_WORKING,
-        {
-            headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
+        } else {
+          if (telefone1.value === '') {
+            telefone1.value = contact.phone_number;
+          } else if (telefone2.value === '') {
+            telefone2.value = contact.phone_number;
+          } else {
+            telefone3.value = contact.phone_number;
+          }
         }
+      }
+    });
+
+    const LOCAL_API_URL_WORKING = `http://localhost:3000/api/establishment_working_time/${idEstab}`;
+
+    const responseWork = await axios.get(
+      LOCAL_API_URL_WORKING,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
     );
 
     console.log(responseWork)
@@ -229,6 +229,18 @@ function validaHora() {
 
 async function salvar() {
   if (validar()) {
+    if (instagram.value === '') {
+      instagram.value = 'https://nada.com';
+    }
+    if (facebook.value === '') {
+      facebook.value = 'https://nada.com';
+    }
+    if (linkedin.value === '') {
+      linkedin.value = 'https://nada.com';
+    }
+    if (website.value === '') {
+      website.value = 'https://nada.com';
+    }
     if (!segunda.checked) {
       horaAbertoSeg.value = '00:00';
       horaEncerSeg.value = '00:00';
@@ -333,10 +345,10 @@ async function salvar() {
       //workingTime,
       contacts,
       city: cidade.value,
-      //instagram_url: instagram.value,
-      //facebook_url: facebook.value,
-      //linkedin_url: linkedin.value,
-      //website_url: website.value,
+      instagram_url: instagram.value,
+      facebook_url: facebook.value,
+      linkedin_url: linkedin.value,
+      website_url: website.value,
       //whatsapp: whatsapp.value
     };
 

@@ -108,10 +108,26 @@ window.onload = async function () {
         } else {
             planoFundo.src = '../images/cinza.png';
         }
-        instagram.href = response.data.data.instagram_url;
-        facebook.href = response.data.data.facebook_url;
-        linkedin.href = response.data.data.linkedin_url;
-        website.href = response.data.data.website_url;
+        if (response.data.data.instagram_url === 'https://nada.com') {
+            instagram.style.display = 'none';
+        } else {
+            instagram.href = response.data.data.instagram_url;
+        }
+        if (response.data.data.facebook_url === 'https://nada.com') {
+            facebook.style.display = 'none';
+        } else {
+            facebook.href = response.data.data.facebook_url;
+        }
+        if (response.data.data.linkedin_url === 'https://nada.com') {
+            linkedin.style.display = 'none';
+        } else {
+            linkedin.href = response.data.data.linkedin_url;
+        }
+        if (response.data.data.website_url === 'https://nada.com') { 
+            website.style.display = 'none';
+        } else {
+            website.href = response.data.data.website_url;
+        }
 
         idUsuario = response.data.data.user_id;
 
