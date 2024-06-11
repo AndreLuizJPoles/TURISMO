@@ -36,6 +36,11 @@ let horaAbertoSab = document.getElementById('hora-abertura-sabado');
 let horaEncerSab = document.getElementById('hora-encerramento-sabado');
 let horaAbertoDom = document.getElementById('hora-abertura-domingo');
 let horaEncerDom = document.getElementById('hora-encerramento-domingo');
+const instagram = document.getElementById('instagram');
+const facebook = document.getElementById('facebook');
+const linkedin = document.getElementById('linkedin');
+const website = document.getElementById('website');
+const whatsapp = document.getElementById('whatsapp');
 let segId, terId, quaId, quiId, sexId, sabId, domId;
 
 window.onload = async function () {
@@ -208,6 +213,11 @@ async function cadastrar() {
       city: cidade.value,
       zip_code: cep.value,
       state: uf.value,
+      facebook_url: facebook.value,
+      instagram_url: instagram.value,
+      linkedin_url: linkedin.value,
+      website_url: website.value,
+      whatsapp: whatsapp.value,
       workingTime,
       contacts
     };
