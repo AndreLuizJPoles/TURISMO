@@ -62,6 +62,39 @@ window.onload = async function () {
       optionElement.textContent = option.name;
       dataList.appendChild(optionElement);
     });
+
+    const LOCAL_API_URL_DAY = 'http://localhost:3000/api/daysOfWeek';
+
+    const responseDay = await axios.get(
+      LOCAL_API_URL_DAY
+    );
+
+    responseDay.data.data.forEach(day => {
+
+      switch (day.day_of_week) {
+        case "Domingo":
+          domId = day.id;
+          break;
+        case "Segunda-feira":
+          segId = day.id;
+          break;
+        case "Terça-feira":
+          terId = day.id;
+          break;
+        case "Quarta-feira":
+          quaId = day.id;
+          break;
+        case "Quinta-feira":
+          quiId = day.id;
+          break;
+        case "Sexta-feira":
+          sexId = day.id;
+          break;
+        case "Sábado":
+          sabId = day.id;
+          break;
+      }
+    });
   } catch (error) {
     console.log(error);
   }
@@ -145,7 +178,7 @@ window.onload = async function () {
       }
     });
 
-    const LOCAL_API_URL_WORKING = `http://localhost:3000/api/establishment_working_time/${idEstab}`;
+    const LOCAL_API_URL_WORKING = `http://localhost:3000/api/establishments/${idEstab}/workingtime`;
 
     const responseWork = await axios.get(
       LOCAL_API_URL_WORKING,
@@ -155,6 +188,60 @@ window.onload = async function () {
         },
       }
     );
+
+    responseWork.data.data.forEach(day => {
+      switch (day.day_of_week_id) {
+        case domId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            domingo.checked = true;
+            horaAbertoDom.value = day.opening_time;
+            horaEncerDom.value = day.closing_time;
+          }
+          break;
+        case segId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            segunda.checked = true;
+            horaAbertoSeg.value = day.opening_time;
+            horaEncerSeg.value = day.closing_time;
+          }
+          break;
+        case terId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            terca.checked = true;
+            horaAbertoTer.value = day.opening_time;
+            horaEncerTer.value = day.closing_time;
+          }
+          break;
+        case quaId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            quarta.checked = true;
+            horaAbertoQua.value = day.opening_time;
+            horaEncerQua.value = day.closing_time;
+          }
+          break;
+        case quiId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            quinta.checked = true;
+            horaAbertoQui.value = day.opening_time;
+            horaEncerQui.value = day.closing_time;
+          }
+          break;
+        case sexId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            sexta.checked = true;
+            horaAbertoSex.value = day.opening_time;
+            horaEncerSex.value = day.closing_time;
+          }
+          break;
+        case sabId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            sabado.checked = true;
+            horaAbertoSab.value = day.opening_time;
+            horaEncerSab.value = day.closing_time;
+          }
+          break;
+      }
+    });
 
     console.log(responseWork)
   } catch (error) {
@@ -359,7 +446,7 @@ async function salvar() {
       address: bairro.value + ", " + rua.value + ", " + numero.value,
       zip_code: cep.value,
       state: uf.value,
-      //workingTime,
+      workingTime,
       contacts,
       city: cidade.value,
       instagram_url: instagram.value,

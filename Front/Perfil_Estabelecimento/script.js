@@ -20,6 +20,7 @@ const linkedin = document.getElementById('linkedin');
 const website = document.getElementById('website');
 const whatsapp = document.getElementById('whatsapp');
 const divWhats = document.getElementById('div-whats');
+const statusEstab = document.getElementById('status');
 let idUsuario;
 let ID = null;
 let idFav = null;
@@ -98,7 +99,6 @@ window.onload = async function () {
         nome.innerHTML = response.data.data.name;
         enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}. CEP: ${response.data.data.zip_code}`;
         descricao.innerHTML = `${response.data.data.description}`;
-        horario.innerHTML = `Das 12:00 às 18:00`; //TODO: Mockado
         titulo.innerHTML = response.data.data.name;
         if (response.data.data.picture_url) {
             perfilFoto.src = response.data.data.picture_url;
@@ -125,15 +125,177 @@ window.onload = async function () {
         } else {
             linkedin.href = response.data.data.linkedin_url;
         }
-        if (response.data.data.website_url === 'https://nada.com') { 
+        if (response.data.data.website_url === 'https://nada.com') {
             website.style.display = 'none';
         } else {
             website.href = response.data.data.website_url;
         }
-        if(response.data.data.whatsapp === '0'){
+        if (response.data.data.whatsapp === '0') {
             divWhats.style.display = 'none';
-        }else{
+        } else {
             whatsapp.innerHTML = response.data.data.whatsapp;
+        }
+
+        const LOCAL_API_URL_WORKING = `http://localhost:3000/api/establishments/${idEstab}/workingtime`;
+
+        const responseWork = await axios.get(
+            LOCAL_API_URL_WORKING,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        const LOCAL_API_URL_DAY = 'http://localhost:3000/api/daysOfWeek';
+
+        const responseDay = await axios.get(
+            LOCAL_API_URL_DAY
+        );
+
+        responseDay.data.data.forEach(day => {
+
+            switch (day.day_of_week) {
+                case "Domingo":
+                    domId = day.id;
+                    break;
+                case "Segunda-feira":
+                    segId = day.id;
+                    break;
+                case "Terça-feira":
+                    terId = day.id;
+                    break;
+                case "Quarta-feira":
+                    quaId = day.id;
+                    break;
+                case "Quinta-feira":
+                    quiId = day.id;
+                    break;
+                case "Sexta-feira":
+                    sexId = day.id;
+                    break;
+                case "Sábado":
+                    sabId = day.id;
+                    break;
+            }
+        });
+
+        let segunda, terca, quarta, quinta, sexta, sabado, domingo;
+
+        responseWork.data.data.forEach(day => {
+            switch (day.day_of_week_id) {
+                case domId:
+                    domingo = day;
+                    break;
+                case segId:
+                    segunda = day;
+                    break;
+                case terId:
+                    terca = day;
+                    break;
+                case quaId:
+                    quarta = day;
+                    break;
+                case quiId:
+                    quinta = day;
+                    break;
+                case sexId:
+                    sexta = day;
+                    break;
+                case sabId:
+                    sabado = day;
+                    break;
+            }
+        });
+
+        let horarioAux1, horarioAux2;
+        const agora = new Date();
+
+        switch (agora.getDay()) {
+            case 0:
+                horario.innerHTML = `Das ${domingo.opening_time} às ${domingo.closing_time}`;
+                horarioAux1 = stringToTime(new Date(), domingo.opening_time);
+                horarioAux2 = stringToTime(new Date(), domingo.closing_time);
+                if (domingo.opening_time === '00:00' && domingo.closing_time === '00:00') {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                } else if (agora < horarioAux1 || agora >= horarioAux2) {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                }
+                break;
+            case 1:
+                horario.innerHTML = `Das ${segunda.opening_time} às ${segunda.closing_time}`;
+                horarioAux1 = stringToTime(new Date(), segunda.opening_time);
+                horarioAux2 = stringToTime(new Date(), segunda.closing_time);
+                if (segunda.opening_time === '00:00' && segunda.closing_time === '00:00') {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                } else if (agora < horarioAux1 || agora >= horarioAux2) {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                }
+                break;
+            case 2:
+                horario.innerHTML = `Das ${terca.opening_time} às ${terca.closing_time}`;
+                horarioAux1 = stringToTime(new Date(), terca.opening_time);
+                horarioAux2 = stringToTime(new Date(), terca.closing_time);
+                if (terca.opening_time === '00:00' && terca.closing_time === '00:00') {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                } else if (agora < horarioAux1 || agora >= horarioAux2) {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                }
+                break;
+            case 3:
+                horario.innerHTML = `Das ${quarta.opening_time} às ${quarta.closing_time}`;
+                horarioAux1 = stringToTime(new Date(), quarta.opening_time);
+                horarioAux2 = stringToTime(new Date(), quarta.closing_time);
+                if (quarta.opening_time === '00:00' && quarta.closing_time === '00:00') {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                } else if (agora < horarioAux1 || agora >= horarioAux2) {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                }
+                break;
+            case 4:
+                horario.innerHTML = `Das ${quinta.opening_time} às ${quinta.closing_time}`;
+                horarioAux1 = stringToTime(new Date(), quinta.opening_time);
+                horarioAux2 = stringToTime(new Date(), quinta.closing_time);
+                if (quinta.opening_time === '00:00' && quinta.closing_time === '00:00') {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                } else if (agora < horarioAux1 || agora >= horarioAux2) {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                }
+                break;
+            case 5:
+                horario.innerHTML = `Das ${sexta.opening_time} às ${sexta.closing_time}`;
+                horarioAux1 = stringToTime(new Date(), sexta.opening_time);
+                horarioAux2 = stringToTime(new Date(), sexta.closing_time);
+                if (sexta.opening_time === '00:00' && sexta.closing_time === '00:00') {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                } else if (agora < horarioAux1 || agora >= horarioAux2) {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                }
+                break;
+            case 6:
+                horario.innerHTML = `Das ${sabado.opening_time} às ${sabado.closing_time}`;
+                horarioAux1 = stringToTime(new Date(), sabado.opening_time);
+                horarioAux2 = stringToTime(new Date(), sabado.closing_time);
+                if (sabado.opening_time === '00:00' && sabado.closing_time === '00:00') {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                } else if (agora < horarioAux1 || agora >= horarioAux2) {
+                    statusEstab.innerHTML = 'Fechado';
+                    statusEstab.style.color = 'red';
+                }
+                break;
         }
 
         idUsuario = response.data.data.user_id;
@@ -148,21 +310,19 @@ window.onload = async function () {
                 },
             }
         );
-
-        console.log(responseContacts.data.data);
         let controle = 0, strEmails = '', strTelefones = '';
 
         responseContacts.data.data.forEach(contact => {
-            if (contact.email === 'sememail@email.com' || contact.phone_number === '0'){
+            if (contact.email === 'sememail@email.com' || contact.phone_number === '0') {
 
-            }else{
-                if(controle === 0){
+            } else {
+                if (controle === 0) {
                     descricao.innerHTML += '<br> Contatos: <br>';
                     controle++;
                 }
-                if(contact.email){
+                if (contact.email) {
                     strEmails += contact.email + '<br>';
-                }else{
+                } else {
                     strTelefones += contact.phone_number + '<br>';
                 }
             }
@@ -341,7 +501,14 @@ async function favoritar() {
     }
 }
 
-function cadEvento(){
+function cadEvento() {
     localStorage.setItem("idEstab", localStorage.getItem('idAtracao'));
     window.location.replace('../Cadastro_Evento/cadastro_evento.html');
+}
+
+function stringToTime(date, timeString) {
+    let dateAux = date;
+    let [hours, minutes] = timeString.split(':').map(Number);
+    dateAux.setHours(hours, minutes, 0, 0);
+    return dateAux;
 }
