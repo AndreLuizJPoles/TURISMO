@@ -38,6 +38,11 @@ let horaEncerSab = document.getElementById('hora-encerramento-sabado');
 let horaAbertoDom = document.getElementById('hora-abertura-domingo');
 let horaEncerDom = document.getElementById('hora-encerramento-domingo');
 let segId, terId, quaId, quiId, sexId, sabId, domId;
+const instagram = document.getElementById('instagram');
+const facebook = document.getElementById('facebook');
+const linkedin = document.getElementById('linkedin');
+const website = document.getElementById('website');
+const whatsapp = document.getElementById('whatsapp');
 
 window.onload = async function () {
   const LOCAL_API_URL_CAT = `http://localhost:3000/api/establishmentCategories`;
@@ -314,6 +319,8 @@ async function salvar() {
       phone_numbers: [telefone1.value, telefone2.value, telefone3.value],
     };
 
+    console.log(whatsapp.value)
+
     const payload = {
       id: localStorage.getItem("idAtracao"),
       name: nomeEstab.value,
@@ -323,9 +330,14 @@ async function salvar() {
       address: bairro.value + ", " + rua.value + ", " + numero.value,
       zip_code: cep.value,
       state: uf.value,
-      workingTime,
+      //workingTime,
       contacts,
       city: cidade.value,
+      //instagram_url: instagram.value,
+      //facebook_url: facebook.value,
+      //linkedin_url: linkedin.value,
+      //website_url: website.value,
+      //whatsapp: whatsapp.value
     };
 
     try {

@@ -14,6 +14,10 @@ const iconeEditar = document.getElementsByClassName('icone-editar');
 const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
 const valorNotaTotal = document.getElementById('valor-nota-total');
+const instagram = document.getElementById('instagram');
+const facebook = document.getElementById('facebook');
+const linkedin = document.getElementById('linkedin');
+const website = document.getElementById('website');
 let idUsuario;
 let ID = null;
 let idFav = null;
@@ -104,6 +108,10 @@ window.onload = async function () {
         } else {
             planoFundo.src = '../images/cinza.png';
         }
+        instagram.href = response.data.data.instagram_url;
+        facebook.href = response.data.data.facebook_url;
+        linkedin.href = response.data.data.linkedin_url;
+        website.href = response.data.data.website_url;
 
         idUsuario = response.data.data.user_id;
 
