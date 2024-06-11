@@ -15,6 +15,8 @@ const instagram = document.getElementById('instagram');
 const facebook = document.getElementById('facebook');
 const linkedin = document.getElementById('linkedin');
 const website = document.getElementById('website');
+const whatsapp = document.getElementById('whatsapp');
+const divWhats = document.getElementById('div-whats');
 let idFav = null;
 let controle = 0;
 let idUsuario, somaNotas = 0, contComentarios = 0;
@@ -112,6 +114,12 @@ window.onload = async function () {
             website.style.display = 'none';
         } else {
             website.href = response.data.data.website_url;
+        }
+        console.log(response.data.data.whatsapp)
+        if(response.data.data.whatsapp === '0'){
+            divWhats.style.display = 'none';
+        }else{
+            whatsapp.innerHTML = response.data.data.whatsapp;
         }
 
         idUsuario = response.data.data.user_id;

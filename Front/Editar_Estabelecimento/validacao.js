@@ -86,6 +86,22 @@ window.onload = async function () {
     uf.value = response.data.data.state;
     cidade.value = response.data.data.city;
 
+    if(response.data.data.instagram_url !== 'https://nada.com'){
+      instagram.value = response.data.data.instagram_url;
+    }
+    if(response.data.data.facebook_url !== 'https://nada.com'){
+      facebook.value = response.data.data.facebook_url;
+    }
+    if(response.data.data.linkedin_url !== 'https://nada.com'){
+      linkedin.value = response.data.data.linkedin_url;
+    }
+    if(response.data.data.website_url !== 'https://nada.com'){
+      website.value = response.data.data.website_url;
+    }
+    if(response.data.data.whatsapp !== '0'){
+      whatsapp.value = response.data.data.whatsapp;
+    }
+
     const [bairroAux, ruaAux, numAux] = response.data.data.address.split(", ");
 
     bairro.value = bairroAux;
@@ -241,6 +257,9 @@ async function salvar() {
     if (website.value === '') {
       website.value = 'https://nada.com';
     }
+    if(whatsapp.value === ''){
+      whatsapp.value = '0';
+    }
     if (!segunda.checked) {
       horaAbertoSeg.value = '00:00';
       horaEncerSeg.value = '00:00';
@@ -331,8 +350,6 @@ async function salvar() {
       phone_numbers: [telefone1.value, telefone2.value, telefone3.value],
     };
 
-    console.log(whatsapp.value)
-
     const payload = {
       id: localStorage.getItem("idAtracao"),
       name: nomeEstab.value,
@@ -349,7 +366,7 @@ async function salvar() {
       facebook_url: facebook.value,
       linkedin_url: linkedin.value,
       website_url: website.value,
-      //whatsapp: whatsapp.value
+      whatsapp: whatsapp.value
     };
 
     try {

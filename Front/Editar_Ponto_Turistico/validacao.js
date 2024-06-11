@@ -26,17 +26,20 @@ function verificaVazio() {
 
 async function salvar() {
     if (validar()) {
-        if(instagram.value === ''){
+        if (instagram.value === '') {
             instagram.value = 'https://nada.com';
         }
-        if(facebook.value === ''){
+        if (facebook.value === '') {
             facebook.value = 'https://nada.com';
         }
-        if(linkedin.value === ''){
+        if (linkedin.value === '') {
             linkedin.value = 'https://nada.com';
         }
-        if(website.value === ''){
+        if (website.value === '') {
             website.value = 'https://nada.com';
+        }
+        if (whatsapp.value === '') {
+            whatsapp.value = '0';
         }
 
 
@@ -51,7 +54,7 @@ async function salvar() {
             facebook_url: facebook.value,
             linkedin_url: linkedin.value,
             website_url: website.value,
-            //whatsapp: whatsapp.value
+            whatsapp: whatsapp.value
         };
 
         try {
@@ -170,6 +173,22 @@ window.onload = async function () {
         cep.value = response.data.data.zip_code;
         uf.value = response.data.data.state;
         cidade.value = response.data.data.city;
+
+        if(response.data.data.instagram_url !== 'https://nada.com'){
+            instagram.value = response.data.data.instagram_url;
+          }
+          if(response.data.data.facebook_url !== 'https://nada.com'){
+            facebook.value = response.data.data.facebook_url;
+          }
+          if(response.data.data.linkedin_url !== 'https://nada.com'){
+            linkedin.value = response.data.data.linkedin_url;
+          }
+          if(response.data.data.website_url !== 'https://nada.com'){
+            website.value = response.data.data.website_url;
+          }
+          if(response.data.data.whatsapp !== '0'){
+            whatsapp.value = response.data.data.whatsapp;
+          }
 
         const [bairroAux, ruaAux, numeroAux] = response.data.data.address.split(", ");
 
