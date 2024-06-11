@@ -380,6 +380,18 @@ a p {
     height: 1.5rem;
 }
 
+#div-sites{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.icon-sites{
+    width: 2rem;
+    margin-left: 1.5rem;
+    margin-left: 1.5rem;
+}
+
 @media screen and (max-width: 1100px) {
     #perfil-usuario {
         display: none;

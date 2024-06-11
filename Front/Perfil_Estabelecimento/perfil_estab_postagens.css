@@ -377,6 +377,18 @@ a p{
     height: 2.5rem;
 }
 
+#div-sites{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.icon-sites{
+    width: 2rem;
+    margin-left: 1.5rem;
+    margin-left: 1.5rem;
+}
+
 @media screen and (max-width: 1100px){
     #perfil-usuario{
         display: none;
@@ -430,7 +442,7 @@ a p{
     }
 
     #desc {
-        margin-top: 2rem;
+        margin-top: 6rem;
         width: 90%;
     }
 
