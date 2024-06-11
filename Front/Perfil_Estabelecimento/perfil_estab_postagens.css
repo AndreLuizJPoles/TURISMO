@@ -389,6 +389,13 @@ a p{
     margin-left: 1.5rem;
 }
 
+#div-whats{
+    display: flex;
+    align-items: center;
+    height: 2rem;
+    margin-top: 0.5rem;
+}
+
 @media screen and (max-width: 1100px){
     #perfil-usuario{
         display: none;
@@ -442,7 +449,7 @@ a p{
     }
 
     #desc {
-        margin-top: 6rem;
+        margin-top: 8rem;
         width: 90%;
     }
 
