@@ -7,6 +7,7 @@ const cidade = document.getElementById('cidade');
 let usuarioObj = {
   city: ''
 };
+let array = [];
 
 window.onload = async function () {
   const token = localStorage.getItem("token");
@@ -63,6 +64,7 @@ window.onload = async function () {
     console.log(response);
     response.data.data.forEach(async (estab) => {
       if (estab.city === usuarioObj.city) {
+        array.push(estab);
         const bloco = document.createElement("div");
         bloco.onclick;
         bloco.classList.add("bloco");
@@ -113,7 +115,8 @@ window.onload = async function () {
         };
 
         grade.appendChild(bloco);
-      }else if(usuarioObj.city === '' || usuarioObj.city === null){
+      } else if (usuarioObj.city === '' || usuarioObj.city === null) {
+        array.push(estab);
         const bloco = document.createElement("div");
         bloco.onclick;
         bloco.classList.add("bloco");
@@ -195,12 +198,13 @@ async function mudou() {
 
   if (filtro.value === "estabelecimento") {
     const LOCAL_API_URL = `http://localhost:3000/api/establishments`;
-
+    array = [];
     try {
       const response = await axios.get(LOCAL_API_URL);
 
       response.data.data.forEach(async (estab) => {
         if (estab.city === usuarioObj.city) {
+          array.push(estab);
           const bloco = document.createElement("div");
           bloco.onclick;
           bloco.classList.add("bloco");
@@ -241,7 +245,7 @@ async function mudou() {
           status.innerHTML = "Aberto"; // TODO: Mockado
           status.id = "status";
           const grade = document.getElementById("grade");
-  
+
           bloco.onclick = function () {
             localStorage.setItem("idAtracao", estab.id);
             localStorage.setItem("tipoAtracao", "estabelecimento");
@@ -249,9 +253,10 @@ async function mudou() {
               "../Perfil_Estabelecimento/perfil_estab_postagens.html"
             );
           };
-  
+
           grade.appendChild(bloco);
-        }else if(usuarioObj.city === '' || usuarioObj.city === null){
+        } else if (usuarioObj.city === '' || usuarioObj.city === null) {
+          array.push(estab);
           const bloco = document.createElement("div");
           bloco.onclick;
           bloco.classList.add("bloco");
@@ -292,7 +297,7 @@ async function mudou() {
           status.innerHTML = "Aberto"; // TODO: Mockado
           status.id = "status";
           const grade = document.getElementById("grade");
-  
+
           bloco.onclick = function () {
             localStorage.setItem("idAtracao", estab.id);
             localStorage.setItem("tipoAtracao", "estabelecimento");
@@ -300,7 +305,7 @@ async function mudou() {
               "../Perfil_Estabelecimento/perfil_estab_postagens.html"
             );
           };
-  
+
           grade.appendChild(bloco);
         }
       });
@@ -309,6 +314,8 @@ async function mudou() {
     }
   } else if (filtro.value == "evento") {
     const LOCAL_API_URL = `http://localhost:3000/api/events`;
+
+    array = [];
 
     try {
       const response = await axios.get(LOCAL_API_URL);
@@ -319,7 +326,7 @@ async function mudou() {
         const dataFim = new Date(estab.end_date);
 
         if (comparaFinal(dataFim, estab.end_time)) {
-
+          array.push(estab);
           const bloco = document.createElement("div");
           bloco.onclick;
           bloco.classList.add("bloco");
@@ -382,11 +389,13 @@ async function mudou() {
     }
   } else {
     const LOCAL_API_URL = `http://localhost:3000/api/attractions`;
+    array = [];
 
     try {
       const response = await axios.get(LOCAL_API_URL);
 
       response.data.data.forEach(async (estab) => {
+        array.push(estab);
         const bloco = document.createElement("div");
         bloco.onclick;
         bloco.classList.add("bloco");
@@ -471,4 +480,188 @@ function comparaFinal(dataFim, horaFim) {
   dataFim.setDate(dataFim.getDate() + 1);
 
   return dataFim >= agora;
+}
+
+function pesquisar() {
+  let arrayFiltrado = [];
+  const barraPesquisa = document.getElementById('barra-pesquisa');
+  const barraAux = barraPesquisa.value.toLowerCase();
+  arrayFiltrado = array.filter(estab => estab.name.toLowerCase().includes(barraAux));
+
+  const grade = document.getElementById("grade");
+
+  while (grade.firstChild) {
+    grade.removeChild(grade.firstChild);
+  }
+
+  arrayFiltrado.forEach(async (estab) => {
+    if (filtro.value === "estabelecimento") {
+      const bloco = document.createElement("div");
+      bloco.onclick;
+      bloco.classList.add("bloco");
+      const img = document.createElement("img");
+      bloco.appendChild(img);
+      img.classList.add("imagem");
+      if (estab.picture_url) {
+        img.src = estab.picture_url;
+      } else {
+        img.src = '../images/cinza.png';
+      }
+      img.id = "foto";
+      const inferior = document.createElement("div");
+      bloco.appendChild(inferior);
+      inferior.classList.add("inferior");
+      const h2 = document.createElement("h2");
+      inferior.appendChild(h2);
+      h2.id = "nome";
+      h2.innerHTML = estab.name;
+      const conjNota = document.createElement("div");
+      inferior.appendChild(conjNota);
+      conjNota.id = "conjunto-nota";
+      const icone = document.createElement("img");
+      conjNota.appendChild(icone);
+      icone.classList.add("icone");
+      icone.src = "../images/onibus.png";
+      const nota = document.createElement("h3");
+      conjNota.appendChild(nota);
+      nota.id = "nota";
+      const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${estab.id}`);
+      let valorNotaTotal = '0.0';
+      if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+        valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+      }
+      nota.innerHTML = valorNotaTotal;
+      const status = document.createElement("h3");
+      inferior.appendChild(status);
+      status.innerHTML = "Aberto"; // TODO: Mockado
+      status.id = "status";
+      const grade = document.getElementById("grade");
+
+      bloco.onclick = function () {
+        localStorage.setItem("idAtracao", estab.id);
+        localStorage.setItem("tipoAtracao", "estabelecimento");
+        window.location.replace(
+          "../Perfil_Estabelecimento/perfil_estab_postagens.html"
+        );
+      }
+      grade.appendChild(bloco);
+    }else   if (filtro.value === "evento") {
+      arrayFiltrado.forEach(async (estab) => {
+        let statusValor = 'Fechado';
+        const dataInicio = new Date(estab.start_date);
+        const dataFim = new Date(estab.end_date);
+
+        if (comparaFinal(dataFim, estab.end_time)) {
+          const bloco = document.createElement("div");
+          bloco.onclick;
+          bloco.classList.add("bloco");
+          const img = document.createElement("img");
+          bloco.appendChild(img);
+          img.classList.add("imagem");
+          if (estab.picture_url) {
+            img.src = estab.picture_url;
+          } else {
+            img.src = '../images/cinza.png';
+          }
+          img.id = "foto";
+          const inferior = document.createElement("div");
+          bloco.appendChild(inferior);
+          inferior.classList.add("inferior");
+          const h2 = document.createElement("h2");
+          inferior.appendChild(h2);
+          h2.id = "nome";
+          h2.innerHTML = estab.name;
+          const conjNota = document.createElement("div");
+          inferior.appendChild(conjNota);
+          conjNota.id = "conjunto-nota";
+          const icone = document.createElement("img");
+          conjNota.appendChild(icone);
+          icone.classList.add("icone");
+          icone.src = "../images/onibus.png";
+          const nota = document.createElement("h3");
+          conjNota.appendChild(nota);
+          nota.id = "nota";
+          const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?event_id=${estab.id}`);
+          let valorNotaTotal = '0.0';
+          if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+            valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+          }
+          nota.innerHTML = valorNotaTotal;
+          const status = document.createElement("h3");
+          inferior.appendChild(status);
+          if (comparaDatas(dataInicio, dataFim, estab.start_time, estab.end_time)) {
+            statusValor = 'Aberto';
+          } else {
+            status.style.color = 'red';
+          }
+          status.innerHTML = statusValor;
+          status.id = "status";
+          const grade = document.getElementById("grade");
+
+          bloco.onclick = function () {
+            localStorage.setItem("idAtracao", estab.id);
+            localStorage.setItem("tipoAtracao", "evento");
+            window.location.replace(
+              "../Perfil_Evento/perfil_evento_postagens.html"
+            );
+          };
+
+          grade.appendChild(bloco);
+        }
+      });
+    }else{
+      arrayFiltrado.forEach(async (estab) => {
+        array.push(estab);
+        const bloco = document.createElement("div");
+        bloco.onclick;
+        bloco.classList.add("bloco");
+        const img = document.createElement("img");
+        bloco.appendChild(img);
+        img.classList.add("imagem");
+        if (estab.picture_url) {
+          img.src = estab.picture_url;
+        } else {
+          img.src = '../images/cinza.png';
+        }
+        img.id = "foto";
+        const inferior = document.createElement("div");
+        bloco.appendChild(inferior);
+        inferior.classList.add("inferior");
+        const h2 = document.createElement("h2");
+        inferior.appendChild(h2);
+        h2.id = "nome";
+        h2.innerHTML = estab.name;
+        const conjNota = document.createElement("div");
+        inferior.appendChild(conjNota);
+        conjNota.id = "conjunto-nota";
+        const icone = document.createElement("img");
+        conjNota.appendChild(icone);
+        icone.classList.add("icone");
+        icone.src = "../images/onibus.png";
+        const nota = document.createElement("h3");
+        conjNota.appendChild(nota);
+        nota.id = "nota";
+        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?attraction_id=${estab.id}`);
+        let valorNotaTotal = '0.0';
+        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+          valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+        }
+        nota.innerHTML = valorNotaTotal;
+        const status = document.createElement("h3");
+        inferior.appendChild(status);
+        status.innerHTML = "Aberto"; // TODO: Mockado
+        status.id = "status";
+        const grade = document.getElementById("grade");
+
+        bloco.onclick = function () {
+          localStorage.setItem("idAtracao", estab.id);
+          localStorage.setItem("tipoAtracao", "ponto");
+          window.location.replace("../Perfil_Ponto/perfil_ponto.html");
+        };
+
+        grade.appendChild(bloco);
+      });
+    }
+  });
+
 }
