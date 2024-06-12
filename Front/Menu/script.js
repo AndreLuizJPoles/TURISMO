@@ -495,173 +495,90 @@ function pesquisar() {
   }
 
   arrayFiltrado.forEach(async (estab) => {
-    if (filtro.value === "estabelecimento") {
-      const bloco = document.createElement("div");
-      bloco.onclick;
-      bloco.classList.add("bloco");
-      const img = document.createElement("img");
-      bloco.appendChild(img);
-      img.classList.add("imagem");
-      if (estab.picture_url) {
-        img.src = estab.picture_url;
-      } else {
-        img.src = '../images/cinza.png';
-      }
-      img.id = "foto";
-      const inferior = document.createElement("div");
-      bloco.appendChild(inferior);
-      inferior.classList.add("inferior");
-      const h2 = document.createElement("h2");
-      inferior.appendChild(h2);
-      h2.id = "nome";
-      h2.innerHTML = estab.name;
-      const conjNota = document.createElement("div");
-      inferior.appendChild(conjNota);
-      conjNota.id = "conjunto-nota";
-      const icone = document.createElement("img");
-      conjNota.appendChild(icone);
-      icone.classList.add("icone");
-      icone.src = "../images/onibus.png";
-      const nota = document.createElement("h3");
-      conjNota.appendChild(nota);
-      nota.id = "nota";
-      const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${estab.id}`);
-      let valorNotaTotal = '0.0';
-      if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
-        valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
-      }
-      nota.innerHTML = valorNotaTotal;
-      const status = document.createElement("h3");
-      inferior.appendChild(status);
-      status.innerHTML = "Aberto"; // TODO: Mockado
-      status.id = "status";
-      const grade = document.getElementById("grade");
+    const filtro = document.getElementById('filtro').value;
+    let bloco = document.createElement("div");
+    bloco.classList.add("bloco");
 
+    const img = document.createElement("img");
+    bloco.appendChild(img);
+    img.classList.add("imagem");
+    img.src = estab.picture_url ? estab.picture_url : '../images/cinza.png';
+    img.id = "foto";
+
+    const inferior = document.createElement("div");
+    bloco.appendChild(inferior);
+    inferior.classList.add("inferior");
+
+    const h2 = document.createElement("h2");
+    inferior.appendChild(h2);
+    h2.id = "nome";
+    h2.innerHTML = estab.name;
+
+    const conjNota = document.createElement("div");
+    inferior.appendChild(conjNota);
+    conjNota.id = "conjunto-nota";
+
+    const icone = document.createElement("img");
+    conjNota.appendChild(icone);
+    icone.classList.add("icone");
+    icone.src = "../images/onibus.png";
+
+    const nota = document.createElement("h3");
+    conjNota.appendChild(nota);
+    nota.id = "nota";
+
+    const status = document.createElement("h3");
+    inferior.appendChild(status);
+    status.id = "status";
+
+    let notaMediaEstabelecimento;
+    let valorNotaTotal = '0.0';
+
+    if (filtro === "estabelecimento") {
+      notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?establishment_id=${estab.id}`);
       bloco.onclick = function () {
         localStorage.setItem("idAtracao", estab.id);
         localStorage.setItem("tipoAtracao", "estabelecimento");
-        window.location.replace(
-          "../Perfil_Estabelecimento/perfil_estab_postagens.html"
-        );
-      }
-      grade.appendChild(bloco);
-    }else   if (filtro.value === "evento") {
-      arrayFiltrado.forEach(async (estab) => {
-        let statusValor = 'Fechado';
-        const dataInicio = new Date(estab.start_date);
-        const dataFim = new Date(estab.end_date);
+        window.location.replace("../Perfil_Estabelecimento/perfil_estab_postagens.html");
+      };
+      status.innerHTML = "Aberto"; // TODO: Mockado
+    } else if (filtro === "evento") {
+      notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?event_id=${estab.id}`);
+      let statusValor = 'Fechado';
+      const dataInicio = new Date(estab.start_date);
+      const dataFim = new Date(estab.end_date);
 
-        if (comparaFinal(dataFim, estab.end_time)) {
-          const bloco = document.createElement("div");
-          bloco.onclick;
-          bloco.classList.add("bloco");
-          const img = document.createElement("img");
-          bloco.appendChild(img);
-          img.classList.add("imagem");
-          if (estab.picture_url) {
-            img.src = estab.picture_url;
-          } else {
-            img.src = '../images/cinza.png';
-          }
-          img.id = "foto";
-          const inferior = document.createElement("div");
-          bloco.appendChild(inferior);
-          inferior.classList.add("inferior");
-          const h2 = document.createElement("h2");
-          inferior.appendChild(h2);
-          h2.id = "nome";
-          h2.innerHTML = estab.name;
-          const conjNota = document.createElement("div");
-          inferior.appendChild(conjNota);
-          conjNota.id = "conjunto-nota";
-          const icone = document.createElement("img");
-          conjNota.appendChild(icone);
-          icone.classList.add("icone");
-          icone.src = "../images/onibus.png";
-          const nota = document.createElement("h3");
-          conjNota.appendChild(nota);
-          nota.id = "nota";
-          const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?event_id=${estab.id}`);
-          let valorNotaTotal = '0.0';
-          if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
-            valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
-          }
-          nota.innerHTML = valorNotaTotal;
-          const status = document.createElement("h3");
-          inferior.appendChild(status);
-          if (comparaDatas(dataInicio, dataFim, estab.start_time, estab.end_time)) {
-            statusValor = 'Aberto';
-          } else {
-            status.style.color = 'red';
-          }
-          status.innerHTML = statusValor;
-          status.id = "status";
-          const grade = document.getElementById("grade");
-
-          bloco.onclick = function () {
-            localStorage.setItem("idAtracao", estab.id);
-            localStorage.setItem("tipoAtracao", "evento");
-            window.location.replace(
-              "../Perfil_Evento/perfil_evento_postagens.html"
-            );
-          };
-
-          grade.appendChild(bloco);
-        }
-      });
-    }else{
-      arrayFiltrado.forEach(async (estab) => {
-        array.push(estab);
-        const bloco = document.createElement("div");
-        bloco.onclick;
-        bloco.classList.add("bloco");
-        const img = document.createElement("img");
-        bloco.appendChild(img);
-        img.classList.add("imagem");
-        if (estab.picture_url) {
-          img.src = estab.picture_url;
-        } else {
-          img.src = '../images/cinza.png';
-        }
-        img.id = "foto";
-        const inferior = document.createElement("div");
-        bloco.appendChild(inferior);
-        inferior.classList.add("inferior");
-        const h2 = document.createElement("h2");
-        inferior.appendChild(h2);
-        h2.id = "nome";
-        h2.innerHTML = estab.name;
-        const conjNota = document.createElement("div");
-        inferior.appendChild(conjNota);
-        conjNota.id = "conjunto-nota";
-        const icone = document.createElement("img");
-        conjNota.appendChild(icone);
-        icone.classList.add("icone");
-        icone.src = "../images/onibus.png";
-        const nota = document.createElement("h3");
-        conjNota.appendChild(nota);
-        nota.id = "nota";
-        const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?attraction_id=${estab.id}`);
-        let valorNotaTotal = '0.0';
-        if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
-          valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
-        }
-        nota.innerHTML = valorNotaTotal;
-        const status = document.createElement("h3");
-        inferior.appendChild(status);
-        status.innerHTML = "Aberto"; // TODO: Mockado
-        status.id = "status";
-        const grade = document.getElementById("grade");
-
+      if (comparaFinal(dataFim, estab.end_time)) {
         bloco.onclick = function () {
           localStorage.setItem("idAtracao", estab.id);
-          localStorage.setItem("tipoAtracao", "ponto");
-          window.location.replace("../Perfil_Ponto/perfil_ponto.html");
+          localStorage.setItem("tipoAtracao", "evento");
+          window.location.replace("../Perfil_Evento/perfil_evento_postagens.html");
         };
-
-        grade.appendChild(bloco);
-      });
+        if (comparaDatas(dataInicio, dataFim, estab.start_time, estab.end_time)) {
+          statusValor = 'Aberto';
+        } else {
+          status.style.color = 'red';
+        }
+        status.innerHTML = statusValor;
+      } else {
+        return;
+      }
+    } else {
+      notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?attraction_id=${estab.id}`);
+      bloco.onclick = function () {
+        localStorage.setItem("idAtracao", estab.id);
+        localStorage.setItem("tipoAtracao", "ponto");
+        window.location.replace("../Perfil_Ponto/perfil_ponto.html");
+      };
+      status.innerHTML = "Aberto"; // TODO: Mockado
     }
-  });
 
+    if (notaMediaEstabelecimento.data.data._avg.evaluation_note) {
+      valorNotaTotal = notaMediaEstabelecimento.data.data._avg.evaluation_note.toFixed(1);
+    }
+    nota.innerHTML = valorNotaTotal;
+
+    grade.appendChild(bloco);
+  });
 }
+
