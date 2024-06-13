@@ -101,27 +101,27 @@ window.onload = async function () {
         } else {
             planoFundo.src = '../images/cinza.png';
         }
-        if (response.data.data.instagram_url === 'https://nada.com') {
+        if (response.data.data.instagram_url === 'https://nada.com' || !response.data.data.instagram_url) {
             instagram.style.display = 'none';
         } else {
             instagram.href = response.data.data.instagram_url;
         }
-        if (response.data.data.facebook_url === 'https://nada.com') {
+        if (response.data.data.facebook_url === 'https://nada.com' || !response.data.data.facebook_url) {
             facebook.style.display = 'none';
         } else {
             facebook.href = response.data.data.facebook_url;
         }
-        if (response.data.data.linkedin_url === 'https://nada.com') {
+        if (response.data.data.linkedin_url === 'https://nada.com' || !response.data.data.linkedin_url) {
             linkedin.style.display = 'none';
         } else {
             linkedin.href = response.data.data.linkedin_url;
         }
-        if (response.data.data.website_url === 'https://nada.com') {
+        if (response.data.data.website_url === 'https://nada.com' || !response.data.data.website_url) {
             website.style.display = 'none';
         } else {
             website.href = response.data.data.website_url;
         }
-        if (response.data.data.whatsapp === '0') {
+        if (response.data.data.whatsapp === '0' || !response.data.data.whatsapp) {
             divWhats.style.display = 'none';
         } else {
             whatsapp.innerHTML = response.data.data.whatsapp;
