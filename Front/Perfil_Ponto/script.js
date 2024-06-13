@@ -301,7 +301,8 @@ function sair() {
 
 async function favoritar() {
     if (localStorage.getItem('token') === 'null') {
-        window.location.replace('./Login/login.html')
+        window.location.replace('../Login/login.html');
+        return;
     }
     const coracao = document.getElementById('coracao');
 
