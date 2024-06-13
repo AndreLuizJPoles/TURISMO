@@ -28,6 +28,10 @@ window.onload = async function () {
     if (token === 'null') {
         const nav = document.getElementById("nav");
         const linkPerfil = document.getElementById("link-perfil");
+        const pontos = document.getElementById('pontos');
+        const editar = document.getElementById('editar-est');
+        pontos.style.display = 'none';
+        editar.style.display = 'none';
 
         linkPerfil.style.display = 'none';
 
@@ -296,7 +300,7 @@ function sair() {
 }
 
 async function favoritar() {
-    if(localStorage.getItem('token') === 'null'){
+    if (localStorage.getItem('token') === 'null') {
         window.location.replace('./Login/login.html')
     }
     const coracao = document.getElementById('coracao');
