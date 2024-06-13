@@ -35,6 +35,7 @@ window.onload = async function () {
       nome_user.innerHTML = response.data.data.name;
 
       cidade.innerHTML = response.data.data.city;
+      cidade.href = '../Editar_Usuario/editar_usuario.html';
 
       if (response.data.data.address === ', , ' || response.data.data.address == null) {
         endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon">`;
