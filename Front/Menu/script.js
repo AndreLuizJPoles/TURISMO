@@ -197,7 +197,7 @@ async function mudou() {
   }
 
   if (filtro.value === "estabelecimento") {
-    const LOCAL_API_URL = `http://localhost:3000/api/establishments`;
+    const LOCAL_API_URL = `http://localhost:3000/api/establishments`;'    '
     array = [];
     try {
       const response = await axios.get(LOCAL_API_URL);
