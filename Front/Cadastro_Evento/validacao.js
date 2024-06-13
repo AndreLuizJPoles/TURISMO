@@ -83,9 +83,7 @@ async function cadastrar() {
         formData.append("picture", file);
 
         console.log("formData", formData);
-        const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${localStorage.getItem(
-          "idAtracao"
-        )}/upload/picture_upload?type=profile`;
+        const LOCAL_API_URL_IMAGE = `${LOCAL_API_URL}/${response.data.data.id}/upload/picture_upload?type=profile`;
         const imagemRequest = await axios.post(LOCAL_API_URL_IMAGE, formData, {
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -102,9 +100,7 @@ async function cadastrar() {
         formDataPlano.append("picture", filePlano);
 
         console.log("formDataPlano", formDataPlano);
-        const LOCAL_API_URL_IMAGE_BACK = `${LOCAL_API_URL}/${localStorage.getItem(
-          "idAtracao"
-        )}/upload/picture_upload?type=background_picture`;
+        const LOCAL_API_URL_IMAGE_BACK = `${LOCAL_API_URL}/${response.data.data.id}/upload/picture_upload?type=background_picture`;
         const imagemPlanoRequest = await axios.post(LOCAL_API_URL_IMAGE_BACK, formDataPlano, {
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -240,7 +236,6 @@ window.onload = async function () {
     console.log(error);
   }
 
-  console.log(localStorage.getItem("idEstab"));
   if(localStorage.getItem("idEstab")){
     estabelecimento.value = localStorage.getItem("idEstab");
   }

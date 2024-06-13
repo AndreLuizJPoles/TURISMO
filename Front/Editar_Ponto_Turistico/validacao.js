@@ -11,6 +11,12 @@ const facebook = document.getElementById('facebook');
 const linkedin = document.getElementById('linkedin');
 const website = document.getElementById('website');
 const whatsapp = document.getElementById('whatsapp');
+const email1 = document.getElementById("email1");
+const email2 = document.getElementById("email2");
+const email3 = document.getElementById("email3");
+const telefone1 = document.getElementById("telefone1");
+const telefone2 = document.getElementById("telefone2");
+const telefone3 = document.getElementById("telefone3");
 
 function validar() {
     if (verificaVazio()) {
@@ -41,6 +47,29 @@ async function salvar() {
         if (whatsapp.value === '') {
             whatsapp.value = '0';
         }
+        if (email1.value == '') {
+            email1.value = 'sememail@email.com';
+        }
+        if (email2.value == '') {
+            email2.value = 'sememail@email.com';
+        }
+        if (email3.value == '') {
+            email3.value = 'sememail@email.com';
+        }
+        if (telefone1.value == '') {
+            telefone1.value = '0';
+        }
+        if (telefone2.value == '') {
+            telefone2.value = '0';
+        }
+        if (telefone3.value == '') {
+            telefone3.value = '0';
+        }
+
+        const contacts = {
+            emails: [email1.value, email2.value, email3.value],
+            phone_numbers: [telefone1.value, telefone2.value, telefone3.value],
+        };
 
 
         const payload = {
@@ -54,7 +83,8 @@ async function salvar() {
             facebook_url: facebook.value,
             linkedin_url: linkedin.value,
             website_url: website.value,
-            whatsapp: whatsapp.value
+            whatsapp: whatsapp.value,
+            contacts
         };
 
         try {

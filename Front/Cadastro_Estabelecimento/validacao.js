@@ -220,7 +220,7 @@ async function cadastrar() {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      }); //TODO: a criação já está funcionando da forma que eu deixei com alguns dados mockados, falta fazer as adaptações que mencionei
+      });
 
       alert('Estabelecimento Cadastrado!');
       window.location.replace('../Menu/index.html');
