@@ -23,57 +23,61 @@ let idUsuario, somaNotas = 0, contComentarios = 0;
 let usuarioLogado = null;
 
 window.onload = async function () {
+    const token = localStorage.getItem("token");
+    if (token === 'null') {
+        const nav = document.getElementById("nav");
+        const linkPerfil = document.getElementById("link-perfil");
 
-    const ID = await pegaID();
-    const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
+        linkPerfil.style.display = 'none';
 
-    try {
-        const response = await axios.get(
-            LOCAL_API_URL_USER,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
+        nav.innerHTML =
+            '<h3 id="texto-logar">Faça login para ter acesso a mais funções!</h3><a href="../Login/login.html" class="botao" id="logar"><p id="texto-evento">Logar</p></a>';
+    } else {
+
+        const ID = await pegaID();
+        const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
+
+        try {
+            const response = await axios.get(
+                LOCAL_API_URL_USER,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            );
+
+            console.log(response);
+            usuarioLogado = response.data.data;
+
+            nome_user.innerHTML = response.data.data.name;
+            if (response.data.data.address == null || response.data.data.address === ', , ') {
+                endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon">`;
+            } else {
+                endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}<p/>`;
             }
-        );
+            if (response.data.data.picture_url !== null || !response.data.data.picture_url === '') {
+                foto.src = response.data.data.picture_url;
+                fotoUsuario.src = response.data.data.picture_url;
+            }
 
-        console.log(response);
-        usuarioLogado = response.data.data;
+            if (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
+                const pontos = document.getElementById('pontos');
+                const editar = document.getElementById('editar-est');
+                pontos.style.display = 'none';
+                editar.style.display = 'none';
+            }
 
-        nome_user.innerHTML = response.data.data.name;
-        if (response.data.data.address == null || response.data.data.address === ', , ') {
-            endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon">`;
-        } else {
-            endereco.innerHTML = `<img src="../Perfil_Usuario/imgs/pin.png" id="icon-endereco" class="icon"> <p id="end-texto">${response.data.data.address}<p/>`;
+        } catch (error) {
+            console.log(error);
         }
-        if (response.data.data.picture_url !== null || !response.data.data.picture_url === '') {
-            foto.src = response.data.data.picture_url;
-            fotoUsuario.src = response.data.data.picture_url;
-        }
-
-        if (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
-            const pontos = document.getElementById('pontos');
-            const editar = document.getElementById('editar-est');
-            pontos.style.display = 'none';
-            editar.style.display = 'none';
-        }
-
-    } catch (error) {
-        console.log(error);
     }
 
     const idEstab = localStorage.getItem("idAtracao");
     const LOCAL_API_URL = `http://localhost:3000/api/attractions/${idEstab}`;
 
     try {
-        const response = await axios.get(
-            LOCAL_API_URL,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const response = await axios.get(LOCAL_API_URL);
 
         const notaMediaEstabelecimento = await axios.get(`http://localhost:3000/api/comments/evaluation_note?attraction_id=${idEstab}`);
 
@@ -110,15 +114,14 @@ window.onload = async function () {
         } else {
             linkedin.href = response.data.data.linkedin_url;
         }
-        if (response.data.data.website_url === 'https://nada.com') { 
+        if (response.data.data.website_url === 'https://nada.com') {
             website.style.display = 'none';
         } else {
             website.href = response.data.data.website_url;
         }
-        console.log(response.data.data.whatsapp)
-        if(response.data.data.whatsapp === '0'){
+        if (response.data.data.whatsapp === '0') {
             divWhats.style.display = 'none';
-        }else{
+        } else {
             whatsapp.innerHTML = response.data.data.whatsapp;
         }
 
@@ -128,37 +131,32 @@ window.onload = async function () {
         console.log(error);
     }
 
-    try {
-        const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
-        const response = await axios.get(LOCAL_API_URL_FAV,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            });
+    if (token !== 'null') {
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
+            const response = await axios.get(LOCAL_API_URL_FAV,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
 
-        response.data.data.forEach(fav => {
-            if (fav.attraction_id === localStorage.getItem('idAtracao')) {
-                const coracao = document.getElementById('coracao');
-                coracao.src = '../images/coracaoClick.png';
-                idFav = fav.id;
-            }
-        });
-    } catch (error) {
-        console.log(error);
+            response.data.data.forEach(fav => {
+                if (fav.attraction_id === localStorage.getItem('idAtracao')) {
+                    const coracao = document.getElementById('coracao');
+                    coracao.src = '../images/coracaoClick.png';
+                    idFav = fav.id;
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const LOCAL_API_URL_POST = `http://localhost:3000/api/comments`;
 
     try {
-        const response = await axios.get(
-            LOCAL_API_URL_POST,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const response = await axios.get(LOCAL_API_URL_POST);
 
         const fundo = document.getElementById('fundo-perfil-est');
 
@@ -168,14 +166,8 @@ window.onload = async function () {
         comments.forEach(comment => {
             if (comment.establishment_id == localStorage.getItem('idAtracao') || comment.event_id == localStorage.getItem('idAtracao') || comment.attraction_id == localStorage.getItem('idAtracao')) {
                 const LOCAL_API_URL_USER_COM = `http://localhost:3000/api/users/${comment.user_id}`;
-                contComentarios++;
-                somaNotas += parseInt(comment.evaluation_note, 10);
 
-                const promise = axios.get(LOCAL_API_URL_USER_COM, {
-                    headers: {
-                        authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                }).then(response => {
+                const promise = axios.get(LOCAL_API_URL_USER_COM).then(response => {
                     const comentario = document.createElement('div');
                     comentario.classList.add('comentario');
                     const fotoUsuarioPerfil = document.createElement('img');
@@ -199,10 +191,14 @@ window.onload = async function () {
                         localStorage.setItem('idComment', comment.id);
                         window.location.replace('../Editar_Comentario/editar_comentario.html');
                     }
-                    if (ID !== comment.user_id && (usuarioLogado.email !== 'admin1@email.com' && usuarioLogado.email !== 'admin2@example.com' && usuarioLogado.email !== 'admin3@example.com')) {
-                        a.style.display = 'none';
+                    if (token !== 'null') {
+                        if (ID !== comment.user_id && (usuarioLogado.email !== 'admin1@email.com' && usuarioLogado.email !== 'admin2@example.com' && usuarioLogado.email !== 'admin3@example.com')) {
+                            a.style.display = 'none';
+                        } else {
+                            controle++;
+                        }
                     } else {
-                        controle++;
+                        a.style.display = 'none';
                     }
                     comentario.appendChild(a);
                     const boxNota = document.createElement('div');
@@ -238,7 +234,7 @@ window.onload = async function () {
     }
 
     //Deve ficar por úlitmo
-    if (controle > 0) {
+    if (controle > 0 || token === 'null') {
         novoComentario.style.display = 'none';
     }
 }
@@ -276,6 +272,9 @@ function sair() {
 }
 
 async function favoritar() {
+    if(localStorage.getItem('token') === 'null'){
+        window.location.replace('./Login/login.html')
+    }
     const coracao = document.getElementById('coracao');
 
     const src = coracao.src;

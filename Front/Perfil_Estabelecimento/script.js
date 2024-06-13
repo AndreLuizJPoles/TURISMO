@@ -36,10 +36,8 @@ window.onload = async function () {
         nav.innerHTML =
             '<h3 id="texto-logar">Faça login para ter acesso a mais funções!</h3><a href="../Login/login.html" class="botao" id="logar"><p id="texto-evento">Logar</p></a>';
     } else {
-
         ID = await pegaID();
         const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
-
         try {
             const response = await axios.get(
                 LOCAL_API_URL_USER,
@@ -77,14 +75,7 @@ window.onload = async function () {
     const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
 
     try {
-        const response = await axios.get(
-            LOCAL_API_URL,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const response = await axios.get(LOCAL_API_URL);
 
         console.log(response);
 
@@ -138,20 +129,11 @@ window.onload = async function () {
 
         const LOCAL_API_URL_WORKING = `http://localhost:3000/api/establishments/${idEstab}/workingtime`;
 
-        const responseWork = await axios.get(
-            LOCAL_API_URL_WORKING,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const responseWork = await axios.get(LOCAL_API_URL_WORKING);
 
         const LOCAL_API_URL_DAY = 'http://localhost:3000/api/daysOfWeek';
 
-        const responseDay = await axios.get(
-            LOCAL_API_URL_DAY
-        );
+        const responseDay = await axios.get(LOCAL_API_URL_DAY);
 
         responseDay.data.data.forEach(day => {
 
@@ -302,14 +284,7 @@ window.onload = async function () {
 
         const LOCAL_API_URL_CONTATOS = `http://localhost:3000/api/establishmentContacts/establishments/${idEstab}`;
 
-        const responseContacts = await axios.get(
-            LOCAL_API_URL_CONTATOS,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const responseContacts = await axios.get(LOCAL_API_URL_CONTATOS);
         let controle = 0, strEmails = '', strTelefones = '';
 
         responseContacts.data.data.forEach(contact => {
@@ -335,38 +310,34 @@ window.onload = async function () {
         console.log(error);
     }
 
-    try {
-        const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
-        const response = await axios.get(LOCAL_API_URL_FAV,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            });
+    if (token !== 'null') {
 
-        response.data.data.forEach(fav => {
-            if (fav.establishment_id === localStorage.getItem('idAtracao')) {
-                const coracao = document.getElementById('coracao');
-                coracao.src = '../images/coracaoClick.png';
-                idFav = fav.id;
-                console.log(idFav)
-            }
-        });
-    } catch (error) {
-        console.log(error);
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
+            const response = await axios.get(LOCAL_API_URL_FAV,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+            response.data.data.forEach(fav => {
+                if (fav.establishment_id === localStorage.getItem('idAtracao')) {
+                    const coracao = document.getElementById('coracao');
+                    coracao.src = '../images/coracaoClick.png';
+                    idFav = fav.id;
+                    console.log(idFav)
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const LOCAL_API_URL_POST = `http://localhost:3000/api/posts`;
 
     try {
-        const response = await axios.get(
-            LOCAL_API_URL_POST,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const response = await axios.get(LOCAL_API_URL_POST);
 
         const fundo = document.getElementById('fundo-perfil-est');
 
@@ -413,25 +384,34 @@ window.onload = async function () {
     }
 
     //Deve ficar por úlitmo
-    try {
-        const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
-        const response = await axios.get(LOCAL_API_URL_USER,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            });
+    if (token !== 'null') {
+        try {
+            const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
+            const response = await axios.get(LOCAL_API_URL_USER,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
 
-        if (ID !== idUsuario && response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
-            novaPost.style.display = 'none';
-            editarEst.style.display = 'none';
-            criarEvento.style.display = 'none';
-            for (i = 0; i < iconeEditar.length; i++) {
-                iconeEditar[i].style.display = 'none';
+            if (ID !== idUsuario && response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
+                novaPost.style.display = 'none';
+                editarEst.style.display = 'none';
+                criarEvento.style.display = 'none';
+                for (i = 0; i < iconeEditar.length; i++) {
+                    iconeEditar[i].style.display = 'none';
+                }
             }
+        } catch (error) {
+            console.log(error);
         }
-    } catch (error) {
-        console.log(error);
+    } else {
+        novaPost.style.display = 'none';
+        editarEst.style.display = 'none';
+        criarEvento.style.display = 'none';
+        for (i = 0; i < iconeEditar.length; i++) {
+            iconeEditar[i].style.display = 'none';
+        }
     }
 }
 
@@ -461,6 +441,9 @@ function sair() {
 }
 
 async function favoritar() {
+    if (localStorage.getItem('token') === 'null') {
+        window.location.replace('../Login/login.html');
+    }
     const coracao = document.getElementById('coracao');
 
     const src = coracao.src;
