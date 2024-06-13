@@ -135,6 +135,18 @@ body {
     color: var(--cor-principal);
 }
 
+#id-data-nasc{
+    text-align: start;
+}
+
+#data-nasc{
+    width: 100%;
+}
+
+#div-data-nasc{
+    width: 90%;
+}
+
 @media screen and (max-width: 660px) {
     .box {
         width: 100%;

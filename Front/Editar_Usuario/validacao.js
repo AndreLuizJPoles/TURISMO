@@ -90,7 +90,7 @@ function validaCpf() {
   return false && strCPF.value.length < 11;
 }
 
-async function validar() {
+function validar() {
   if (verificaVazio()) {
     alert("Preencha todos os campos obrigatórios!");
     return false;
@@ -103,7 +103,11 @@ async function validar() {
   } else if (nome.value.length > 80) {
     alert("O Nome ultrapassa o limite de caracteres!");
     return false;
+  } else if(cpf.value === ''){
+    alert('É necessário incluir o CPF para efetuar edições!');
+    return false;
   }
+  return true;
 }
 
 async function salvar() {
@@ -219,11 +223,14 @@ window.onload = async function () {
       other.checked = true;
     }
 
-    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(", ");
+    if (response.data.data.address) {
+      const [bairroAux, ruaAux, numAux] = response.data.data.address.split(", ");
 
-    bairro.value = bairroAux;
-    rua.value = ruaAux;
-    numero.value = numAux;
+      bairro.value = bairroAux;
+      rua.value = ruaAux;
+      numero.value = numAux;
+    }
+
   } catch (error) {
     console.log(error);
   }

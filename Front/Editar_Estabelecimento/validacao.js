@@ -23,6 +23,232 @@ const telefone3 = document.getElementById("telefone3");
 const email1 = document.getElementById("email1");
 const email2 = document.getElementById("email2");
 const email3 = document.getElementById("email3");
+let horaAbertoSeg = document.getElementById('hora-abertura-segunda');
+let horaEncerSeg = document.getElementById('hora-encerramento-segunda');
+let horaAbertoTer = document.getElementById('hora-abertura-terca');
+let horaEncerTer = document.getElementById('hora-encerramento-terca');
+let horaAbertoQua = document.getElementById('hora-abertura-quarta');
+let horaEncerQua = document.getElementById('hora-encerramento-quarta');
+let horaAbertoQui = document.getElementById('hora-abertura-quinta');
+let horaEncerQui = document.getElementById('hora-encerramento-quinta');
+let horaAbertoSex = document.getElementById('hora-abertura-sexta');
+let horaEncerSex = document.getElementById('hora-encerramento-sexta');
+let horaAbertoSab = document.getElementById('hora-abertura-sabado');
+let horaEncerSab = document.getElementById('hora-encerramento-sabado');
+let horaAbertoDom = document.getElementById('hora-abertura-domingo');
+let horaEncerDom = document.getElementById('hora-encerramento-domingo');
+let segId, terId, quaId, quiId, sexId, sabId, domId;
+const instagram = document.getElementById('instagram');
+const facebook = document.getElementById('facebook');
+const linkedin = document.getElementById('linkedin');
+const website = document.getElementById('website');
+const whatsapp = document.getElementById('whatsapp');
+
+window.onload = async function () {
+  const LOCAL_API_URL_CAT = `http://localhost:3000/api/establishmentCategories`;
+
+  try {
+    const response = await axios.get(LOCAL_API_URL_CAT, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    const dataList = document.getElementById("categorias");
+
+    response.data.data.forEach((option) => {
+      const optionElement = document.createElement("option");
+      optionElement.value = option.id;
+      optionElement.textContent = option.name;
+      dataList.appendChild(optionElement);
+    });
+
+    const LOCAL_API_URL_DAY = 'http://localhost:3000/api/daysOfWeek';
+
+    const responseDay = await axios.get(
+      LOCAL_API_URL_DAY
+    );
+
+    responseDay.data.data.forEach(day => {
+
+      switch (day.day_of_week) {
+        case "Domingo":
+          domId = day.id;
+          break;
+        case "Segunda-feira":
+          segId = day.id;
+          break;
+        case "Terça-feira":
+          terId = day.id;
+          break;
+        case "Quarta-feira":
+          quaId = day.id;
+          break;
+        case "Quinta-feira":
+          quiId = day.id;
+          break;
+        case "Sexta-feira":
+          sexId = day.id;
+          break;
+        case "Sábado":
+          sabId = day.id;
+          break;
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  const idEstab = localStorage.getItem("idAtracao");
+  const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
+  try {
+    const response = await axios.get(LOCAL_API_URL, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    console.log(response);
+
+    nome.value = response.data.data.name;
+    cnpj.value = response.data.data.cnpj;
+    categorias.value = response.data.data.category_id;
+    descricao.value = response.data.data.description;
+
+    cep.value = response.data.data.zip_code;
+    uf.value = response.data.data.state;
+    cidade.value = response.data.data.city;
+
+    if(response.data.data.instagram_url !== 'https://nada.com'){
+      instagram.value = response.data.data.instagram_url;
+    }
+    if(response.data.data.facebook_url !== 'https://nada.com'){
+      facebook.value = response.data.data.facebook_url;
+    }
+    if(response.data.data.linkedin_url !== 'https://nada.com'){
+      linkedin.value = response.data.data.linkedin_url;
+    }
+    if(response.data.data.website_url !== 'https://nada.com'){
+      website.value = response.data.data.website_url;
+    }
+    if(response.data.data.whatsapp !== '0'){
+      whatsapp.value = response.data.data.whatsapp;
+    }
+
+    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(", ");
+
+    bairro.value = bairroAux;
+    rua.value = ruaAux;
+    numero.value = numAux;
+
+    const LOCAL_API_URL_CONTATOS = `http://localhost:3000/api/establishmentContacts/establishments/${idEstab}`;
+
+    const responseContacts = await axios.get(
+      LOCAL_API_URL_CONTATOS,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    console.log(responseContacts.data.data);
+
+    responseContacts.data.data.forEach(contact => {
+      if (contact.email === 'sememail@email.com' || contact.phone_number === '0') {
+
+      } else {
+        if (contact.email) {
+          if (email1.value === '') {
+            email1.value = contact.email;
+          } else if (email2.value === '') {
+            email2.value = contact.email;
+          } else {
+            email3.value = contact.email;
+          }
+        } else {
+          if (telefone1.value === '') {
+            telefone1.value = contact.phone_number;
+          } else if (telefone2.value === '') {
+            telefone2.value = contact.phone_number;
+          } else {
+            telefone3.value = contact.phone_number;
+          }
+        }
+      }
+    });
+
+    const LOCAL_API_URL_WORKING = `http://localhost:3000/api/establishments/${idEstab}/workingtime`;
+
+    const responseWork = await axios.get(
+      LOCAL_API_URL_WORKING,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    responseWork.data.data.forEach(day => {
+      switch (day.day_of_week_id) {
+        case domId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            domingo.checked = true;
+            horaAbertoDom.value = day.opening_time;
+            horaEncerDom.value = day.closing_time;
+          }
+          break;
+        case segId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            segunda.checked = true;
+            horaAbertoSeg.value = day.opening_time;
+            horaEncerSeg.value = day.closing_time;
+          }
+          break;
+        case terId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            terca.checked = true;
+            horaAbertoTer.value = day.opening_time;
+            horaEncerTer.value = day.closing_time;
+          }
+          break;
+        case quaId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            quarta.checked = true;
+            horaAbertoQua.value = day.opening_time;
+            horaEncerQua.value = day.closing_time;
+          }
+          break;
+        case quiId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            quinta.checked = true;
+            horaAbertoQui.value = day.opening_time;
+            horaEncerQui.value = day.closing_time;
+          }
+          break;
+        case sexId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            sexta.checked = true;
+            horaAbertoSex.value = day.opening_time;
+            horaEncerSex.value = day.closing_time;
+          }
+          break;
+        case sabId:
+          if(!(day.opening_time === '00:00' && day.closing_time === '00:00')){
+            sabado.checked = true;
+            horaAbertoSab.value = day.opening_time;
+            horaEncerSab.value = day.closing_time;
+          }
+          break;
+      }
+    });
+
+    console.log(responseWork)
+  } catch (error) {
+    console.log(error);
+  }
+
+};
 
 function validar() {
   if (verificaVazio()) {
@@ -106,15 +332,87 @@ function validaHora() {
 
 async function salvar() {
   if (validar()) {
+    if (instagram.value === '') {
+      instagram.value = 'https://nada.com';
+    }
+    if (facebook.value === '') {
+      facebook.value = 'https://nada.com';
+    }
+    if (linkedin.value === '') {
+      linkedin.value = 'https://nada.com';
+    }
+    if (website.value === '') {
+      website.value = 'https://nada.com';
+    }
+    if(whatsapp.value === ''){
+      whatsapp.value = '0';
+    }
+    if (!segunda.checked) {
+      horaAbertoSeg.value = '00:00';
+      horaEncerSeg.value = '00:00';
+    }
+    if (!terca.checked) {
+      horaAbertoTer.value = '00:00';
+      horaEncerTer.value = '00:00';
+    }
+    if (!quarta.checked) {
+      horaAbertoQua.value = '00:00';
+      horaEncerQua.value = '00:00';
+    }
+    if (!quinta.checked) {
+      horaAbertoQui.value = '00:00';
+      horaEncerQui.value = '00:00';
+    }
+    if (!sexta.checked) {
+      horaAbertoSex.value = '00:00';
+      horaEncerSex.value = '00:00';
+    }
+    if (!sabado.checked) {
+      horaAbertoSab.value = '00:00';
+      horaEncerSab.value = '00:00';
+    }
+    if (!domingo.checked) {
+      horaAbertoDom.value = '00:00';
+      horaEncerDom.value = '00:00';
+    }
+
     const workingTime = [
-      //TODO: modelo de array que vamos enviar, aqui vamos ter TODOS os dias da semana e seus horários
       {
-        day_of_week_id: "5bd361e1-a5ec-4d26-8cba-0dc434a71fdc", //TODO: pegar id que foi retornado da base na listagem
-        opening_time: "1997-07-16T19:20:30+01:00", //TODO:
-        closing_time: "1997-07-16T19:20:30+01:00", //TODO:
+        day_of_week_id: segId,
+        opening_time: horaAbertoSeg.value,
+        closing_time: horaEncerSeg.value,
+      },
+      {
+        day_of_week_id: terId,
+        opening_time: horaAbertoTer.value,
+        closing_time: horaEncerTer.value,
+      },
+      {
+        day_of_week_id: quaId,
+        opening_time: horaAbertoQua.value,
+        closing_time: horaEncerQua.value,
+      },
+      {
+        day_of_week_id: quiId,
+        opening_time: horaAbertoQui.value,
+        closing_time: horaEncerQui.value,
+      },
+      {
+        day_of_week_id: sexId,
+        opening_time: horaAbertoSex.value,
+        closing_time: horaEncerSex.value,
+      },
+      {
+        day_of_week_id: sabId,
+        opening_time: horaAbertoSab.value,
+        closing_time: horaEncerSab.value,
+      },
+      {
+        day_of_week_id: domId,
+        opening_time: horaAbertoDom.value,
+        closing_time: horaEncerDom.value,
       },
     ];
-
     if (email1.value == "") {
       email1.value = "sememail@email.com";
     }
@@ -150,6 +448,12 @@ async function salvar() {
       state: uf.value,
       workingTime,
       contacts,
+      city: cidade.value,
+      instagram_url: instagram.value,
+      facebook_url: facebook.value,
+      linkedin_url: linkedin.value,
+      website_url: website.value,
+      whatsapp: whatsapp.value
     };
 
     try {
@@ -249,58 +553,6 @@ imagemPerfil.addEventListener("change", (event) => {
 
   reader.readAsDataURL(imagemPerfil.files[0]);
 });
-
-window.onload = async function () {
-  const LOCAL_API_URL_CAT = `http://localhost:3000/api/establishmentCategories`;
-
-  try {
-    const response = await axios.get(LOCAL_API_URL_CAT, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-
-    const dataList = document.getElementById("categorias");
-
-    response.data.data.forEach((option) => {
-      const optionElement = document.createElement("option");
-      optionElement.value = option.id;
-      optionElement.textContent = option.name;
-      dataList.appendChild(optionElement);
-    });
-  } catch (error) {
-    console.log(error);
-  }
-
-  const idEstab = localStorage.getItem("idAtracao");
-  const LOCAL_API_URL = `http://localhost:3000/api/establishments/${idEstab}`;
-  try {
-    const response = await axios.get(LOCAL_API_URL, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-
-    console.log(response);
-
-    nome.value = response.data.data.name;
-    cnpj.value = response.data.data.cnpj;
-    categorias.value = response.data.data.category_id;
-    descricao.value = response.data.data.description;
-
-    cep.value = response.data.data.zip_code;
-    uf.value = response.data.data.state;
-    cidade.value = response.data.data.city;
-
-    const [bairroAux, ruaAux, numAux] = response.data.data.address.split(", ");
-
-    bairro.value = bairroAux;
-    rua.value = ruaAux;
-    numero.value = numAux;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 async function excluir() {
   const LOCAL_API_URL_DELETE = `http://localhost:3000/api/establishments/${localStorage.getItem("idAtracao")}`;

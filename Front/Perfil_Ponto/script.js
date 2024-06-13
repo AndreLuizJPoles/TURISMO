@@ -11,8 +11,16 @@ const foto = document.getElementById('foto-perfil');
 const fotoUsuario = document.getElementById('perfil-usuario');
 const novoComentario = document.getElementById('novo-comentario');
 const valorNotaTotal = document.getElementById('valor-nota-total');
+const instagram = document.getElementById('instagram');
+const facebook = document.getElementById('facebook');
+const linkedin = document.getElementById('linkedin');
+const website = document.getElementById('website');
+const whatsapp = document.getElementById('whatsapp');
+const divWhats = document.getElementById('div-whats');
+let idFav = null;
 let controle = 0;
 let idUsuario, somaNotas = 0, contComentarios = 0;
+let usuarioLogado = null;
 
 window.onload = async function () {
 
@@ -30,6 +38,7 @@ window.onload = async function () {
         );
 
         console.log(response);
+        usuarioLogado = response.data.data;
 
         nome_user.innerHTML = response.data.data.name;
         if (response.data.data.address == null || response.data.data.address === ', , ') {
@@ -42,7 +51,7 @@ window.onload = async function () {
             fotoUsuario.src = response.data.data.picture_url;
         }
 
-        if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
+        if (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
             const pontos = document.getElementById('pontos');
             const editar = document.getElementById('editar-est');
             pontos.style.display = 'none';
@@ -76,11 +85,65 @@ window.onload = async function () {
         enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}. CEP: ${response.data.data.zip_code}`;
         descricao.innerHTML = response.data.data.description;
         titulo.innerHTML = response.data.data.name;
-        perfilFoto.src = response.data.data.picture_url;
-        planoFundo.src = response.data.data.background_picture_url;
+        if (response.data.data.picture_url) {
+            perfilFoto.src = response.data.data.picture_url;
+        } else {
+            perfilFoto.src = '../images/cinza.png';
+        }
+        if (response.data.data.background_picture_url) {
+            planoFundo.src = response.data.data.background_picture_url;
+        } else {
+            planoFundo.src = '../images/cinza.png';
+        }
+        if (response.data.data.instagram_url === 'https://nada.com') {
+            instagram.style.display = 'none';
+        } else {
+            instagram.href = response.data.data.instagram_url;
+        }
+        if (response.data.data.facebook_url === 'https://nada.com') {
+            facebook.style.display = 'none';
+        } else {
+            facebook.href = response.data.data.facebook_url;
+        }
+        if (response.data.data.linkedin_url === 'https://nada.com') {
+            linkedin.style.display = 'none';
+        } else {
+            linkedin.href = response.data.data.linkedin_url;
+        }
+        if (response.data.data.website_url === 'https://nada.com') { 
+            website.style.display = 'none';
+        } else {
+            website.href = response.data.data.website_url;
+        }
+        console.log(response.data.data.whatsapp)
+        if(response.data.data.whatsapp === '0'){
+            divWhats.style.display = 'none';
+        }else{
+            whatsapp.innerHTML = response.data.data.whatsapp;
+        }
 
         idUsuario = response.data.data.user_id;
 
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
+        const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
+        const response = await axios.get(LOCAL_API_URL_FAV,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+
+        response.data.data.forEach(fav => {
+            if (fav.attraction_id === localStorage.getItem('idAtracao')) {
+                const coracao = document.getElementById('coracao');
+                coracao.src = '../images/coracaoClick.png';
+                idFav = fav.id;
+            }
+        });
     } catch (error) {
         console.log(error);
     }
@@ -136,7 +199,7 @@ window.onload = async function () {
                         localStorage.setItem('idComment', comment.id);
                         window.location.replace('../Editar_Comentario/editar_comentario.html');
                     }
-                    if (ID !== comment.user_id && (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com')) {
+                    if (ID !== comment.user_id && (usuarioLogado.email !== 'admin1@email.com' && usuarioLogado.email !== 'admin2@example.com' && usuarioLogado.email !== 'admin3@example.com')) {
                         a.style.display = 'none';
                     } else {
                         controle++;
@@ -210,4 +273,47 @@ async function pegaID() {
 function sair() {
     localStorage.setItem('token', null);
     window.location.replace('../Login/login.html');
+}
+
+async function favoritar() {
+    const coracao = document.getElementById('coracao');
+
+    const src = coracao.src;
+    const relativePath = src.substring(src.indexOf('images'));
+
+    if (relativePath === 'images/coracao.png') {
+        coracao.src = '../images/coracaoClick.png';
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments`;
+            const response = await axios.post(LOCAL_API_URL_FAV,
+                {
+                    establishment_id: null,
+                    attraction_id: localStorage.getItem('idAtracao'),
+                    event_id: null,
+                },
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+            idFav = response.data.data.id;
+        } catch (error) {
+            console.log(error);
+        }
+
+    } else {
+        coracao.src = '../images/coracao.png';
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/${idFav}`;
+            const response = await axios.delete(LOCAL_API_URL_FAV,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }

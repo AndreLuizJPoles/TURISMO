@@ -187,6 +187,12 @@ input:focus-visible {
     margin-top: 1rem;
 }
 
+#coracaoClick{
+    height: 2.5rem;
+    margin-top: 1rem;
+    display: none;
+}
+
 #status{
     color: #05679F;
     font-weight: bolder;
@@ -202,6 +208,7 @@ input:focus-visible {
 
 #enderecoText{
     text-align: center;
+    margin-top: 4rem;
 }
 
 #container{
@@ -268,7 +275,6 @@ input:focus-visible {
     font-weight: 700;
     background-color: #05679F;
     color: white;
-    margin-bottom: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -372,6 +378,25 @@ a p{
     height: 2.5rem;
 }
 
+#div-sites{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.icon-sites{
+    width: 2rem;
+    margin-left: 1.5rem;
+    margin-left: 1.5rem;
+}
+
+#div-whats{
+    display: flex;
+    align-items: center;
+    height: 2rem;
+    margin-top: 0.5rem;
+}
+
 @media screen and (max-width: 1100px){
     #perfil-usuario{
         display: none;
@@ -425,7 +450,7 @@ a p{
     }
 
     #desc {
-        margin-top: 2rem;
+        margin-top: 12rem;
         width: 90%;
     }
 
@@ -454,6 +479,14 @@ a p{
 
     .postagem h2{
         width: 80%;
+    }
+
+    #coracao{
+        margin: 0.45rem;
+    }
+    
+    #coracaoClick{
+        margin: 0.45rem;
     }
 }
 

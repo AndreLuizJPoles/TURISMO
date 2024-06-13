@@ -32,7 +32,7 @@ function verificaVazio() {
     horaAberta.value == "" ||
     horaEncer.value == "" ||
     dataInicio.value == "" ||
-    dataFim.value == "" 
+    dataFim.value == ""
   );
 }
 
@@ -46,11 +46,12 @@ function validaData() {
 
 async function cadastrar() {
   if (validar()) {
+    localStorage.setItem("idEstab", null);
     let pontoAux, estAux;
-    if(ponto.value === ''){
+    if (ponto.value === '') {
       pontoAux = null;
       estAux = estabelecimento.value;
-    }else{
+    } else {
       pontoAux = ponto.value;
       estAux = null;
     }
@@ -58,7 +59,7 @@ async function cadastrar() {
     const payload = {
       name: nome.value,
       description: descricao.value,
-      establishment_id: estAux, 
+      establishment_id: estAux,
       attraction_id: pontoAux,
       start_date: dataInicio.value,
       end_date: dataFim.value,
@@ -195,22 +196,22 @@ window.onload = async function () {
   const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments`;
   const ID = await pegaID();
 
-  try{
+  try {
     const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
-      const response = await axios.get(LOCAL_API_URL_USER,
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+    const response = await axios.get(LOCAL_API_URL_USER,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
-        if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
-          const pontos = document.getElementById('ponto');
-          const textoAviso = document.getElementById('texto-aviso');
-          textoAviso.style.display = 'none';
-          pontos.style.display = 'none';
-        }
-  }catch (error) {
+    if (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
+      const pontos = document.getElementById('ponto');
+      const textoAviso = document.getElementById('texto-aviso');
+      textoAviso.style.display = 'none';
+      pontos.style.display = 'none';
+    }
+  } catch (error) {
     console.log(error);
   }
 
@@ -238,32 +239,42 @@ window.onload = async function () {
   } catch (error) {
     console.log(error);
   }
+
+  console.log(localStorage.getItem("idEstab"));
+  if(localStorage.getItem("idEstab")){
+    estabelecimento.value = localStorage.getItem("idEstab");
+  }
 }
 
 async function pegaID() {
   const LOCAL_API_URL_ID = 'http://localhost:3000/api/users/loggedUser';
   try {
 
-      const response = await axios.get(
-          LOCAL_API_URL_ID,
-          {
-              headers: {
-                  authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-          }
-      );
+    const response = await axios.get(
+      LOCAL_API_URL_ID,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
-      return response.data.data;
+    return response.data.data;
 
   } catch (error) {
-      console.log(error);
+    console.log(error);
   }
 }
 
-function tiraPonto(){
+function tiraPonto() {
   ponto.value = '';
 }
 
-function tiraEst(){
+function tiraEst() {
   estabelecimento.value = '';
+}
+
+function voltar() {
+  localStorage.setItem("idEstab", null);
+  window.location.replace('../Menu/index.html');
 }

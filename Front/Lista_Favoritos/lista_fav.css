@@ -123,6 +123,9 @@ button{
     top: 0;
     width: 74%;
     margin-bottom: 0;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #status{

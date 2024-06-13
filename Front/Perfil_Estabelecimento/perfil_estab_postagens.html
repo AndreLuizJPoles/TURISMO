@@ -32,7 +32,10 @@
                 <p id="end-texto">Al. Francisco Alves, 162. Nova Tatuí.</p>
             </a>
 
-            <a href="../Lista_Favoritos/lista_fav.html" class="botao" id="favoritos"><img src="../Perfil_Usuario/imgs/coracao.png" id="icone-favoritos" class="icon"><p id="texto-favoritos">Favoritos</p></a>
+            <a href="../Lista_Favoritos/lista_fav.html" class="botao" id="favoritos"><img
+                    src="../Perfil_Usuario/imgs/coracao.png" id="icone-favoritos" class="icon">
+                <p id="texto-favoritos">Favoritos</p>
+            </a>
             <a href="../Lista_Estabelecimentos/lista_estab.html" class="botao" id="meus-estab"><img
                     src="../Perfil_Usuario/imgs/estabelecimento.png" id="icone-estab" class="icon">
                 <p id="texto-estab">Meus Estabelecimentos</p>
@@ -41,26 +44,42 @@
                     src="../Perfil_Usuario/imgs/evento.png" id="icone-evento" class="icon">
                 <p id="texto-evento">Meus Eventos</p>
             </a>
-            <a href="../Lista_Pontos/lista_pontos.html" class="botao" id="pontos"><img src="../Perfil_Usuario/imgs/ponto-de-informacao.png" id="icone-ponto" class="icon"><p id="texto-evento">Pontos Turísticos</p></a>
-            <a class="botao" onclick="sair()" id="config"><img src="../Perfil_Usuario/imgs/sair.png" id="icone-sair" class="icon"><p id="texto-config">Sair</p></a>
+            <a href="../Lista_Pontos/lista_pontos.html" class="botao" id="pontos"><img
+                    src="../Perfil_Usuario/imgs/ponto-de-informacao.png" id="icone-ponto" class="icon">
+                <p id="texto-evento">Pontos Turísticos</p>
+            </a>
+            <a class="botao" onclick="sair()" id="config"><img src="../Perfil_Usuario/imgs/sair.png" id="icone-sair"
+                    class="icon">
+                <p id="texto-config">Sair</p>
+            </a>
 
         </div>
 
         <div class="fundo" id="fundo-perfil-est">
             <div id="cab-perfil">
                 <a href="../Menu/index.html" id="voltar" class="botao">Voltar</a>
-                <img src="../images/baffs.png" id="plano-fundo">
+                <img src="../images/cinza.png" id="plano-fundo">
                 <div id="box-informacoes">
-                    <img src="../images/baffs_foto.png" id="perfil-foto">
+                    <img src="../images/cinza.png" id="perfil-foto">
                     <div id="inf">
                         <h2 id="nome">Nome do Estabelecimento</h2>
                         <div id="box-nota">
                             <img id="onibus-icon" src="../images/onibus.png">
                             <h2 id="valor-nota-total">0.00</h2>
                         </div>
-                        <img src="../images/coracao.png" id="coracao">
+                        <img src="../images/coracao.png" id="coracao" onclick="favoritar()">
                         <h2 id="status">Aberto</h2>
                         <h2 id="horario">Das 7:00 às 18:00</h2>
+                        <div id="div-sites">
+                            <a id="instagram"><img class="icon-sites" src="../images/instagram.png"></a>
+                            <a id="facebook"><img class="icon-sites" src="../images/facebook.png"></a>
+                            <a id="linkedin"><img class="icon-sites" src="../images/linkedin.png"></a>
+                            <a id="website"><img class="icon-sites" src="../images/endereco-do-website.png"></a>
+                        </div>
+                        <div id="div-whats">
+                            <img class="icon-sites" src="../images/whatsapp.png">
+                            <p id="whatsapp">(15)99999-9999</p>
+                        </div>
                     </div>
                     <div id="desc">
                         <p> O Palácio do Sorvete é uma sorveteria típica que encanta os moradores e visitantes com suas
@@ -73,7 +92,9 @@
                 <h3 id="enderecoText">Endereço: Alameda Francisco Alves, 162, Nova Tatuí. 18278-370.</h3>
             </div>
 
-            <a href="../Editar_Estabelecimento/editar_estabelecimento.html" class="botao" id="editar-est">Editar Estabelecimento</a>
+            <a href="../Editar_Estabelecimento/editar_estabelecimento.html" class="botao" id="editar-est">Editar
+                Estabelecimento</a>
+            <p onclick="cadEvento()" id="criar-evento" class="botao">Criar Evento Aqui</p>
 
             <div id="container">
                 <a href="" class="link" id="postagens">Postagens</p>

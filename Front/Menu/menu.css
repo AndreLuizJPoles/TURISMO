@@ -131,6 +131,25 @@ button{
     overflow: hidden;
 }
 
+#cidade{
+    background-color: white;
+    border-radius: 20px;
+    width: 15%;
+    max-width: 15%;
+    margin: 1.5rem;
+    text-align: center;
+    align-self: center;
+    overflow: hidden;
+    text-decoration: none;
+    font-weight: 100%;
+    color: black;
+}
+
+#cidade:hover{
+    opacity: 80%;
+    cursor: pointer;
+}
+
 #status{
     color: rgba(5, 103, 159, 1);
     font-weight: bolder;
@@ -281,5 +300,9 @@ a p{
 
     .botao{
         width: 50%;
+    }
+
+    #cidade{
+        display: none;
     }
 }

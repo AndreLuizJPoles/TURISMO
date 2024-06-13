@@ -35,7 +35,7 @@ window.onload = async function () {
       fotoUsuario.src = response.data.data.picture_url;
     }
 
-    if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
+    if (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
       const pontos = document.getElementById('pontos');
       pontos.style.display = 'none';
     }
@@ -45,9 +45,6 @@ window.onload = async function () {
   }
 
   try {
-
-    console.log(LOCAL_API_URL);
-
     const response = await axios.get(
       LOCAL_API_URL,
       {

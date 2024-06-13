@@ -10,7 +10,8 @@ async function cadastrar() {
     if (validar()) {
         const neighborhood = document.getElementById("bairro").value;
         const street = document.getElementById("rua").value;
-        const address = neighborhood + ', ' + street;
+        const number = document.getElementById("numero").value;
+        const address = neighborhood + ', ' + street + ', ' + number;
 
         const payload = {
             name: nomePonto.value,

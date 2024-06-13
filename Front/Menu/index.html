@@ -14,13 +14,15 @@
         <img src="../Menu/imgs/menu.png" id="icone-menu" onclick="nav()">
         <div id="grupo-pesquisa">
             <input type="text" id="barra-pesquisa" placeholder="Pesquisar Locais/Eventos">
-            <img src="../Menu/imgs/lupa.png" id="lupa">
+            <img src="../Menu/imgs/lupa.png" id="lupa" onclick="pesquisar()">
         </div>
         <select id="filtro" class="input" onchange="mudou()" required>
             <option value="estabelecimento">Estabelecimentos</option>
             <option value="evento">Eventos</option>
             <option value="ponto">Pontos Turísticos</option>
         </select>
+
+        <a href="../Editar_Usuario/editar_usuario.html" id="cidade">Nenhuma Cidade</a>
         <a href="../Perfil_Usuario/perfil_usuario.html" id="link-perfil"><img src="../images/foto_padrao.png" id="perfil-usuario"></a>
     </header>
 

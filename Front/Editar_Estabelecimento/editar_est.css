@@ -245,4 +245,26 @@ label {
     .inf{
         flex-direction: column;
     }
+
+    #hora-abertura-segunda,
+    #hora-encerramento-segunda,
+    #hora-abertura-terca,
+    #hora-encerramento-terca,
+    #hora-abertura-quarta,
+    #hora-encerramento-quarta,
+    #hora-abertura-quinta,
+    #hora-encerramento-quinta,
+    #hora-abertura-sexta,
+    #hora-encerramento-sexta,
+    #hora-abertura-sabado,
+    #hora-encerramento-sabado,
+    #hora-abertura-domingo,
+    #hora-encerramento-domingo {
+        width: 90%;
+    }
+
+    .div-dia {
+        flex-direction: column;
+        align-items: center;
+    }
 }

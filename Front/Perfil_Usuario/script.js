@@ -29,7 +29,7 @@ window.onload = async function () {
             foto.src = response.data.data.picture_url;
         }
 
-        if(response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com'){
+        if(response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com'){
             const pontos = document.getElementById('pontos');
             pontos.style.display = 'none';
         }
@@ -63,3 +63,41 @@ function sair() {
     localStorage.setItem('token', null);
     window.location.replace('../Login/login.html');
 }
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const emailText = document.getElementById('email1');
+
+    emailText.addEventListener('click', () => {
+        const email = emailText.textContent;
+        copyToClipboard(email);
+        alert('Email copiado!');
+    });
+
+    function copyToClipboard(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const emailText = document.getElementById('email2');
+
+    emailText.addEventListener('click', () => {
+        const email = emailText.textContent;
+        copyToClipboard(email);
+        alert('Email copiado!');
+    });
+
+    function copyToClipboard(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    }
+});

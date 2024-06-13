@@ -1,8 +1,6 @@
 const nomeEstab = document.getElementById("nome");
 const cnpj = document.getElementById("cnpj");
 const categoria = document.getElementById("categorias");
-const horaAberto = document.getElementById("hora-abertura");
-const horaFecha = document.getElementById("hora-encerramento");
 const segunda = document.getElementById("segunda");
 const terca = document.getElementById("terca");
 const quarta = document.getElementById("quarta");
@@ -24,6 +22,84 @@ const telefone1 = document.getElementById("telefone1");
 const telefone2 = document.getElementById("telefone2");
 const telefone3 = document.getElementById("telefone3");
 const descricao = document.getElementById("descricao");
+let horaAbertoSeg = document.getElementById('hora-abertura-segunda');
+let horaEncerSeg = document.getElementById('hora-encerramento-segunda');
+let horaAbertoTer = document.getElementById('hora-abertura-terca');
+let horaEncerTer = document.getElementById('hora-encerramento-terca');
+let horaAbertoQua = document.getElementById('hora-abertura-quarta');
+let horaEncerQua = document.getElementById('hora-encerramento-quarta');
+let horaAbertoQui = document.getElementById('hora-abertura-quinta');
+let horaEncerQui = document.getElementById('hora-encerramento-quinta');
+let horaAbertoSex = document.getElementById('hora-abertura-sexta');
+let horaEncerSex = document.getElementById('hora-encerramento-sexta');
+let horaAbertoSab = document.getElementById('hora-abertura-sabado');
+let horaEncerSab = document.getElementById('hora-encerramento-sabado');
+let horaAbertoDom = document.getElementById('hora-abertura-domingo');
+let horaEncerDom = document.getElementById('hora-encerramento-domingo');
+let segId, terId, quaId, quiId, sexId, sabId, domId;
+
+window.onload = async function () {
+  const LOCAL_API_URL = `http://localhost:3000/api/establishmentCategories`;
+
+  try {
+    const response = await axios.get(
+      LOCAL_API_URL,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const dataList = document.getElementById("categorias");
+
+    response.data.data.forEach(option => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option.id;
+      optionElement.textContent = option.name;
+      dataList.appendChild(optionElement);
+    });
+
+    const agora = new Date();
+
+    const LOCAL_API_URL_DAY = 'http://localhost:3000/api/daysOfWeek';
+
+    const responseDay = await axios.get(
+      LOCAL_API_URL_DAY
+    );
+
+    responseDay.data.data.forEach(day => {
+
+      switch (day.day_of_week) {
+        case "Domingo":
+          domId = day.id;
+          break;
+        case "Segunda-feira":
+          segId = day.id;
+          break;
+        case "Terça-feira":
+          terId = day.id;
+          break;
+        case "Quarta-feira":
+          quaId = day.id;
+          break;
+        case "Quinta-feira":
+          quiId = day.id;
+          break;
+        case "Sexta-feira":
+          sexId = day.id;
+          break;
+        case "Sábado":
+          sabId = day.id;
+          break;
+      }
+
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 async function cadastrar() {
   if (validar()) {
@@ -32,14 +108,72 @@ async function cadastrar() {
     const street = document.getElementById("rua").value;
     const number = document.getElementById("numero").value;
     const adress = neighborhood + ', ' + street + ', ' + number;
+    if (!segunda.checked) {
+      horaAbertoSeg.value = '00:00';
+      horaEncerSeg.value = '00:00';
+    }
+    if (!terca.checked) {
+      horaAbertoTer.value = '00:00';
+      horaEncerTer.value = '00:00';
+    }
+    if (!quarta.checked) {
+      horaAbertoQua.value = '00:00';
+      horaEncerQua.value = '00:00';
+    }
+    if (!quinta.checked) {
+      horaAbertoQui.value = '00:00';
+      horaEncerQui.value = '00:00';
+    }
+    if (!sexta.checked) {
+      horaAbertoSex.value = '00:00';
+      horaEncerSex.value = '00:00';
+    }
+    if (!sabado.checked) {
+      horaAbertoSab.value = '00:00';
+      horaEncerSab.value = '00:00';
+    }
+    if (!domingo.checked) {
+      horaAbertoDom.value = '00:00';
+      horaEncerDom.value = '00:00';
+    }
+
     const workingTime = [
       {
-        day_of_week_id:
-          "5bd361e1-a5ec-4d26-8cba-0dc434a71fdc" /*TODO: iremos listar os dias da semana que temos na base iremos pegar o id, sendo assim, teremos um array de objetos com*/,
-        opening_time: "1997-07-16T19:20:30+01:00", //TODO:
-        closing_time: "1997-07-16T19:20:30+01:00", //TODO:
+        day_of_week_id: segId,
+        opening_time: horaAbertoSeg.value,
+        closing_time: horaEncerSeg.value,
       },
-    ]; //TODO: modelo de array pra armazenar os dias de funcionamento e seus horários
+      {
+        day_of_week_id: terId,
+        opening_time: horaAbertoTer.value,
+        closing_time: horaEncerTer.value,
+      },
+      {
+        day_of_week_id: quaId,
+        opening_time: horaAbertoQua.value,
+        closing_time: horaEncerQua.value,
+      },
+      {
+        day_of_week_id: quiId,
+        opening_time: horaAbertoQui.value,
+        closing_time: horaEncerQui.value,
+      },
+      {
+        day_of_week_id: sexId,
+        opening_time: horaAbertoSex.value,
+        closing_time: horaEncerSex.value,
+      },
+      {
+        day_of_week_id: sabId,
+        opening_time: horaAbertoSab.value,
+        closing_time: horaEncerSab.value,
+      },
+      {
+        day_of_week_id: domId,
+        opening_time: horaAbertoDom.value,
+        closing_time: horaEncerDom.value,
+      },
+    ];
 
     if (email1.value == '') {
       email1.value = 'sememail@email.com';
@@ -176,31 +310,4 @@ function validaCNPJ() {
 
 function validaHora() {
   return horaFecha.value <= horaAberto.value;
-}
-
-window.onload = async function () {
-  const LOCAL_API_URL = `http://localhost:3000/api/establishmentCategories`;
-
-  try {
-    const response = await axios.get(
-      LOCAL_API_URL,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    const dataList = document.getElementById("categorias");
-
-    response.data.data.forEach(option => {
-      const optionElement = document.createElement('option');
-      optionElement.value = option.id;
-      optionElement.textContent = option.name;
-      dataList.appendChild(optionElement);
-    });
-
-  } catch (error) {
-    console.log(error);
-  }
 }

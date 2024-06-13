@@ -1,10 +1,16 @@
-const nomePonto= document.getElementById("nome");
+const nomePonto = document.getElementById("nome");
 const descricao = document.getElementById("descricao");
 const cep = document.getElementById("cep");
 const uf = document.getElementById("uf");
 const cidade = document.getElementById("cidade");
 const bairro = document.getElementById("bairro");
 const rua = document.getElementById("rua");
+const numero = document.getElementById("numero");
+const instagram = document.getElementById('instagram');
+const facebook = document.getElementById('facebook');
+const linkedin = document.getElementById('linkedin');
+const website = document.getElementById('website');
+const whatsapp = document.getElementById('whatsapp');
 
 function validar() {
     if (verificaVazio()) {
@@ -20,13 +26,35 @@ function verificaVazio() {
 
 async function salvar() {
     if (validar()) {
+        if (instagram.value === '') {
+            instagram.value = 'https://nada.com';
+        }
+        if (facebook.value === '') {
+            facebook.value = 'https://nada.com';
+        }
+        if (linkedin.value === '') {
+            linkedin.value = 'https://nada.com';
+        }
+        if (website.value === '') {
+            website.value = 'https://nada.com';
+        }
+        if (whatsapp.value === '') {
+            whatsapp.value = '0';
+        }
+
+
         const payload = {
             id: localStorage.getItem("idAtracao"),
             name: nomePonto.value,
             description: descricao.value,
-            address: bairro.value + ", " + rua.value,
+            address: bairro.value + ", " + rua.value + ", " + numero.value,
             zip_code: cep.value,
             state: uf.value,
+            instagram_url: instagram.value,
+            facebook_url: facebook.value,
+            linkedin_url: linkedin.value,
+            website_url: website.value,
+            whatsapp: whatsapp.value
         };
 
         try {
@@ -146,10 +174,27 @@ window.onload = async function () {
         uf.value = response.data.data.state;
         cidade.value = response.data.data.city;
 
-        const [bairroAux, ruaAux] = response.data.data.address.split(", ");
+        if(response.data.data.instagram_url !== 'https://nada.com'){
+            instagram.value = response.data.data.instagram_url;
+          }
+          if(response.data.data.facebook_url !== 'https://nada.com'){
+            facebook.value = response.data.data.facebook_url;
+          }
+          if(response.data.data.linkedin_url !== 'https://nada.com'){
+            linkedin.value = response.data.data.linkedin_url;
+          }
+          if(response.data.data.website_url !== 'https://nada.com'){
+            website.value = response.data.data.website_url;
+          }
+          if(response.data.data.whatsapp !== '0'){
+            whatsapp.value = response.data.data.whatsapp;
+          }
+
+        const [bairroAux, ruaAux, numeroAux] = response.data.data.address.split(", ");
 
         bairro.value = bairroAux;
         rua.value = ruaAux;
+        numero.value = numeroAux;
     } catch (error) {
         console.log(error);
     }

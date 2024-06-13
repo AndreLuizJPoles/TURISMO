@@ -19,6 +19,8 @@ const valorNotaTotal = document.getElementById('valor-nota-total');
 let controle = 0;
 let idUsuario, somaNotas = 0, contComentarios = 0, statusValor = 'Fechado';
 let ID = null;
+let idFav = null;
+let usuarioLogado = null;
 
 window.onload = async function () {
     const token = localStorage.getItem("token");
@@ -46,6 +48,7 @@ window.onload = async function () {
             );
 
             console.log(response);
+            usuarioLogado = response.data.data;
 
             nome_user.innerHTML = response.data.data.name;
             if (response.data.data.address == null || response.data.data.address === ', , ') {
@@ -58,7 +61,7 @@ window.onload = async function () {
                 fotoUsuario.src = response.data.data.picture_url;
             }
 
-            if (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com') {
+            if (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com') {
                 const pontos = document.getElementById('pontos');
                 pontos.style.display = 'none';
             }
@@ -92,13 +95,21 @@ window.onload = async function () {
         nome.innerHTML = response.data.data.name;
         descricao.innerHTML = response.data.data.description;
         titulo.innerHTML = response.data.data.name;
-        perfilFoto.src = response.data.data.picture_url;
-        planoFundo.src = response.data.data.background_picture_url;
+        if (response.data.data.picture_url) {
+            perfilFoto.src = response.data.data.picture_url;
+        } else {
+            perfilFoto.src = '../images/cinza.png';
+        }
+        if (response.data.data.background_picture_url) {
+            planoFundo.src = response.data.data.background_picture_url;
+        } else {
+            planoFundo.src = '../images/cinza.png';
+        }
         horario.innerHTML = `Das ${response.data.data.start_time} às ${response.data.data.end_time}`;
         const dataInicio = new Date(response.data.data.start_date);
-        const dataInicioStr = `${(dataInicio.getDate() + 1).toString().padStart(2, '0')}/${(dataInicio.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataInicio.getFullYear()} `;
+        const dataInicioStr = `${(dataInicio.getUTCDate()).toString().padStart(2, '0')}/${(dataInicio.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataInicio.getFullYear()} `;
         const dataFim = new Date(response.data.data.end_date);
-        const dataFimStr = `${(dataFim.getDate() + 1).toString().padStart(2, '0')}/${(dataFim.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataFim.getFullYear()} `;
+        const dataFimStr = `${(dataFim.getUTCDate()).toString().padStart(2, '0')}/${(dataFim.getUTCMonth() + 1).toString().padStart(2, '0')}/${dataFim.getFullYear()} `;
         data.innerHTML = `De ${dataInicioStr} a ${dataFimStr}`;
 
         if (comparaDatas(dataInicio, dataFim, response.data.data.start_time, response.data.data.end_time)) {
@@ -123,6 +134,8 @@ window.onload = async function () {
 
                 enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}`;
                 idUsuario = response.data.data.user_id;
+
+                
             } catch (error) {
                 console.log(error);
             }
@@ -145,6 +158,48 @@ window.onload = async function () {
             }
         }
 
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
+        const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
+        const response = await axios.get(LOCAL_API_URL_FAV,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+
+        response.data.data.forEach(fav => {
+            if (fav.establishment_id === localStorage.getItem('idAtracao')) {
+                const coracao = document.getElementById('coracao');
+                coracao.src = '../images/coracaoClick.png';
+                idFav = fav.id;
+                console.log(idFav)
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
+        const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
+        const response = await axios.get(LOCAL_API_URL_FAV,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+
+        response.data.data.forEach(fav => {
+            if (fav.event_id === localStorage.getItem('idAtracao')) {
+                const coracao = document.getElementById('coracao');
+                coracao.src = '../images/coracaoClick.png';
+                idFav = fav.id;
+                console.log(idFav)
+            }
+        });
     } catch (error) {
         console.log(error);
     }
@@ -200,7 +255,7 @@ window.onload = async function () {
                         localStorage.setItem('idComment', comment.id);
                         window.location.replace('../Editar_Comentario/editar_comentario.html');
                     }
-                    if (ID !== comment.user_id && (response.data.data.email !== 'admin1@email.com' || response.data.data.email !== 'admin2@example.com' || response.data.data.email !== 'admin3@example.com')) {
+                    if (ID !== comment.user_id && (usuarioLogado.email !== 'admin1@email.com' && usuarioLogado.email !== 'admin2@example.com' && usuarioLogado.email !== 'admin3@example.com')) {
                         a.style.display = 'none';
                     } else {
                         controle++;
@@ -292,4 +347,46 @@ function comparaDatas(dataInicio, dataFim, horaInicio, horaFim) {
 function comparaHora(horaInicio, horaFim, agora) {
     const agoraStr = `${(agora.getHours()).toString().padStart(2, '0')}:${(agora.getMinutes()).toString().padStart(2, '0')}`;
     return horaInicio <= agoraStr && horaFim >= agoraStr;
+}
+
+async function favoritar() {
+    const coracao = document.getElementById('coracao');
+
+    const src = coracao.src;
+    const relativePath = src.substring(src.indexOf('images'));
+
+    if (relativePath === 'images/coracao.png') {
+        coracao.src = '../images/coracaoClick.png';
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments`;
+            const response = await axios.post(LOCAL_API_URL_FAV,
+                {
+                    establishment_id: null,
+                    attraction_id: null,
+                    event_id: localStorage.getItem('idAtracao'),
+                },
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                idFav = response.data.data.id;
+        } catch (error) {
+            console.log(error);
+        }
+
+    } else {
+        coracao.src = '../images/coracao.png';
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/${idFav}`;
+            const response = await axios.delete(LOCAL_API_URL_FAV,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
