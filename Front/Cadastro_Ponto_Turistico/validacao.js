@@ -50,7 +50,7 @@ async function cadastrar() {
             address: address,
             zip_code: cep.value,
             state: uf.value,
-            //contacts
+            contacts
         };
 
 

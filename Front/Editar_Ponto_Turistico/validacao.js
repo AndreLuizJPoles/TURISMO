@@ -204,27 +204,61 @@ window.onload = async function () {
         uf.value = response.data.data.state;
         cidade.value = response.data.data.city;
 
-        if(response.data.data.instagram_url !== 'https://nada.com'){
+        if (response.data.data.instagram_url !== 'https://nada.com') {
             instagram.value = response.data.data.instagram_url;
-          }
-          if(response.data.data.facebook_url !== 'https://nada.com'){
+        }
+        if (response.data.data.facebook_url !== 'https://nada.com') {
             facebook.value = response.data.data.facebook_url;
-          }
-          if(response.data.data.linkedin_url !== 'https://nada.com'){
+        }
+        if (response.data.data.linkedin_url !== 'https://nada.com') {
             linkedin.value = response.data.data.linkedin_url;
-          }
-          if(response.data.data.website_url !== 'https://nada.com'){
+        }
+        if (response.data.data.website_url !== 'https://nada.com') {
             website.value = response.data.data.website_url;
-          }
-          if(response.data.data.whatsapp !== '0'){
+        }
+        if (response.data.data.whatsapp !== '0') {
             whatsapp.value = response.data.data.whatsapp;
-          }
+        }
 
         const [bairroAux, ruaAux, numeroAux] = response.data.data.address.split(", ");
 
         bairro.value = bairroAux;
         rua.value = ruaAux;
         numero.value = numeroAux;
+
+        const LOCAL_API_URL_CONT = `http://localhost:3000/api/establishmentContacts/attractions/${idPonto}`;
+
+        const responseContacts = await axios.get(LOCAL_API_URL_CONT, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+
+        responseContacts.data.data.forEach(contact => {
+            if (contact.email === 'sememail@email.com' || contact.phone_number === '0') {
+
+            } else {
+                if (contact.email) {
+                    if (email1.value === '') {
+                        email1.value = contact.email;
+                    } else if (email2.value === '') {
+                        email2.value = contact.email;
+                    } else {
+                        email3.value = contact.email;
+                    }
+                } else {
+                    if (telefone1.value === '') {
+                        telefone1.value = contact.phone_number;
+                    } else if (telefone2.value === '') {
+                        telefone2.value = contact.phone_number;
+                    } else {
+                        telefone3.value = contact.phone_number;
+                    }
+                }
+            }
+        });
+
+        console.log(responseContacts)
     } catch (error) {
         console.log(error);
     }

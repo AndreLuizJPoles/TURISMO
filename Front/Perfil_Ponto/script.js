@@ -21,6 +21,7 @@ let idFav = null;
 let controle = 0;
 let idUsuario, somaNotas = 0, contComentarios = 0;
 let usuarioLogado = null;
+let ID = null;
 
 window.onload = async function () {
     const token = localStorage.getItem("token");
@@ -34,7 +35,7 @@ window.onload = async function () {
             '<h3 id="texto-logar">Faça login para ter acesso a mais funções!</h3><a href="../Login/login.html" class="botao" id="logar"><p id="texto-evento">Logar</p></a>';
     } else {
 
-        const ID = await pegaID();
+        ID = await pegaID();
         const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
 
         try {
@@ -126,6 +127,29 @@ window.onload = async function () {
         }
 
         idUsuario = response.data.data.user_id;
+
+        const LOCAL_API_URL_CONTATOS = `http://localhost:3000/api/establishmentContacts/attractions/${idEstab}`;
+
+        const responseContacts = await axios.get(LOCAL_API_URL_CONTATOS);
+        let controle = 0, strEmails = '', strTelefones = '';
+
+        responseContacts.data.data.forEach(contact => {
+            if (contact.email === 'sememail@email.com' || contact.phone_number === '0') {
+
+            } else {
+                if (controle === 0) {
+                    descricao.innerHTML += '<br> Contatos: <br>';
+                    controle++;
+                }
+                if (contact.email) {
+                    strEmails += contact.email + '<br>';
+                } else {
+                    strTelefones += contact.phone_number + '<br>';
+                }
+            }
+        });
+
+        descricao.innerHTML += strTelefones + strEmails;
 
     } catch (error) {
         console.log(error);
