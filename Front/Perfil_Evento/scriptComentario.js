@@ -152,6 +152,29 @@ window.onload = async function () {
                 });
 
             response.data.data.forEach(fav => {
+                if (fav.event_id === localStorage.getItem('idAtracao')) {
+                    const coracao = document.getElementById('coracao');
+                    coracao.src = '../images/coracaoClick.png';
+                    idFav = fav.id;
+                    console.log(idFav)
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    if (token !== 'null') {
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
+            const response = await axios.get(LOCAL_API_URL_FAV,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+            response.data.data.forEach(fav => {
                 if (fav.establishment_id === localStorage.getItem('idAtracao')) {
                     const coracao = document.getElementById('coracao');
                     coracao.src = '../images/coracaoClick.png';
