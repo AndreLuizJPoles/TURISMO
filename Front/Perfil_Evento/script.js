@@ -71,14 +71,7 @@ window.onload = async function () {
     const LOCAL_API_URL = `http://localhost:3000/api/events/${idEvento}`;
 
     try {
-        const response = await axios.get(
-            LOCAL_API_URL,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const response = await axios.get(LOCAL_API_URL);
 
         console.log(response);
 
@@ -119,14 +112,7 @@ window.onload = async function () {
             const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments/${response.data.data.establishment_id}`;
 
             try {
-                const response = await axios.get(
-                    LOCAL_API_URL_EST,
-                    {
-                        headers: {
-                            authorization: `Bearer ${localStorage.getItem("token")}`,
-                        },
-                    }
-                );
+                const response = await axios.get(LOCAL_API_URL_EST);
 
                 enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}`;
                 idUsuario = response.data.data.user_id;
@@ -137,14 +123,7 @@ window.onload = async function () {
             const LOCAL_API_URL_ATT = `http://localhost:3000/api/attractions/${response.data.data.attraction_id}`;
 
             try {
-                const response = await axios.get(
-                    LOCAL_API_URL_ATT,
-                    {
-                        headers: {
-                            authorization: `Bearer ${localStorage.getItem("token")}`,
-                        },
-                    }
-                );
+                const response = await axios.get(LOCAL_API_URL_ATT);
 
                 enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}`;
             } catch (error) {
@@ -156,25 +135,27 @@ window.onload = async function () {
         console.log(error);
     }
 
-    try {
-        const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
-        const response = await axios.get(LOCAL_API_URL_FAV,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            });
+    if (token !== 'null') {
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
+            const response = await axios.get(LOCAL_API_URL_FAV,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
 
-        response.data.data.forEach(fav => {
-            if (fav.event_id === localStorage.getItem('idAtracao')) {
-                const coracao = document.getElementById('coracao');
-                coracao.src = '../images/coracaoClick.png';
-                idFav = fav.id;
-                console.log(idFav)
-            }
-        });
-    } catch (error) {
-        console.log(error);
+            response.data.data.forEach(fav => {
+                if (fav.event_id === localStorage.getItem('idAtracao')) {
+                    const coracao = document.getElementById('coracao');
+                    coracao.src = '../images/coracaoClick.png';
+                    idFav = fav.id;
+                    console.log(idFav)
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const LOCAL_API_URL_POST = `http://localhost:3000/api/posts`;
@@ -182,14 +163,7 @@ window.onload = async function () {
     const fundo = document.getElementById('fundo-perfil-est');
 
     try {
-        const response = await axios.get(
-            LOCAL_API_URL_POST,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const response = await axios.get(LOCAL_API_URL_POST);
 
         response.data.data.forEach(post => {
             if (post.event_id == localStorage.getItem('idAtracao')) {
@@ -234,25 +208,33 @@ window.onload = async function () {
     fundo.appendChild(mensagem);
 
     //Deve ficar por úlitmo
-    try{
-        const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
-          const response = await axios.get(LOCAL_API_URL_USER,
-            {
-              headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            });
+    if (token !== 'null') {
+        try {
+            const LOCAL_API_URL_USER = `http://localhost:3000/api/users/${ID}`;
+            const response = await axios.get(LOCAL_API_URL_USER,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
 
             if (ID !== idUsuario && (response.data.data.email !== 'admin1@email.com' && response.data.data.email !== 'admin2@example.com' && response.data.data.email !== 'admin3@example.com')) {
                 novaPost.style.display = 'none';
                 editarEst.style.display = 'none';
                 for (i = 0; i < iconeEditar.length; i++) {
                     iconeEditar[i].style.display = 'none';
+                }
             }
+        } catch (error) {
+            console.log(error);
         }
-      }catch (error) {
-        console.log(error);
-      }
+    } else {
+        novaPost.style.display = 'none';
+        editarEst.style.display = 'none';
+        for (i = 0; i < iconeEditar.length; i++) {
+            iconeEditar[i].style.display = 'none';
+        }
+    }
 }
 
 async function pegaID() {
@@ -293,12 +275,16 @@ function comparaDatas(dataInicio, dataFim, horaInicio, horaFim) {
     return dataInicio <= agora && dataFim >= agora && hora;
 }
 
-function comparaHora(horaInicio, horaFim, agora){
+function comparaHora(horaInicio, horaFim, agora) {
     const agoraStr = `${(agora.getHours()).toString().padStart(2, '0')}:${(agora.getMinutes()).toString().padStart(2, '0')}`;
     return horaInicio <= agoraStr && horaFim >= agoraStr;
 }
 
 async function favoritar() {
+    if(localStorage.getItem('token') === 'null'){
+        window.location.replace('../Login/login.html');
+        return;
+    }
     const coracao = document.getElementById('coracao');
 
     const src = coracao.src;
@@ -319,7 +305,7 @@ async function favoritar() {
                         authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
-                idFav = response.data.data.id;
+            idFav = response.data.data.id;
         } catch (error) {
             console.log(error);
         }

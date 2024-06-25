@@ -75,14 +75,7 @@ window.onload = async function () {
     const LOCAL_API_URL = `http://localhost:3000/api/events/${idEvento}`;
 
     try {
-        const response = await axios.get(
-            LOCAL_API_URL,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const response = await axios.get(LOCAL_API_URL);
 
         console.log(response);
 
@@ -123,19 +116,12 @@ window.onload = async function () {
             const LOCAL_API_URL_EST = `http://localhost:3000/api/establishments/${response.data.data.establishment_id}`;
 
             try {
-                const response = await axios.get(
-                    LOCAL_API_URL_EST,
-                    {
-                        headers: {
-                            authorization: `Bearer ${localStorage.getItem("token")}`,
-                        },
-                    }
-                );
+                const response = await axios.get(LOCAL_API_URL_EST);
 
                 enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}`;
                 idUsuario = response.data.data.user_id;
 
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -143,14 +129,7 @@ window.onload = async function () {
             const LOCAL_API_URL_ATT = `http://localhost:3000/api/attractions/${response.data.data.attraction_id}`;
 
             try {
-                const response = await axios.get(
-                    LOCAL_API_URL_ATT,
-                    {
-                        headers: {
-                            authorization: `Bearer ${localStorage.getItem("token")}`,
-                        },
-                    }
-                );
+                const response = await axios.get(LOCAL_API_URL_ATT);
 
                 enderecoEstab.innerHTML = `Endereço: ${response.data.data.address}`;
             } catch (error) {
@@ -162,59 +141,55 @@ window.onload = async function () {
         console.log(error);
     }
 
-    try {
-        const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
-        const response = await axios.get(LOCAL_API_URL_FAV,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            });
+    if (token !== 'null') {
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
+            const response = await axios.get(LOCAL_API_URL_FAV,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
 
-        response.data.data.forEach(fav => {
-            if (fav.establishment_id === localStorage.getItem('idAtracao')) {
-                const coracao = document.getElementById('coracao');
-                coracao.src = '../images/coracaoClick.png';
-                idFav = fav.id;
-                console.log(idFav)
-            }
-        });
-    } catch (error) {
-        console.log(error);
+            response.data.data.forEach(fav => {
+                if (fav.event_id === localStorage.getItem('idAtracao')) {
+                    const coracao = document.getElementById('coracao');
+                    coracao.src = '../images/coracaoClick.png';
+                    idFav = fav.id;
+                    console.log(idFav)
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    try {
-        const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
-        const response = await axios.get(LOCAL_API_URL_FAV,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
+    if (token !== 'null') {
+        try {
+            const LOCAL_API_URL_FAV = `http://localhost:3000/api/favoriteEstablishments/users/${ID}`;
+            const response = await axios.get(LOCAL_API_URL_FAV,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+            response.data.data.forEach(fav => {
+                if (fav.establishment_id === localStorage.getItem('idAtracao')) {
+                    const coracao = document.getElementById('coracao');
+                    coracao.src = '../images/coracaoClick.png';
+                    idFav = fav.id;
+                    console.log(idFav)
+                }
             });
-
-        response.data.data.forEach(fav => {
-            if (fav.event_id === localStorage.getItem('idAtracao')) {
-                const coracao = document.getElementById('coracao');
-                coracao.src = '../images/coracaoClick.png';
-                idFav = fav.id;
-                console.log(idFav)
-            }
-        });
-    } catch (error) {
-        console.log(error);
+        } catch (error) {
+            console.log(error);
+        }
     }
-
     const LOCAL_API_URL_POST = `http://localhost:3000/api/comments`;
 
     try {
-        const response = await axios.get(
-            LOCAL_API_URL_POST,
-            {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const response = await axios.get(LOCAL_API_URL_POST);
 
         const fundo = document.getElementById('fundo-perfil-est');
 
@@ -224,14 +199,8 @@ window.onload = async function () {
         comments.forEach(comment => {
             if (comment.establishment_id == localStorage.getItem('idAtracao') || comment.event_id == localStorage.getItem('idAtracao') || comment.attraction_id == localStorage.getItem('idAtracao')) {
                 const LOCAL_API_URL_USER_COM = `http://localhost:3000/api/users/${comment.user_id}`;
-                contComentarios++;
-                somaNotas += parseInt(comment.evaluation_note, 10);
 
-                const promise = axios.get(LOCAL_API_URL_USER_COM, {
-                    headers: {
-                        authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                }).then(response => {
+                const promise = axios.get(LOCAL_API_URL_USER_COM).then(response => {
                     const comentario = document.createElement('div');
                     comentario.classList.add('comentario');
                     const fotoUsuarioPerfil = document.createElement('img');
@@ -255,10 +224,14 @@ window.onload = async function () {
                         localStorage.setItem('idComment', comment.id);
                         window.location.replace('../Editar_Comentario/editar_comentario.html');
                     }
-                    if (ID !== comment.user_id && (usuarioLogado.email !== 'admin1@email.com' && usuarioLogado.email !== 'admin2@example.com' && usuarioLogado.email !== 'admin3@example.com')) {
-                        a.style.display = 'none';
+                    if (token !== 'null') {
+                        if (ID !== comment.user_id && (usuarioLogado.email !== 'admin1@email.com' && usuarioLogado.email !== 'admin2@example.com' && usuarioLogado.email !== 'admin3@example.com')) {
+                            a.style.display = 'none';
+                        } else {
+                            controle++;
+                        }
                     } else {
-                        controle++;
+                        a.style.display = 'none';
                     }
                     comentario.appendChild(a);
                     const boxNota = document.createElement('div');
@@ -294,7 +267,7 @@ window.onload = async function () {
     }
 
     //Deve ficar por úlitmo
-    if (controle > 0) {
+    if (controle > 0 || token === 'null') {
         novoComentario.style.display = 'none';
     }
 }
@@ -350,6 +323,10 @@ function comparaHora(horaInicio, horaFim, agora) {
 }
 
 async function favoritar() {
+    if (localStorage.getItem('token') === 'null') {
+        window.location.replace('../Login/login.html');
+        return;
+    }
     const coracao = document.getElementById('coracao');
 
     const src = coracao.src;
@@ -370,7 +347,7 @@ async function favoritar() {
                         authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
-                idFav = response.data.data.id;
+            idFav = response.data.data.id;
         } catch (error) {
             console.log(error);
         }

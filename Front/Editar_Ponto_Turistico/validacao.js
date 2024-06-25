@@ -11,6 +11,12 @@ const facebook = document.getElementById('facebook');
 const linkedin = document.getElementById('linkedin');
 const website = document.getElementById('website');
 const whatsapp = document.getElementById('whatsapp');
+const email1 = document.getElementById("email1");
+const email2 = document.getElementById("email2");
+const email3 = document.getElementById("email3");
+const telefone1 = document.getElementById("telefone1");
+const telefone2 = document.getElementById("telefone2");
+const telefone3 = document.getElementById("telefone3");
 
 function validar() {
     if (verificaVazio()) {
@@ -41,6 +47,29 @@ async function salvar() {
         if (whatsapp.value === '') {
             whatsapp.value = '0';
         }
+        if (email1.value == '') {
+            email1.value = 'sememail@email.com';
+        }
+        if (email2.value == '') {
+            email2.value = 'sememail@email.com';
+        }
+        if (email3.value == '') {
+            email3.value = 'sememail@email.com';
+        }
+        if (telefone1.value == '') {
+            telefone1.value = '0';
+        }
+        if (telefone2.value == '') {
+            telefone2.value = '0';
+        }
+        if (telefone3.value == '') {
+            telefone3.value = '0';
+        }
+
+        const contacts = {
+            emails: [email1.value, email2.value, email3.value],
+            phone_numbers: [telefone1.value, telefone2.value, telefone3.value],
+        };
 
 
         const payload = {
@@ -54,7 +83,8 @@ async function salvar() {
             facebook_url: facebook.value,
             linkedin_url: linkedin.value,
             website_url: website.value,
-            whatsapp: whatsapp.value
+            whatsapp: whatsapp.value,
+            contacts
         };
 
         try {
@@ -174,27 +204,61 @@ window.onload = async function () {
         uf.value = response.data.data.state;
         cidade.value = response.data.data.city;
 
-        if(response.data.data.instagram_url !== 'https://nada.com'){
+        if (response.data.data.instagram_url !== 'https://nada.com') {
             instagram.value = response.data.data.instagram_url;
-          }
-          if(response.data.data.facebook_url !== 'https://nada.com'){
+        }
+        if (response.data.data.facebook_url !== 'https://nada.com') {
             facebook.value = response.data.data.facebook_url;
-          }
-          if(response.data.data.linkedin_url !== 'https://nada.com'){
+        }
+        if (response.data.data.linkedin_url !== 'https://nada.com') {
             linkedin.value = response.data.data.linkedin_url;
-          }
-          if(response.data.data.website_url !== 'https://nada.com'){
+        }
+        if (response.data.data.website_url !== 'https://nada.com') {
             website.value = response.data.data.website_url;
-          }
-          if(response.data.data.whatsapp !== '0'){
+        }
+        if (response.data.data.whatsapp !== '0') {
             whatsapp.value = response.data.data.whatsapp;
-          }
+        }
 
         const [bairroAux, ruaAux, numeroAux] = response.data.data.address.split(", ");
 
         bairro.value = bairroAux;
         rua.value = ruaAux;
         numero.value = numeroAux;
+
+        const LOCAL_API_URL_CONT = `http://localhost:3000/api/establishmentContacts/attractions/${idPonto}`;
+
+        const responseContacts = await axios.get(LOCAL_API_URL_CONT, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+
+        responseContacts.data.data.forEach(contact => {
+            if (contact.email === 'sememail@email.com' || contact.phone_number === '0') {
+
+            } else {
+                if (contact.email) {
+                    if (email1.value === '') {
+                        email1.value = contact.email;
+                    } else if (email2.value === '') {
+                        email2.value = contact.email;
+                    } else {
+                        email3.value = contact.email;
+                    }
+                } else {
+                    if (telefone1.value === '') {
+                        telefone1.value = contact.phone_number;
+                    } else if (telefone2.value === '') {
+                        telefone2.value = contact.phone_number;
+                    } else {
+                        telefone3.value = contact.phone_number;
+                    }
+                }
+            }
+        });
+
+        console.log(responseContacts)
     } catch (error) {
         console.log(error);
     }
