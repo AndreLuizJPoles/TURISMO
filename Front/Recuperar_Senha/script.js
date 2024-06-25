@@ -25,6 +25,21 @@ async function pesquisar(){
     }
 }
 
-function mandaEmail(email){
-    const url = '';
+async function mandaEmail(emailRec){
+    const LOCAL_API_URL_EMAIL = 'http://localhost:3000/api/users/recoveryPassword';
+
+    try {
+
+        const response = await axios.post(
+            LOCAL_API_URL_EMAIL,
+            {
+                email: emailRec
+            }
+        );
+
+        console.log(response);
+
+    } catch (error) {
+        console.log(error);
+    }
 }
