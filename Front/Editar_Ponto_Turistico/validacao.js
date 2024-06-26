@@ -18,6 +18,84 @@ const telefone1 = document.getElementById("telefone1");
 const telefone2 = document.getElementById("telefone2");
 const telefone3 = document.getElementById("telefone3");
 
+window.onload = async function () {
+    const idPonto = localStorage.getItem("idAtracao");
+    const LOCAL_API_URL = `http://localhost:3000/api/attractions/${idPonto}`;
+    try {
+        const response = await axios.get(LOCAL_API_URL, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+
+        console.log(response);
+
+        nome.value = response.data.data.name;
+        descricao.value = response.data.data.description;
+        cep.value = response.data.data.zip_code;
+        uf.value = response.data.data.state;
+        cidade.value = response.data.data.city;
+
+        if (response.data.data.instagram_url !== 'https://nada.com') {
+            instagram.value = response.data.data.instagram_url;
+        }
+        if (response.data.data.facebook_url !== 'https://nada.com') {
+            facebook.value = response.data.data.facebook_url;
+        }
+        if (response.data.data.linkedin_url !== 'https://nada.com') {
+            linkedin.value = response.data.data.linkedin_url;
+        }
+        if (response.data.data.website_url !== 'https://nada.com') {
+            website.value = response.data.data.website_url;
+        }
+        if (response.data.data.whatsapp !== '0') {
+            whatsapp.value = response.data.data.whatsapp;
+        }
+
+        const [bairroAux, ruaAux, numeroAux] = response.data.data.address.split(", ");
+
+        bairro.value = bairroAux;
+        rua.value = ruaAux;
+        numero.value = numeroAux;
+
+        const LOCAL_API_URL_CONT = `http://localhost:3000/api/establishmentContacts/attractions/${idPonto}`;
+
+        const responseContacts = await axios.get(LOCAL_API_URL_CONT, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+
+        responseContacts.data.data.forEach(contact => {
+            if (contact.email === 'sememail@email.com' || contact.phone_number === '0') {
+
+            } else {
+                if (contact.email) {
+                    if (email1.value === '') {
+                        email1.value = contact.email;
+                    } else if (email2.value === '') {
+                        email2.value = contact.email;
+                    } else {
+                        email3.value = contact.email;
+                    }
+                } else {
+                    if (telefone1.value === '') {
+                        telefone1.value = contact.phone_number;
+                    } else if (telefone2.value === '') {
+                        telefone2.value = contact.phone_number;
+                    } else {
+                        telefone3.value = contact.phone_number;
+                    }
+                }
+            }
+        });
+
+        console.log(responseContacts)
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 function validar() {
     if (verificaVazio()) {
         alert("Preencha todos os campos obrigatórios!");
@@ -185,84 +263,6 @@ imagemPerfil.addEventListener("change", (event) => {
 
     reader.readAsDataURL(imagemPerfil.files[0]);
 });
-
-window.onload = async function () {
-    const idPonto = localStorage.getItem("idAtracao");
-    const LOCAL_API_URL = `http://localhost:3000/api/attractions/${idPonto}`;
-    try {
-        const response = await axios.get(LOCAL_API_URL, {
-            headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        });
-
-        console.log(response);
-
-        nome.value = response.data.data.name;
-        descricao.value = response.data.data.description;
-        cep.value = response.data.data.zip_code;
-        uf.value = response.data.data.state;
-        cidade.value = response.data.data.city;
-
-        if (response.data.data.instagram_url !== 'https://nada.com') {
-            instagram.value = response.data.data.instagram_url;
-        }
-        if (response.data.data.facebook_url !== 'https://nada.com') {
-            facebook.value = response.data.data.facebook_url;
-        }
-        if (response.data.data.linkedin_url !== 'https://nada.com') {
-            linkedin.value = response.data.data.linkedin_url;
-        }
-        if (response.data.data.website_url !== 'https://nada.com') {
-            website.value = response.data.data.website_url;
-        }
-        if (response.data.data.whatsapp !== '0') {
-            whatsapp.value = response.data.data.whatsapp;
-        }
-
-        const [bairroAux, ruaAux, numeroAux] = response.data.data.address.split(", ");
-
-        bairro.value = bairroAux;
-        rua.value = ruaAux;
-        numero.value = numeroAux;
-
-        const LOCAL_API_URL_CONT = `http://localhost:3000/api/establishmentContacts/attractions/${idPonto}`;
-
-        const responseContacts = await axios.get(LOCAL_API_URL_CONT, {
-            headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        });
-
-        responseContacts.data.data.forEach(contact => {
-            if (contact.email === 'sememail@email.com' || contact.phone_number === '0') {
-
-            } else {
-                if (contact.email) {
-                    if (email1.value === '') {
-                        email1.value = contact.email;
-                    } else if (email2.value === '') {
-                        email2.value = contact.email;
-                    } else {
-                        email3.value = contact.email;
-                    }
-                } else {
-                    if (telefone1.value === '') {
-                        telefone1.value = contact.phone_number;
-                    } else if (telefone2.value === '') {
-                        telefone2.value = contact.phone_number;
-                    } else {
-                        telefone3.value = contact.phone_number;
-                    }
-                }
-            }
-        });
-
-        console.log(responseContacts)
-    } catch (error) {
-        console.log(error);
-    }
-};
 
 async function excluir() {
     const LOCAL_API_URL_DELETE = `http://localhost:3000/api/attractions/${localStorage.getItem("idAtracao")}`;
