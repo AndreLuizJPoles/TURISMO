@@ -54,6 +54,11 @@ async function salvar() {
             urlAux = '../Perfil_Evento/perfil_evento_comentarios.html';
         }
 
+        if(nota.value === '0'){
+            alert('Escolha uma nota válida!');
+            return;
+        }
+
         const response = await axios.put(
             LOCAL_API_URL,
             {
